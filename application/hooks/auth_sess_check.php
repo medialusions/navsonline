@@ -1,4 +1,5 @@
 <?php
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
@@ -12,22 +13,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @license     BSD - http://www.opensource.org/licenses/BSD-3-Clause
  * @link        http://community-auth.com
  */
+function auth_sess_check() {
 
-function auth_sess_check(){
+    $CI = & get_instance();
 
-	$CI =& get_instance();
-
-	// Check if no call to auth verification or requirement methods
-	if( $CI->authentication->post_system_sess_check )
-	{
-		// Check if the session was regenerated
-		if( ! is_null( $CI->session->regenerated_session_id ) )
-		{
-			// Verify login, which will update the session ID in user record
-			$CI->authentication->check_login( 1 );
-		}
-	}
-
+    // Check if no call to auth verification or requirement methods
+    if ($CI->authentication->post_system_sess_check) {
+        // Check if the session was regenerated
+        if (!is_null($CI->session->regenerated_session_id)) {
+            // Verify login, which will update the session ID in user record
+            $CI->authentication->check_login(1);
+        }
+    }
 }
 
 /* End of file auth_sess_check.php */

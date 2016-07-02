@@ -99,10 +99,10 @@ and open the template in the editor.
                                 Aug 14th
                             </div>
                             <div class="six wide column">
-                                <button class="ui icon basic green button tiny">
+                                <button class="ui left attached icon basic green button tiny">
                                     <i class="check icon"></i>
                                 </button>
-                                <button class="ui icon basic red button tiny">
+                                <button class="ui right attached icon basic red button tiny">
                                     <i class="close icon"></i>
                                 </button>
                             </div>
@@ -118,10 +118,10 @@ and open the template in the editor.
                                 Aug 14th
                             </div>
                             <div class="six wide column">
-                                <button class="ui icon basic green button tiny">
+                                <button class="ui left attached icon basic green button tiny">
                                     <i class="check icon"></i>
                                 </button>
-                                <button class="ui icon basic grey button tiny">
+                                <button class="ui right attached icon basic grey button tiny">
                                     <i class="close icon"></i>
                                 </button>
                             </div>
@@ -137,10 +137,10 @@ and open the template in the editor.
                                 Aug 14th
                             </div>
                             <div class="six wide column">
-                                <button class="ui icon basic grey button tiny">
+                                <button class="ui left attached icon basic grey button tiny">
                                     <i class="check icon"></i>
                                 </button>
-                                <button class="ui icon basic red button tiny">
+                                <button class="ui right attached icon basic red button tiny">
                                     <i class="close icon"></i>
                                 </button>
                             </div>
@@ -208,6 +208,14 @@ and open the template in the editor.
                             <div class="four wide column">
                                 <button class="ui icon basic red button tiny">
                                     <i class="trash icon"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="ui centered grid">
+                            <div class="column">
+                                <button class="ui button dark red basic">
+                                    <i class="add square icon"></i>
+                                    Add blockout date
                                 </button>
                             </div>
                         </div>

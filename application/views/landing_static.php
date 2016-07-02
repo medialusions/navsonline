@@ -29,12 +29,15 @@ and open the template in the editor.
                     <img src="<?= base_url(); ?>logo/navsonline_400x108.png" class="image">
                 </div>
                 <a class="item active" style="margin-left:25px;">
+                    <i class="unordered list icon"></i>
                     Schedule
                 </a>
                 <a class="item">
+                    <i class="music icon"></i>
                     Songs
                 </a>
                 <a class="item">
+                    <i class="users icon"></i>
                     People
                 </a>
             </div>

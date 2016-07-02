@@ -13,9 +13,11 @@ and open the template in the editor.
         <script src='<?= base_url(); ?>js/moment/min/moment.min.js'></script>
         <script src='<?= base_url(); ?>js/fullcalendar/dist/fullcalendar.min.js'></script>
         <script src="<?= base_url(); ?>style/semantic/dist/semantic.min.js"></script> 
+        <script src="<?= base_url(); ?>js/jquery-ui/jquery-ui.min.js"></script> 
 
-        <link rel="stylesheet" href="<?= base_url(); ?>style/semantic/dist/semantic.min.css">
+        <link rel="stylesheet" href="<?= base_url(); ?>js/jquery-ui/jquery-ui.min.css">
         <link rel='stylesheet' href='<?= base_url(); ?>js/fullcalendar/dist/fullcalendar.min.css' />
+        <link rel="stylesheet" href="<?= base_url(); ?>style/semantic/dist/semantic.min.css">
 
         <style type="text/css">
             body {
@@ -24,13 +26,22 @@ and open the template in the editor.
             #top_menu .menu .item {
                 padding: 23px 20px;
             }
+            #calendar .fc-today {
+                font-weight: bold;
+                color: #1d2bd5;
+            }
         </style>
 
         <script>
             $(document).ready(function() {
                 $('#calendar').fullCalendar({
-                    header: false,
-                    height: 'auto'
+                    header: {
+                        left: '',
+                        center: '',
+                        right: 'today prev,next'
+                    },
+                    height: 'auto',
+                    theme: true
                 });
             });
         </script>

@@ -54,6 +54,16 @@ and open the template in the editor.
                     <i class="users icon"></i>
                     People
                 </a>
+                <div class="right menu">
+                    <a class="ui item">
+                        <i class="setting icon"></i>
+                        Settings
+                    </a>
+                    <a class="ui item">
+                        <i class="sign out icon"></i>
+                        Logout
+                    </a>
+                </div>
             </div>
         </div>
 

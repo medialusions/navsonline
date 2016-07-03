@@ -13,14 +13,14 @@
             <div class="ui grid">
                 <div class="twelve wide column">
                     <h1 class="ui header">
-                        Welcome, Zach Smith 
-                        <div class="sub header">Here is the upcoming schedule</div>
+                        Song Center
+                        <div class="sub header">Sweet tunes, dude</div>
                     </h1>
                 </div>
                 <div class="four wide column">
                     <button class="ui button green basic tiny">
                         <i class="add square icon"></i>
-                        Add new event
+                        Add new song
                     </button>
                 </div>
             </div>

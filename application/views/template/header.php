@@ -58,30 +58,30 @@ and open the template in the editor.
                 <div class="ui image small" style="margin-top: 11px;">
                     <img src="<?= base_url(); ?>logo/navsonline_400x108.png" class="image">
                 </div>
-                <a class="item active" style="margin-left:25px;">
+                <a class="item <?= uri_string() == 'user/schedule' ? 'active' : '' ?>" style="margin-left:25px;" href="<?= base_url('user/schedule'); ?>">
                     <i class="unordered list icon"></i>
                     Schedule
                 </a>
-                <a class="item">
+                <a class="item <?= uri_string() == 'user/music' ? 'active' : '' ?>" href="<?= base_url('user/music'); ?>">
                     <i class="music icon"></i>
                     Songs
                 </a>
-                <a class="item">
+                <a class="item <?= uri_string() == 'user/people' ? 'active' : '' ?>" href="<?= base_url('user/people'); ?>">
                     <i class="users icon"></i>
                     People
                 </a>
                 <div class="right menu">
-                    <a class="ui item">
+                    <a class="ui item <?= uri_string() == 'user/preferences' ? 'active' : '' ?>" href="<?= base_url('user/preferences'); ?>">
                         <i class="setting icon"></i>
                         Settings
                     </a>
-                    <a class="ui item">
+                    <a class="ui item <?= uri_string() == 'user/logout' ? 'active' : '' ?>" href="<?= base_url('user/logout'); ?>">
                         <i class="sign out icon"></i>
                         Logout
                     </a>
                 </div>
             </div>
         </div>
-
+        
         <!-- spacer -->
         <div style="width: 100%; height: 30px; display: block;"></div>

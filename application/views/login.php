@@ -35,7 +35,6 @@ and open the template in the editor.
                     <img src="<?= base_url(); ?>logo/navsonline_400x108.png" class="image">
                 </h2>
                 <form class="ui large form">
-                    <?= validation_errors() ?>
                     <?= form_open('user/login') ?>
                     <h1 class="ui top attached center aligned header">
                         Welcome
@@ -54,11 +53,11 @@ and open the template in the editor.
                                 <input type="password" name="password" placeholder="Password">
                             </div>
                         </div>
-                        <div class="ui fluid large teal submit button" onclick="this.form.submit()">Login</div>
+                        <input class="ui fluid large teal submit button" type="submit" value="Login">
                         <?= form_close() ?>
                     </div>
 
-                    <div class="ui error message"></div>
+                    <?= validation_errors('<div class="ui error message">', '</div>') ?>
 
                 </form>
 

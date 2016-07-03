@@ -37,7 +37,7 @@ function auth_constants() {
       |
      */
 
-    define('LOGIN_PAGE', 'user/login');
+    define('LOGIN_PAGE', 'login');
 }
 
 /* End of file auth_constants.php */

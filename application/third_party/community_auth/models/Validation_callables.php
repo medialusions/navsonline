@@ -1,4 +1,5 @@
 <?php
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
@@ -12,65 +13,60 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @license     BSD - http://www.opensource.org/licenses/BSD-3-Clause
  * @link        http://community-auth.com
  */
-
 class Validation_callables extends MY_Model {
 
-	/**
-	 * Check the supplied password strength
-	 * 
-	 * @param   string  the supplied password 
-	 * @return  mixed   bool
-	 */
-	public function _check_password_strength( $password )
-	{
-		// Password length
-		$regex = '(?=.{' . config_item('min_chars_for_password') . ',' . config_item('max_chars_for_password') . '})';
-		$error = '<li>At least ' . config_item('min_chars_for_password') . ' characters</li>
+    /**
+     * Check the supplied password strength
+     * 
+     * @param   string  the supplied password 
+     * @return  mixed   bool
+     */
+    public function _check_password_strength($password) {
+        // Password length
+        $regex = '(?=.{' . config_item('min_chars_for_password') . ',' . config_item('max_chars_for_password') . '})';
+        $error = '<li>At least ' . config_item('min_chars_for_password') . ' characters</li>
 					<li>Not more than ' . config_item('max_chars_for_password') . ' characters</li>';
 
-		// At least one digit required
-		$regex .= '(?=.*\d)';
-		$error .= '<li>One number</li>';
+        // At least one digit required
+        $regex .= '(?=.*\d)';
+        $error .= '<li>One number</li>';
 
-		// At least one lower case letter required
-		$regex .= '(?=.*[a-z])';
-		$error .= '<li>One lower case letter</li>';
+        // At least one lower case letter required
+        $regex .= '(?=.*[a-z])';
+        $error .= '<li>One lower case letter</li>';
 
-		// At least one upper case letter required
-		$regex .= '(?=.*[A-Z])';
-		$error .= '<li>One upper case letter</li>';
+        // At least one upper case letter required
+        $regex .= '(?=.*[A-Z])';
+        $error .= '<li>One upper case letter</li>';
 
-		// No space, tab, or other whitespace chars allowed
-		$regex .= '(?!.*\s)';
-		$error .= '<li>No spaces, tabs, or other unseen characters</li>';
+        // No space, tab, or other whitespace chars allowed
+        $regex .= '(?!.*\s)';
+        $error .= '<li>No spaces, tabs, or other unseen characters</li>';
 
-		// No backslash, apostrophe or quote chars are allowed
-		$regex .= '(?!.*[\\\\\'"])';
-		$error .= '<li>No backslash, apostrophe or quote characters</li>';
+        // No backslash, apostrophe or quote chars are allowed
+        $regex .= '(?!.*[\\\\\'"])';
+        $error .= '<li>No backslash, apostrophe or quote characters</li>';
 
-		// One of the following characters must be in the password,  @ # $ % ^ & + =
-		// $regex .= '(?=.*[@#$%^&+=])';
-		// $error .= '<li>One of the following characters must be in the password,  @ # $ % ^ & + =</li>';
+        // One of the following characters must be in the password,  @ # $ % ^ & + =
+        // $regex .= '(?=.*[@#$%^&+=])';
+        // $error .= '<li>One of the following characters must be in the password,  @ # $ % ^ & + =</li>';
 
-		if( preg_match( '/^' . $regex . '.*$/', $password, $matches ) )
-		{
-			return TRUE;
-		}
-		
-		$this->form_validation->set_message(
-			'_check_password_strength', 
-			'<span class="redfield">Password</span> must contain:
+        if (preg_match('/^' . $regex . '.*$/', $password, $matches)) {
+            return TRUE;
+        }
+
+        $this->form_validation->set_message(
+                '_check_password_strength', '<span class="redfield">Password</span> must contain:
 				<ol>
 					' . $error . '
 				</ol>
 			</span>'
-		);
+        );
 
-		return FALSE;
-	}
+        return FALSE;
+    }
 
-	// --------------------------------------------------------------
-
+    // --------------------------------------------------------------
 }
 
 /* End of file Validaton_callables.php */

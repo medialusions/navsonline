@@ -17,12 +17,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <h1>Account Recovery - Stage 2</h1>
 
 <?php
-
 $showform = 1;
 
-if( isset( $validation_errors ) )
-{
-	echo '
+if (isset($validation_errors)) {
+    echo '
 		<div style="border:1px solid red;">
 			<p>
 				The following error occurred while changing your password:
@@ -35,15 +33,12 @@ if( isset( $validation_errors ) )
 			</p>
 		</div>
 	';
-}
-else
-{
-	$display_instructions = 1;
+} else {
+    $display_instructions = 1;
 }
 
-if( isset( $validation_passed ) )
-{
-	echo '
+if (isset($validation_passed)) {
+    echo '
 		<div style="border:1px solid green;">
 			<p>
 				You have successfully changed your password.
@@ -54,11 +49,10 @@ if( isset( $validation_passed ) )
 		</div>
 	';
 
-	$showform = 0;
+    $showform = 0;
 }
-if( isset( $recovery_error ) )
-{
-	echo '
+if (isset($recovery_error)) {
+    echo '
 		<div style="border:1px solid red;">
 			<p>
 				No usable data for account recovery.
@@ -73,11 +67,10 @@ if( isset( $recovery_error ) )
 		</div>
 	';
 
-	$showform = 0;
+    $showform = 0;
 }
-if( isset( $disabled ) )
-{
-	echo '
+if (isset($disabled)) {
+    echo '
 		<div style="border:1px solid red;">
 			<p>
 				Account recovery is disabled.
@@ -91,90 +84,83 @@ if( isset( $disabled ) )
 		</div>
 	';
 
-	$showform = 0;
+    $showform = 0;
 }
-if( $showform == 1 )
-{
-	if( isset( $recovery_code, $user_id ) )
-	{
-		if( isset( $display_instructions ) )
-		{
-			if( isset( $username ) )
-			{
-				echo '<p>
+if ($showform == 1) {
+    if (isset($recovery_code, $user_id)) {
+        if (isset($display_instructions)) {
+            if (isset($username)) {
+                echo '<p>
 					Your login user name is <i>' . $username . '</i><br />
 					Please write this down, and change your password now:
 				</p>';
-			}
-			else
-			{
-				echo '<p>Please change your password now:</p>';
-			}
-		}
+            } else {
+                echo '<p>Please change your password now:</p>';
+            }
+        }
+        ?>
+        <div id="form">
+        <?php echo form_open(); ?>
+            <fieldset>
+                <legend>Step 2 - Choose your new password</legend>
+                <div>
 
-		?>
-			<div id="form">
-				<?php echo form_open(); ?>
-					<fieldset>
-						<legend>Step 2 - Choose your new password</legend>
-						<div>
+        <?php
+        // PASSWORD LABEL AND INPUT ********************************
+        echo form_label('Password', 'passwd', ['class' => 'form_label']);
 
-							<?php
-								// PASSWORD LABEL AND INPUT ********************************
-								echo form_label('Password','passwd', ['class'=>'form_label']);
+        $input_data = [
+            'name' => 'passwd',
+            'id' => 'passwd',
+            'class' => 'form_input password',
+            'max_length' => config_item('max_chars_for_password')
+        ];
+        echo form_password($input_data);
+        ?>
 
-								$input_data = [
-									'name'       => 'passwd',
-									'id'         => 'passwd',
-									'class'      => 'form_input password',
-									'max_length' => config_item('max_chars_for_password')
-								];
-								echo form_password($input_data);
-							?>
+                </div>
+                <div>
 
-						</div>
-						<div>
+                    <?php
+                    // CONFIRM PASSWORD LABEL AND INPUT ******************************
+                    echo form_label('Confirm Password', 'passwd_confirm', ['class' => 'form_label']);
 
-							<?php
-								// CONFIRM PASSWORD LABEL AND INPUT ******************************
-								echo form_label('Confirm Password','passwd_confirm', ['class'=>'form_label']);
+                    $input_data = [
+                        'name' => 'passwd_confirm',
+                        'id' => 'passwd_confirm',
+                        'class' => 'form_input password',
+                        'max_length' => config_item('max_chars_for_password')
+                    ];
+                    echo form_password($input_data);
+                    ?>
 
-								$input_data = [
-									'name'       => 'passwd_confirm',
-									'id'         => 'passwd_confirm',
-									'class'      => 'form_input password',
-									'max_length' => config_item('max_chars_for_password')
-								];
-								echo form_password($input_data);
-							?>
+                </div>
+            </fieldset>
+            <div>
+                <div>
 
-						</div>
-					</fieldset>
-					<div>
-						<div>
+                    <?php
+                    // RECOVERY CODE *****************************************************************
+                    echo form_hidden('recovery_code', $recovery_code);
 
-							<?php
-								// RECOVERY CODE *****************************************************************
-								echo form_hidden('recovery_code',$recovery_code);
+                    // USER ID *****************************************************************
+                    echo form_hidden('user_identification', $user_id);
 
-								// USER ID *****************************************************************
-								echo form_hidden('user_identification',$user_id);
+                    // SUBMIT BUTTON **************************************************************
+                    $input_data = [
+                        'name' => 'form_submit',
+                        'id' => 'submit_button',
+                        'value' => 'Change Password'
+                    ];
+                    echo form_submit($input_data);
+                    ?>
 
-								// SUBMIT BUTTON **************************************************************
-								$input_data = [
-									'name'  => 'form_submit',
-									'id'    => 'submit_button',
-									'value' => 'Change Password'
-								];
-								echo form_submit($input_data);
-							?>
-
-						</div>
-					</div>
-				</form>
-			</div>
-		<?php
-	}
-}
+                </div>
+            </div>
+        </form>
+        </div>
+                    <?php
+                }
+            }
 /* End of file choose_password_form.php */
 /* Location: /community_auth/views/examples/choose_password_form.php */

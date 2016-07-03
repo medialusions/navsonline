@@ -12,17 +12,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @license     BSD - http://www.opensource.org/licenses/BSD-3-Clause
  * @link        http://community-auth.com
  */
-
-if( ! isset( $optional_login ) )
-{
-	echo '<h1>Login</h1>';
+if (!isset($optional_login)) {
+    echo '<h1>Login</h1>';
 }
 
-if( ! isset( $on_hold_message ) )
-{
-	if( isset( $login_error_mesg ) )
-	{
-		echo '
+if (!isset($on_hold_message)) {
+    if (isset($login_error_mesg)) {
+        echo '
 			<div style="border:1px solid red;">
 				<p>
 					Login Error #' . $this->authentication->login_errors_count . '/' . config_item('max_allowed_attempts') . ': Invalid Username, Email Address, or Password.
@@ -32,69 +28,64 @@ if( ! isset( $on_hold_message ) )
 				</p>
 			</div>
 		';
-	}
+    }
 
-	if( $this->input->get('logout') )
-	{
-		echo '
+    if ($this->input->get('logout')) {
+        echo '
 			<div style="border:1px solid green">
 				<p>
 					You have successfully logged out.
 				</p>
 			</div>
 		';
-	}
+    }
 
-	echo form_open( $login_url, ['class' => 'std-form'] ); 
-?>
+    echo form_open($login_url, ['class' => 'std-form']);
+    ?>
 
-	<div>
+    <div>
 
-		<label for="login_string" class="form_label">Username or Email</label>
-		<input type="text" name="login_string" id="login_string" class="form_input" autocomplete="off" maxlength="255" />
+        <label for="login_string" class="form_label">Username or Email</label>
+        <input type="text" name="login_string" id="login_string" class="form_input" autocomplete="off" maxlength="255" />
 
-		<br />
+        <br />
 
-		<label for="login_pass" class="form_label">Password</label>
-		<input type="password" name="login_pass" id="login_pass" class="form_input password" maxlength="<?php echo config_item('max_chars_for_password'); ?>" autocomplete="off" readonly="readonly" onfocus="this.removeAttribute('readonly');" />
-
-
-		<?php
-			if( config_item('allow_remember_me') )
-			{
-		?>
-
-			<br />
-
-			<label for="remember_me" class="form_label">Remember Me</label>
-			<input type="checkbox" id="remember_me" name="remember_me" value="yes" />
-
-		<?php
-			}
-		?>
-
-		<p>
-			<?php
-				$link_protocol = USE_SSL ? 'https' : NULL;
-			?>
-			<a href="<?php echo site_url('examples/recover', $link_protocol); ?>">
-				Can't access your account?
-			</a>
-		</p>
+        <label for="login_pass" class="form_label">Password</label>
+        <input type="password" name="login_pass" id="login_pass" class="form_input password" maxlength="<?php echo config_item('max_chars_for_password'); ?>" autocomplete="off" readonly="readonly" onfocus="this.removeAttribute('readonly');" />
 
 
-		<input type="submit" name="submit" value="Login" id="submit_button"  />
+    <?php
+    if (config_item('allow_remember_me')) {
+        ?>
 
-	</div>
-</form>
+            <br />
 
-<?php
+            <label for="remember_me" class="form_label">Remember Me</label>
+            <input type="checkbox" id="remember_me" name="remember_me" value="yes" />
 
-	}
-	else
-	{
-		// EXCESSIVE LOGIN ATTEMPTS ERROR MESSAGE
-		echo '
+        <?php
+    }
+    ?>
+
+        <p>
+        <?php
+        $link_protocol = USE_SSL ? 'https' : NULL;
+        ?>
+            <a href="<?php echo site_url('examples/recover', $link_protocol); ?>">
+                Can't access your account?
+            </a>
+        </p>
+
+
+        <input type="submit" name="submit" value="Login" id="submit_button"  />
+
+    </div>
+    </form>
+
+    <?php
+} else {
+    // EXCESSIVE LOGIN ATTEMPTS ERROR MESSAGE
+    echo '
 			<div style="border:1px solid red;">
 				<p>
 					Excessive Login Attempts
@@ -112,7 +103,7 @@ if( ! isset( $on_hold_message ) )
 				</p>
 			</div>
 		';
-	}
+}
 
 /* End of file login_form.php */
 /* Location: /community_auth/views/examples/login_form.php */ 

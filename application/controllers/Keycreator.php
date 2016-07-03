@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
@@ -12,30 +13,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @license     BSD - http://www.opensource.org/licenses/BSD-3-Clause
  * @link        http://community-auth.com
  */
+class Keycreator extends CI_Controller {
 
-class Key_creator extends CI_Controller{
-	
-	/**
-	 * The key creator is only available if there is no current encryption key.
-	 * If for some reason you'd like to use this controller and you already
-	 * have an encryption key set in config/config, comment out lines 27 and 28.
-	 */
-	public function __construct()
-	{
-		parent::__construct();
+    /**
+     * The key creator is only available if there is no current encryption key.
+     * If for some reason you'd like to use this controller and you already
+     * have an encryption key set in config/config, comment out lines 27 and 28.
+     */
+    public function __construct() {
+        parent::__construct();
 
-		if( ! empty( config_item('encryption_key') ) )
-			show_404();
-	}
+        if (!empty(config_item('encryption_key')))
+            show_404();
+    }
 
-	// -----------------------------------------------------------------------
+    // -----------------------------------------------------------------------
 
-	/**
-	 * Choose an encryption cipher
-	 */
-	public function index()
-	{
-		echo '<h1>Encryption Key Creator</h1>
+    /**
+     * Choose an encryption cipher
+     */
+    public function index() {
+        echo '<h1>Encryption Key Creator</h1>
 		<p>Community Auth uses Blowfish for password hashing, but only for passwords created where PHP < v5.5.</p>
 		<p>Community Auth also uses Blowfish for session encryption.</p>
 		<p>More Information: <a href="https://www.codeigniter.com/user_guide/libraries/encryption.html" target="_blank">CodeIgniter Documentation for Encryption Library</a></p>
@@ -57,28 +55,25 @@ class Key_creator extends CI_Controller{
 			<li><a href="/key_creator/create/5?cipher=' . urlencode('RC4 / ARCFour (40 bit)') . '">RC4 / ARCFour (40 bit)</a></li>
 			<li><a href="/key_creator/create/256?cipher=' . urlencode('RC4 / ARCFour (2048 bit)') . '">RC4 / ARCFour (2048 bit)</a></li>
 		</ul>';
-	}
-	
-	// -----------------------------------------------------------------------
+    }
 
-	/**
-	 * Create an encryption key for config/config
-	 */
-	public function create( $length = 16 )
-	{
-		$this->load->library('encryption');
+    // -----------------------------------------------------------------------
 
-		$cipher = $this->input->get('cipher')
-			? urldecode( $this->input->get('cipher') )
-			: $length . ' byte key';
+    /**
+     * Create an encryption key for config/config
+     */
+    public function create($length = 16) {
+        $this->load->library('encryption');
 
-		$key = bin2hex( $this->encryption->create_key( $length ) );
+        $cipher = $this->input->get('cipher') ? urldecode($this->input->get('cipher')) : $length . ' byte key';
 
-		echo '// ' . $cipher . '<br /> 
+        $key = bin2hex($this->encryption->create_key($length));
+
+        echo '// ' . $cipher . '<br /> 
 		$config[\'encryption_key\'] = hex2bin(\'' . $key . '\');';
-	}
-	
-	// -----------------------------------------------------------------------
+    }
+
+    // -----------------------------------------------------------------------
 }
 
 /* End of file Key_creator */

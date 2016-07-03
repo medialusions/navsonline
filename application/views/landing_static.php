@@ -46,6 +46,8 @@ and open the template in the editor.
                     height: 'auto',
                     theme: true
                 });
+
+                $('.navs_popup').popup();
             });
         </script>
     </head>
@@ -117,10 +119,10 @@ and open the template in the editor.
                                 Aug 14th
                             </div>
                             <div class="six wide column">
-                                <button class="ui left attached icon basic green button tiny">
+                                <button class="ui left attached icon basic green button tiny navs_popup" data-content="Confirm" data-position="top center">
                                     <i class="check icon"></i>
                                 </button>
-                                <button class="ui right attached icon basic red button tiny">
+                                <button class="ui right attached icon basic red button tiny navs_popup" data-content="Deny" data-position="top center">
                                     <i class="close icon"></i>
                                 </button>
                             </div>
@@ -138,10 +140,10 @@ and open the template in the editor.
                                 Aug 14th
                             </div>
                             <div class="six wide column">
-                                <button class="ui left attached icon basic green button tiny">
+                                <button class="ui left attached icon basic green button tiny navs_popup" data-content="Confirm" data-position="top center">
                                     <i class="check icon"></i>
                                 </button>
-                                <button class="ui right attached icon basic grey button tiny">
+                                <button class="ui right attached icon basic grey button tiny navs_popup" data-content="Deny" data-position="top center">
                                     <i class="close icon"></i>
                                 </button>
                             </div>
@@ -159,10 +161,10 @@ and open the template in the editor.
                                 Aug 14th
                             </div>
                             <div class="six wide column">
-                                <button class="ui left attached icon basic grey button tiny">
+                                <button class="ui left attached icon basic grey button tiny navs_popup" data-content="Confirm" data-position="top center">
                                     <i class="check icon"></i>
                                 </button>
-                                <button class="ui right attached icon basic red button tiny">
+                                <button class="ui right attached icon basic red button tiny navs_popup" data-content="Deny" data-position="top center">
                                     <i class="close icon"></i>
                                 </button>
                             </div>
@@ -176,24 +178,36 @@ and open the template in the editor.
                         </h4>
                         <!-- contact -->
                         <div class="ui grid">
-                            <div class="twelve wide column">
-                                Collin Stover
+                            <div class="ten wide column">
+                                <a href="#">
+                                    Collin Stover
+                                </a>
                             </div>
-                            <div class="four wide column">
-                                <i class="mail icon"></i>
-                                <i class="phone icon"></i>
+                            <div class="six wide column">
+                                <button class="ui left attached icon basic button tiny navs_popup" data-content="cstover@example.com" data-position="top center">
+                                    <i class="mail icon"></i>
+                                </button>
+                                <button class="ui right attached icon basic button tiny navs_popup" data-content="(303) 549-0491" data-position="top center">
+                                    <i class="phone icon"></i>
+                                </button>
                             </div>
                         </div>
                         <!-- divider -->
                         <div class="ui divider"></div>
                         <!-- contact -->
                         <div class="ui grid">
-                            <div class="twelve wide column">
-                                Zach Smith
+                            <div class="ten wide column">
+                                <a href="#">
+                                    Zach Smith
+                                </a>
                             </div>
-                            <div class="four wide column">
-                                <i class="mail icon"></i>
-                                <i class="phone icon"></i>
+                            <div class="six wide column">
+                                <button class="ui left attached icon basic button tiny navs_popup" data-content="zsmith@example.com" data-position="top center">
+                                    <i class="mail icon"></i>
+                                </button>
+                                <button class="ui right attached icon basic button tiny navs_popup" data-content="(303) 549-0491" data-position="top center">
+                                    <i class="phone icon"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -212,7 +226,7 @@ and open the template in the editor.
                                 Missing 0 events
                             </div>
                             <div class="four wide column">
-                                <button class="ui icon basic red button tiny">
+                                <button class="ui icon basic red button tiny navs_popup" data-content="Remove" data-position="top center">
                                     <i class="trash icon"></i>
                                 </button>
                             </div>
@@ -228,7 +242,7 @@ and open the template in the editor.
                                 Missing 1 event
                             </div>
                             <div class="four wide column">
-                                <button class="ui icon basic red button tiny">
+                                <button class="ui icon basic red button tiny navs_popup" data-content="Remove" data-position="top center">
                                     <i class="trash icon"></i>
                                 </button>
                             </div>
@@ -280,18 +294,18 @@ and open the template in the editor.
                                         <td>Lead Guitar, Vocals</td>
                                         <td>
                                             <div class="ui icon buttons tiny">
-                                                <button class="ui button basic blue tiny">
+                                                <button class="ui button basic blue tiny navs_popup" data-content="View" data-position="top center">
                                                     <i class="unhide icon"></i>
                                                 </button>
-                                                <button class="ui button basic blue tiny">
+                                                <button class="ui button basic blue tiny navs_popup" data-content="Edit (admin)" data-position="top center">
                                                     <i class="write icon"></i>
                                                 </button>
                                             </div>
                                             <div class="ui icon buttons tiny">
-                                                <button class="ui button basic green tiny">
+                                                <button class="ui button basic green tiny navs_popup" data-content="Confirm" data-position="top center">
                                                     <i class="check icon"></i>
                                                 </button>
-                                                <button class="ui button basic red tiny">
+                                                <button class="ui button basic red tiny navs_popup" data-content="Deny" data-position="top center">
                                                     <i class="close icon"></i>
                                                 </button>
                                             </div>
@@ -309,18 +323,18 @@ and open the template in the editor.
                                         <td>Lead Guitar, Vocals</td>
                                         <td>
                                             <div class="ui icon buttons tiny">
-                                                <button class="ui button basic blue tiny">
+                                                <button class="ui button basic blue tiny navs_popup" data-content="View" data-position="top center">
                                                     <i class="unhide icon"></i>
                                                 </button>
-                                                <button class="ui button basic blue tiny">
+                                                <button class="ui button basic blue tiny navs_popup" data-content="Edit (admin)" data-position="top center">
                                                     <i class="write icon"></i>
                                                 </button>
                                             </div>
                                             <div class="ui icon buttons tiny">
-                                                <button class="ui button basic green tiny">
+                                                <button class="ui button basic green tiny navs_popup" data-content="Confirm" data-position="top center">
                                                     <i class="check icon"></i>
                                                 </button>
-                                                <button class="ui button basic red tiny">
+                                                <button class="ui button basic red tiny navs_popup" data-content="Deny" data-position="top center">
                                                     <i class="close icon"></i>
                                                 </button>
                                             </div>
@@ -338,18 +352,18 @@ and open the template in the editor.
                                         <td>Lead Guitar, Vocals</td>
                                         <td>
                                             <div class="ui icon buttons tiny">
-                                                <button class="ui button basic blue tiny">
+                                                <button class="ui button basic blue tiny navs_popup" data-content="View" data-position="top center">
                                                     <i class="unhide icon"></i>
                                                 </button>
-                                                <button class="ui button basic blue tiny">
+                                                <button class="ui button basic blue tiny navs_popup" data-content="Edit (admin)" data-position="top center">
                                                     <i class="write icon"></i>
                                                 </button>
                                             </div>
                                             <div class="ui icon buttons tiny">
-                                                <button class="ui button basic green tiny">
+                                                <button class="ui button basic green tiny navs_popup" data-content="Confirm" data-position="top center">
                                                     <i class="check icon"></i>
                                                 </button>
-                                                <button class="ui button basic red tiny">
+                                                <button class="ui button basic red tiny navs_popup" data-content="Deny" data-position="top center">
                                                     <i class="close icon"></i>
                                                 </button>
                                             </div>

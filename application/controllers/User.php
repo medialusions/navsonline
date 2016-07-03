@@ -7,21 +7,28 @@ class User extends CI_Controller {
     public function index() {
         $this->login();
     }
-    
+
     public function login() {
-        $this->load->view('login_static');
+        $data;
+        $this->load->view('login_static', $data);
     }
 
     public function schedule() {
-        $this->load->view('landing_static');
+        $data['title'] = 'Welcome';
+
+        $this->load->view('landing_static', $data);
     }
 
     public function music() {
-        $this->load->view('music_static');
+        $data['title'] = 'Song Center';
+
+        $this->load->view('music_static', $data);
     }
 
     public function people() {
-        $this->load->view('people_static');
+        $data['title'] = 'People';
+
+        $this->load->view('people_static', $data);
     }
 
 }

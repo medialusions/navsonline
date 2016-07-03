@@ -30,6 +30,9 @@ and open the template in the editor.
                 font-weight: bold;
                 color: #1d2bd5;
             }
+            #main_content{
+                min-width: 750px;
+            }
         </style>
 
         <script>
@@ -88,6 +91,7 @@ and open the template in the editor.
                 <!-- left rail -->
                 <div class="ui left close rail">
                     <!-- calendar container -->
+                    <!-- 
                     <div class="ui segment">
                         <h4 class="ui horizontal divider header">
                             <i class="small calendar icon"></i>
@@ -95,6 +99,7 @@ and open the template in the editor.
                         </h4>
                         <div id="calendar"></div>
                     </div>
+                    -->
                     <!-- agenda container -->
                     <div class="ui segment">
                         <h4 class="ui horizontal divider header">
@@ -104,9 +109,11 @@ and open the template in the editor.
                         <!-- agenda event -->
                         <div class="ui grid">
                             <div class="ten wide column">
-                                <h5 class="header">
-                                    Nav Night
-                                </h5>
+                                <a href="#">
+                                    <h5 class="header">
+                                        Nav Night
+                                    </h5>
+                                </a>
                                 Aug 14th
                             </div>
                             <div class="six wide column">
@@ -123,9 +130,11 @@ and open the template in the editor.
                         <!-- agenda event -->
                         <div class="ui grid">
                             <div class="ten wide column">
-                                <h5 class="header">
-                                    Nav Night
-                                </h5>
+                                <a href="#">
+                                    <h5 class="header">
+                                        Nav Night
+                                    </h5>
+                                </a>
                                 Aug 14th
                             </div>
                             <div class="six wide column">
@@ -142,9 +151,11 @@ and open the template in the editor.
                         <!-- agenda event -->
                         <div class="ui grid">
                             <div class="ten wide column">
-                                <h5 class="header">
-                                    Nav Night
-                                </h5>
+                                <a href="#">
+                                    <h5 class="header">
+                                        Nav Night
+                                    </h5>
+                                </a>
                                 Aug 14th
                             </div>
                             <div class="six wide column">
@@ -236,7 +247,124 @@ and open the template in the editor.
                 <!-- main content -->
                 <div id="main_content">
                     <div class="column">
-                        Content
+
+                        <!-- welcome message -->
+                        <h1 class="ui center aligned header">
+                            Welcome, Zach Smith
+                            <div class="sub header">Here is the upcoming schedule</div>
+                        </h1>
+
+                        <!-- spacer -->
+                        <div style="width: 100%; height: 20px; display: block;"></div>
+
+                        <div class="ui grid">
+                            <!-- agenda table -->
+                            <table class="ui celled table">
+                                <thead>
+                                    <tr>
+                                        <th class="">Event</th>
+                                        <th class="">Date</th>
+                                        <th class="">Your Role</th>
+                                        <th class="">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- agenda template -->
+                                    <tr>
+                                        <td>
+                                            <a href="#">
+                                                Nav Night
+                                            </a>
+                                        </td>
+                                        <td>Aug 14th</td>
+                                        <td>Lead Guitar, Vocals</td>
+                                        <td>
+                                            <div class="ui icon buttons tiny">
+                                                <button class="ui button basic blue tiny">
+                                                    <i class="unhide icon"></i>
+                                                </button>
+                                                <button class="ui button basic blue tiny">
+                                                    <i class="write icon"></i>
+                                                </button>
+                                            </div>
+                                            <div class="ui icon buttons tiny">
+                                                <button class="ui button basic green tiny">
+                                                    <i class="check icon"></i>
+                                                </button>
+                                                <button class="ui button basic red tiny">
+                                                    <i class="close icon"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- end template -->
+                                    <!-- agenda template -->
+                                    <tr>
+                                        <td>
+                                            <a href="#">
+                                                Nav Night
+                                            </a>
+                                        </td>
+                                        <td>Aug 14th</td>
+                                        <td>Lead Guitar, Vocals</td>
+                                        <td>
+                                            <div class="ui icon buttons tiny">
+                                                <button class="ui button basic blue tiny">
+                                                    <i class="unhide icon"></i>
+                                                </button>
+                                                <button class="ui button basic blue tiny">
+                                                    <i class="write icon"></i>
+                                                </button>
+                                            </div>
+                                            <div class="ui icon buttons tiny">
+                                                <button class="ui button basic green tiny">
+                                                    <i class="check icon"></i>
+                                                </button>
+                                                <button class="ui button basic red tiny">
+                                                    <i class="close icon"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- end template -->
+                                    <!-- agenda template -->
+                                    <tr>
+                                        <td>
+                                            <a href="#">
+                                                Nav Night
+                                            </a>
+                                        </td>
+                                        <td>Aug 14th</td>
+                                        <td>Lead Guitar, Vocals</td>
+                                        <td>
+                                            <div class="ui icon buttons tiny">
+                                                <button class="ui button basic blue tiny">
+                                                    <i class="unhide icon"></i>
+                                                </button>
+                                                <button class="ui button basic blue tiny">
+                                                    <i class="write icon"></i>
+                                                </button>
+                                            </div>
+                                            <div class="ui icon buttons tiny">
+                                                <button class="ui button basic green tiny">
+                                                    <i class="check icon"></i>
+                                                </button>
+                                                <button class="ui button basic red tiny">
+                                                    <i class="close icon"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- end template -->
+                                <tfoot>
+                                    <tr><th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

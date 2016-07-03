@@ -3,6 +3,20 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class User extends CI_Controller {
+    
+    /**
+     * Constructor. Gets user data/status.
+     */
+    public function __construct() {
+        parent::__construct();
+        
+        //load models
+        $this->load->model('blockout_model', 'blockout');
+        $this->load->model('event_model', 'event');
+        $this->load->model('music_model', 'music');
+        $this->load->model('organization_model', 'organization');
+        $this->load->model('user_model', 'user');
+    }
 
     /**
      * Redirect upon knowledge of login status

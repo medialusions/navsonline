@@ -15,10 +15,6 @@
             #top_menu .menu .item {
                 padding: 23px 20px;
             }
-            #calendar .fc-today {
-                font-weight: bold;
-                color: #1d2bd5;
-            }
             #main_content{
                 min-width: 750px;
             }

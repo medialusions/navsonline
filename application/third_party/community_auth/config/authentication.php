@@ -289,7 +289,7 @@ $config['delete_session_cookie_on_logout'] = TRUE;
   | The default (TRUE) is to show the login form.
  */
 
-$config['show_login_form_on_logout'] = TRUE;
+$config['show_login_form_on_logout'] = FALSE;
 
 /*
   | -----------------------------------------------------------------

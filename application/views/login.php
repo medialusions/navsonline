@@ -34,32 +34,35 @@ and open the template in the editor.
                 <h2 class="ui image medium">
                     <img src="<?= base_url(); ?>logo/navsonline_400x108.png" class="image">
                 </h2>
-                <form class="ui large form">
-                    <?= form_open('user/login') ?>
-                    <h1 class="ui top attached center aligned header">
-                        Welcome
-                        <div class="sub header">Please login</div>
-                    </h1>
-                    <div class="ui bottom attached segment">
-                        <div class="field">
-                            <div class="ui left icon input">
-                                <i class="user icon"></i>
-                                <input type="text" name="email" placeholder="Email Address">
-                            </div>
-                        </div>
-                        <div class="field">
-                            <div class="ui left icon input">
-                                <i class="lock icon"></i>
-                                <input type="password" name="password" placeholder="Password">
-                            </div>
-                        </div>
-                        <input class="ui fluid large teal submit button" type="submit" value="Login">
-                        <?= form_close() ?>
-                    </div>
 
+                <h1 class="ui top attached center aligned header">
+                    Welcome
+                    <div class="sub header">Please login</div>
+                </h1>
+                <div class="ui bottom attached segment">
                     <?= validation_errors('<div class="ui error message">', '</div>') ?>
-
-                </form>
+                    <?php
+                    if ($this->input->get('logout')) 
+                        echo '<div class="ui success message">You have successfully logged out.</div>';
+                    if (isset($login_error_mesg))
+                        echo '<div class="ui success message">Login Error #' . $this->authentication->login_errors_count . '/' . config_item('max_allowed_attempts') . '</div>';
+                    ?>
+                    <?= form_open($login_url, ['class' => 'ui large form']) ?>
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="user icon"></i>
+                            <input type="text" name="login_string" placeholder="Email Address">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="lock icon"></i>
+                            <input type="password" name="login_pass" placeholder="Password">
+                        </div>
+                    </div>
+                    <input class="ui fluid large teal submit button" type="submit" value="Login">
+                    <?= form_close() ?>
+                </div>
 
                 <div class="ui message">
                     Having trouble? Contact your local admin.

@@ -54,23 +54,23 @@ if (!isset($on_hold_message)) {
         <input type="password" name="login_pass" id="login_pass" class="form_input password" maxlength="<?php echo config_item('max_chars_for_password'); ?>" autocomplete="off" readonly="readonly" onfocus="this.removeAttribute('readonly');" />
 
 
-    <?php
-    if (config_item('allow_remember_me')) {
-        ?>
+        <?php
+        if (config_item('allow_remember_me')) {
+            ?>
 
             <br />
 
             <label for="remember_me" class="form_label">Remember Me</label>
             <input type="checkbox" id="remember_me" name="remember_me" value="yes" />
 
-        <?php
-    }
-    ?>
+            <?php
+        }
+        ?>
 
         <p>
-        <?php
-        $link_protocol = USE_SSL ? 'https' : NULL;
-        ?>
+            <?php
+            $link_protocol = USE_SSL ? 'https' : NULL;
+            ?>
             <a href="<?php echo site_url('examples/recover', $link_protocol); ?>">
                 Can't access your account?
             </a>

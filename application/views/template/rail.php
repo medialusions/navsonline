@@ -1,15 +1,5 @@
 <!-- left rail -->
 <div class="ui left close rail">
-    <!-- calendar container -->
-    <!-- 
-    <div class="ui segment">
-        <h4 class="ui horizontal divider header">
-            <i class="small calendar icon"></i>
-            Calendar
-        </h4>
-        <div id="calendar"></div>
-    </div>
-    -->
     <!-- agenda container -->
     <div class="ui segment">
         <h4 class="ui horizontal divider header">
@@ -22,6 +12,9 @@
             ?>
             <!-- agenda event -->
             <div class="ui grid">
+                <div class="ui inverted dimmer event_<?= $event['id'] ?>">
+                    <div class="ui small loader"></div>
+                </div>
                 <div class="ten wide column">
                     <a href="<?= base_url('event/view/' . $event['id']); ?>">
                         <h5 class="header">
@@ -31,15 +24,15 @@
                     <?= date('M jS', $event['date']) ?>
                 </div>
                 <div class="six wide column">
-                    <button class="ui left attached icon basic button tiny navs_popup <?= matrix_decode($event['users_matrix'], $auth_user_id . '', 'confirmed') == true ? 'green' : 'grey' ?>" data-content="Confirm" data-position="top center">
+                    <button onclick="confirm_event(<?= $event['id'] ?>, <?= $auth_user_id ?>, true)" class="ui left attached icon basic button tiny navs_popup <?= matrix_decode($event['users_matrix'], $auth_user_id . '', 'confirmed') == true ? 'green' : 'grey' ?>" data-content="Confirm" data-position="top center">
                         <i class="check icon"></i>
                     </button>
-                    <button class="ui right attached icon basic button tiny navs_popup <?= matrix_decode($event['users_matrix'], $auth_user_id . '', 'confirmed') == true ? 'grey' : 'red' ?>" data-content="Deny" data-position="top center">
+                    <button onclick="confirm_event(<?= $event['id'] ?>, <?= $auth_user_id ?>, true)" class="ui right attached icon basic button tiny navs_popup <?= matrix_decode($event['users_matrix'], $auth_user_id, 'confirmed') == true ? 'grey' : 'red' ?>" data-content="Deny" data-position="top center">
                         <i class="close icon"></i>
                     </button>
                 </div>
             </div>
-            <?= !(--$i) ? '' : '<div class="ui divider"></div>' ?>
+            <?= !( --$i) ? '' : '<div class="ui divider"></div>' //last item check ?>
         <?php endforeach; ?>
     </div>
     <!-- contact container -->

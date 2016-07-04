@@ -51,7 +51,7 @@ and open the template in the editor.
                     <div class="field">
                         <div class="ui left icon input">
                             <i class="user icon"></i>
-                            <input type="text" name="login_string" placeholder="Email Address">
+                            <input type="text" name="login_string" placeholder="Username or Email Address">
                         </div>
                     </div>
                     <div class="field">

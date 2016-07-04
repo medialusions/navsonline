@@ -18,11 +18,11 @@
                     </h1>
                 </div>
                 <div class="four wide column">
-                    <?php if ($auth_level >= 9): //admin required ?>
-                        <a  class="ui button green basic tiny" href="<?= base_url('event/new'); ?>" >
+                    <?php if ($auth_level >= 9): //admin required. modal included below ?>
+                        <button class="ui button green basic tiny" id="event_new_modal">
                             <i class="add square icon"></i>
                             Add new event
-                        </a>
+                        </button>
                     <?php endif; ?>
                 </div>
             </div>
@@ -142,5 +142,10 @@
     </div>
 </div>
 
+
 <?php
+if ($auth_level >= 9):
+    $this->load->view('modal/event_new');
+endif;
+
 $this->load->view('template/footer');

@@ -81,6 +81,7 @@ class User extends MY_Controller {
         $data['title'] = 'Welcome';
 
         $data['user'] = $this->user->generate_user_data($this->auth_user_id);
+        $this->session->set_userdata('organization_id', extract_organization($data['user']['organizations']), 0);
 
         $this->load->view('schedule', $data);
     }

@@ -19,9 +19,14 @@ class User_model extends MY_Model {
      */
     public function generate_user_data($user_id) {
         $query = $this->db->get_where('users', array('user_id' => $user_id), 1);
-        
+
         //return the first
-        foreach($query->result_array() as $row)
+        foreach ($query->result_array() as $row)
             return $row;
-    }   
+    }
+
+    public function generate_rail_data($user_id) {
+        
+    }
+
 }

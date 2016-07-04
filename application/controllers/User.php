@@ -4,6 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class User extends MY_Controller {
 
+    public $rail;
+
     /**
      * Constructor. Gets user data/status.
      */
@@ -19,6 +21,17 @@ class User extends MY_Controller {
 
         //helpers
         $this->load->helper('form');
+
+        //pre load
+        $rail_array = array('', 'user/schedule', 'user/music', 'user/people');
+        if (array_search($this->uri->uri_string(), $rail_array) !== FALSE) {
+            $this->rail = $this->user->generate_rail_data($this->auth_user_id);
+        }
+
+        $auth_array = array('', 'user/schedule', 'user/music', 'user/people', 'user/preferences');
+        if(array_search($this->uri->uri_string(), $auth_array) !== FALSE) {
+            $this->require_min_level(1);
+        }
     }
 
     /**
@@ -65,8 +78,6 @@ class User extends MY_Controller {
      * Loads and gets data for schedule page
      */
     public function schedule() {
-        $this->require_min_level(1);
-
         $data['title'] = 'Welcome';
 
         $data['user'] = $this->user->generate_user_data($this->auth_user_id);
@@ -78,20 +89,11 @@ class User extends MY_Controller {
      * Loads and gets data for schedule page
      */
     public function music() {
-        $this->require_min_level(1);
-
         $data['title'] = 'Welcome';
 
         $data['user'] = $this->user->generate_user_data($this->auth_user_id);
 
         $this->load->view('music_static', $data);
-    }
-
-    /**
-     * Gets data for the left rail
-     */
-    public function get_rail() {
-        
     }
 
 }

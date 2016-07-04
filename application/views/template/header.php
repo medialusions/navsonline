@@ -27,6 +27,12 @@
         <script>
             $(document).ready(function() {
                 $('.navs_popup').popup();
+
+                setTimeout(function() {
+                    $('.dismissing_message')
+                            .closest('.message')
+                            .transition('fade');
+                }, 3000);
             });
         </script>
     </head>

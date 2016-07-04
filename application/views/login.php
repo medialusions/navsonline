@@ -6,9 +6,10 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>NavsOnline | Welcome!</title>
+        <title>NavsOnline | Login</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src='<?= base_url(); ?>js/jquery/dist/jquery.min.js'></script>
         <link rel="stylesheet" type="text/css" href="<?= base_url(); ?>style/semantic/dist/semantic.min.css">
         <script src="<?= base_url(); ?>style/semantic/dist/semantic.min.js"></script> 
 
@@ -26,6 +27,23 @@ and open the template in the editor.
                 max-width: 450px;
             }
         </style>
+        <script>
+            $(document).ready(function() {
+                $('.ui.form')
+                        .form({
+                            fields: {
+                                login_string: 'empty',
+                                login_pass: 'empty'
+                            }
+                        });
+
+                setTimeout(function() {
+                    $('.dismissing_message')
+                            .closest('.message')
+                            .transition('fade');
+                }, 3000);
+            });
+        </script>
     </head>
     <body>
 
@@ -40,14 +58,14 @@ and open the template in the editor.
                     <div class="sub header">Please login</div>
                 </h1>
                 <div class="ui bottom attached segment">
-                    <?= validation_errors('<div class="ui error message">', '</div>') ?>
                     <?php
-                    if ($this->input->get('logout')) 
-                        echo '<div class="ui success message">You have successfully logged out.</div>';
+                    if ($this->input->get('logout'))
+                        echo '<div class="ui success message dismissing_message">You have successfully logged out.</div>';
                     if (isset($login_error_mesg))
-                        echo '<div class="ui success message">Login Error #' . $this->authentication->login_errors_count . '/' . config_item('max_allowed_attempts') . '</div>';
+                        echo '<div class="ui error message">Login Error #' . $this->authentication->login_errors_count . '/' . config_item('max_allowed_attempts') . '</div>';
                     ?>
                     <?= form_open($login_url, ['class' => 'ui large form']) ?>
+                    <div class="ui error message"></div>
                     <div class="field">
                         <div class="ui left icon input">
                             <i class="user icon"></i>

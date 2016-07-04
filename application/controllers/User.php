@@ -48,6 +48,11 @@ class User extends MY_Controller {
         if ($this->uri->uri_string() == 'user/login')
             redirect('login');
 
+        if ($this->authentication->current_hold_status()) {
+            $this->load->view('errors/auth/user_banned');
+            return;
+        }
+
         if (strtolower($_SERVER['REQUEST_METHOD']) == 'post')
             $this->require_min_level(1);
 
@@ -61,9 +66,9 @@ class User extends MY_Controller {
      */
     public function schedule() {
         $this->require_min_level(1);
-        
+
         $data['title'] = 'Welcome';
-        
+
         $data['auth_user_id'] = $this->auth_user_id;
         $data['auth_level'] = $this->auth_level;
 

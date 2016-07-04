@@ -53,7 +53,7 @@
                 <div class="ui image small" style="margin-top: 11px;">
                     <img src="<?= base_url(); ?>logo/navsonline_400x108.png" class="image">
                 </div>
-                <a class="item <?= uri_string() == 'user/schedule' ? 'active' : '' ?>" style="margin-left:25px;" href="<?= base_url('user/schedule'); ?>">
+                <a class="item <?= uri_string() == 'user/schedule' || uri_string() == '' ? 'active' : '' ?>" style="margin-left:25px;" href="<?= base_url('user/schedule'); ?>">
                     <i class="unordered list icon"></i>
                     Schedule
                 </a>

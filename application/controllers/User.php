@@ -11,11 +11,11 @@ class User extends MY_Controller {
         parent::__construct();
 
         //load models
-        $this->load->model('blockout_model', 'blockout');
-        $this->load->model('event_model', 'event');
-        $this->load->model('music_model', 'music');
-        $this->load->model('organization_model', 'organization');
-        $this->load->model('user_model', 'user');
+        $this->load->model('blockout_model', 'blockout', TRUE);
+        $this->load->model('event_model', 'event', TRUE);
+        $this->load->model('music_model', 'music', TRUE);
+        $this->load->model('organization_model', 'organization', TRUE);
+        $this->load->model('user_model', 'user', TRUE);
 
         //helpers
         $this->load->helper('form');
@@ -69,28 +69,22 @@ class User extends MY_Controller {
 
         $data['title'] = 'Welcome';
 
-        $data['auth_user_id'] = $this->auth_user_id;
-        $data['auth_level'] = $this->auth_level;
+        $data['user'] = $this->user->generate_user_data($this->auth_user_id);
 
-        $this->load->view('landing_static', $data);
+        $this->load->view('schedule', $data);
     }
 
     /**
-     * Loads and gets data for music page
+     * Loads and gets data for schedule page
      */
     public function music() {
-        $data['title'] = 'Song Center';
+        $this->require_min_level(1);
+
+        $data['title'] = 'Welcome';
+
+        $data['user'] = $this->user->generate_user_data($this->auth_user_id);
 
         $this->load->view('music_static', $data);
-    }
-
-    /**
-     * Loads and gets data for people page
-     */
-    public function people() {
-        $data['title'] = 'People';
-
-        $this->load->view('people_static', $data);
     }
 
     /**

@@ -6,4 +6,3 @@ $route['default_controller'] = 'user';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = TRUE;
 $route[LOGIN_PAGE] = 'user/login';
-$route['event/new'] = 'event/add';

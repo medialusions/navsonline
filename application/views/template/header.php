@@ -1,17 +1,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>NavsOnline<?= isset($title) ? ' | '.$title : '' ?></title>
+        <title>NavsOnline<?= isset($title) ? ' | ' . $title : '' ?></title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src='<?= base_url(); ?>js/jquery/dist/jquery.min.js'></script>
-        <script src='<?= base_url(); ?>js/moment/min/moment.min.js'></script>
-        <script src='<?= base_url(); ?>js/fullcalendar/dist/fullcalendar.min.js'></script>
         <script src="<?= base_url(); ?>style/semantic/dist/semantic.min.js"></script> 
-        <script src="<?= base_url(); ?>js/jquery-ui/jquery-ui.min.js"></script> 
-
-        <link rel="stylesheet" href="<?= base_url(); ?>js/jquery-ui/jquery-ui.min.css">
-        <link rel='stylesheet' href='<?= base_url(); ?>js/fullcalendar/dist/fullcalendar.min.css' />
         <link rel="stylesheet" href="<?= base_url(); ?>style/semantic/dist/semantic.min.css">
 
         <style type="text/css">
@@ -32,16 +26,6 @@
 
         <script>
             $(document).ready(function() {
-                $('#calendar').fullCalendar({
-                    header: {
-                        left: '',
-                        center: '',
-                        right: 'today prev,next'
-                    },
-                    height: 'auto',
-                    theme: true
-                });
-
                 $('.navs_popup').popup();
             });
         </script>

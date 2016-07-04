@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Period Picker Demo</title>
+	<link rel="stylesheet" href="build/jquery.periodpicker.min.css">
+	<link rel="stylesheet" href="build/jquery.timepicker.min.css">
+	<script src="jquery.min.js"></script>
+	<script src="build/jquery.periodpicker.full.min.js"></script>
+    <style>
+        pre {
+            font-family: Consolas, 'Liberation Mono', Courier, monospace;
+            color: #f0f0f0;
+            background: #3f3f3f;
+            border-radius: 3px;
+            white-space: pre-wrap;
+            tab-size: 2em;
+            padding:10px;
+            font-family: Menlo, Monaco, monospace, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h1>Period Picker is so good!</h1>
+    <pre></pre>
+    <pre></pre>
+    <div id="htmlexample">
+        <div class="democi">
+            <input type="text" value="2012/12/12" id="periodpickerstart"/>
+            <input type="text" value="2013/12/12" id="periodpickerend"/>
+            &nbsp;&nbsp;&nbsp;<a class="btn btn-success" href="/jqplugins/periodpicker/buy/">Buy and Download</a>&nbsp;<a class="btn btn-info" href="https://github.com/xdan/periodpicker/issues">Bug Tracker</a>
+        </div>
+        <div class="democi"> or datetimepicker <br>
+            <input type="text" value="23:45:34 2013/12/12" id="datetimepicker_simple"/>
+        </div>
+        <div class="democi">
+            with clear button <br>
+            <input type="text" value="2013/12/12" id="noranger_with_clear"/>
+        </div>
+        <div class="democi">
+            Compact mode<br>
+            <input type="text" value="2016/03/01" id="compact_mode"/>
+        </div>
+        <div class="democi">
+            like <a href="http://xdsoft.net/jqplugins/datetimepicker/">datetimepicker</a> mode<br>
+            <input type="text" value="2016/03/01" id="like_datetimepicker_mode"/>
+        </div>
+        <div class="democi">
+            Inline mode<br>
+            <input type="text" value="2016/03/01" id="inline_mode"/>
+        </div>
+    </div>
+   <!-- <input type="text" id="end" />-->
+<script>
+document.getElementsByTagName('pre')[0].innerText = $.trim(document.getElementById('htmlexample').innerHTML);
+</script>
+<script>
+jQuery('#periodpickerstart').periodpicker({
+    end: '#periodpickerend'
+});
+jQuery('#datetimepicker_simple').periodpicker({
+    norange: true, // use only one value
+    cells: [1, 1], // show only one month
+
+    resizeButton: false, // deny resize picker
+    fullsizeButton: false,
+    fullsizeOnDblClick: false,
+
+    timepicker: true, // use timepicker
+    timepickerOptions: {
+        hours: true,
+        minutes: true,
+        seconds: false,
+        ampm: true
+    }
+});
+jQuery('#noranger_with_clear').periodpicker({
+    norange: true, // use only one value
+    cells: [1, 1], // show only one month
+
+    okButton: false,
+    clearButtonInButton: true,
+    clearButton: true,
+    closeAfterClear: true,
+
+    resizeButton: false, // deny resize picker
+
+    fullsizeButton: false,
+    fullsizeOnDblClick: false,
+    
+    timepicker: false // use timepicker
+});
+jQuery('#compact_mode').periodpicker({
+    cells: [1, 1],
+    withoutBottomPanel: true,
+    yearsLine: false,
+    title: false,
+    closeButton: false,
+    fullsizeButton: false
+});
+jQuery('#like_datetimepicker_mode').periodpicker({
+    norange: true,
+    likeXDSoftDateTimePicker: true,
+    cells: [1, 1],
+    withoutBottomPanel: true,
+    yearsLine: false,
+    title: false,
+    closeButton: false,
+    resizeButton: false,
+    fullsizeButton: false,
+    hideAfterSelect: true
+});
+jQuery('#inline_mode').periodpicker({
+    inline: true,
+    
+    norange: true, // use only one value
+    cells: [1, 1], // show only one month
+
+    resizeButton: false, // deny resize picker
+
+    fullsizeButton: false,
+    fullsizeOnDblClick: false,
+    
+    timepicker: false // use timepicker
+});
+</script>
+<script>
+document.getElementsByTagName('pre')[1].innerText = $.trim(document.getElementsByTagName('script')[3].innerHTML);
+</script>
+<p>
+    <a href="http://xdsoft.net/jqplugins/periodpicker/">Documentation</a>
+</p>
+</body>
+</html>

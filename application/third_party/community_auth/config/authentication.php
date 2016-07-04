@@ -157,7 +157,7 @@ $config['disallow_multiple_logins'] = FALSE;
   |
  */
 
-$config['encrypt_auth_identifiers'] = FALSE;
+$config['encrypt_auth_identifiers'] = TRUE;
 
 /*
   | -----------------------------------------------------------------
@@ -278,7 +278,7 @@ $config['recovery_code_expiration'] = 60 * 60 * 24; // 24 hours
   | the session cookie is immediately re-created.
  */
 
-$config['delete_session_cookie_on_logout'] = FALSE;
+$config['delete_session_cookie_on_logout'] = TRUE;
 
 /*
   | -----------------------------------------------------------------

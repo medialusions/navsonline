@@ -4,8 +4,6 @@
 <div class="ui middle aligned center aligned grid">
     <div class="ui segment">
 
-        <?php $this->load->view('template/rail'); ?>
-
         <!-- main content -->
         <div id="main_content">
 

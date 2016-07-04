@@ -13,7 +13,7 @@ $autoload['libraries'] = array(
 $autoload['drivers'] = array();
 
 $autoload['helper'] = array(
-    'url', 'serialization', 'cookie', 'role', 'organization'
+    'url', 'serialization', 'cookie', 'role', 'organization', 'input'
 );
 
 $autoload['config'] = array(

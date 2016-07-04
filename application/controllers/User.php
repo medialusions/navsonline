@@ -12,13 +12,6 @@ class User extends MY_Controller {
     public function __construct() {
         parent::__construct();
 
-        //load models
-        $this->load->model('blockout_model', 'blockout', TRUE);
-        $this->load->model('event_model', 'event', TRUE);
-        $this->load->model('music_model', 'music', TRUE);
-        $this->load->model('organization_model', 'organization', TRUE);
-        $this->load->model('user_model', 'user', TRUE);
-
         //helpers
         $this->load->helper('form');
 
@@ -38,7 +31,7 @@ class User extends MY_Controller {
      * Redirect upon knowledge of login status
      */
     public function index() {
-        $this->schedule();
+        redirect('user/schedule');
     }
 
     /**
@@ -82,6 +75,8 @@ class User extends MY_Controller {
 
         $data['user'] = $this->user->generate_user_data($this->auth_user_id);
         $this->session->set_userdata('organization_id', extract_organization($data['user']['organizations']), 0);
+        
+        $data['upcoming_events'] = $this->event->generate_upcoming();
 
         $this->load->view('schedule', $data);
     }

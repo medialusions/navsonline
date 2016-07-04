@@ -34,12 +34,35 @@ class Event extends MY_Controller {
     public function add() {
         //admin level needed
         $this->require_min_level(9);
-        
-        $data['title'] = 'New Event';
 
-        $data['user'] = $this->user->generate_user_data($this->auth_user_id);
+        //if post data found
+        if ($this->input->post())
+            $event_id = $this->event->create();
+        else {
+            show_404();
+            return;
+        }
 
-        $this->load->view('event/add', $data);
+        redirect('event/edit/' . $event_id);
+    }
+
+    /**
+     * Loads and gets data for schedule page
+     */
+    public function edit($id) {
+        //admin level needed
+        $this->require_min_level(9);
+        //verify organization id
+
+        //if post data found
+        if ($this->input->post())
+            $event_id = $this->event->create();
+        else {
+            show_404();
+            return;
+        }
+
+        redirect('event/edit/' . $event_id);
     }
 
 }

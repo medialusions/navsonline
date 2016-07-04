@@ -16,67 +16,31 @@
             <i class="small unordered list icon"></i>
             Upcoming
         </h4>
-        <!-- agenda event -->
-        <div class="ui grid">
-            <div class="ten wide column">
-                <a href="#">
-                    <h5 class="header">
-                        Nav Night
-                    </h5>
-                </a>
-                Aug 14th
+        <?php
+        $i = count($upcoming_events);
+        foreach ($upcoming_events as $event):
+            ?>
+            <!-- agenda event -->
+            <div class="ui grid">
+                <div class="ten wide column">
+                    <a href="<?= base_url('event/view/' . $event['id']); ?>">
+                        <h5 class="header">
+                            <?= $event['name'] ?>
+                        </h5>
+                    </a>
+                    <?= date('M jS', $event['date']) ?>
+                </div>
+                <div class="six wide column">
+                    <button class="ui left attached icon basic button tiny navs_popup <?= matrix_decode($event['users_matrix'], $auth_user_id . '', 'confirmed') == true ? 'green' : 'grey' ?>" data-content="Confirm" data-position="top center">
+                        <i class="check icon"></i>
+                    </button>
+                    <button class="ui right attached icon basic button tiny navs_popup <?= matrix_decode($event['users_matrix'], $auth_user_id . '', 'confirmed') == true ? 'grey' : 'red' ?>" data-content="Deny" data-position="top center">
+                        <i class="close icon"></i>
+                    </button>
+                </div>
             </div>
-            <div class="six wide column">
-                <button class="ui left attached icon basic green button tiny navs_popup" data-content="Confirm" data-position="top center">
-                    <i class="check icon"></i>
-                </button>
-                <button class="ui right attached icon basic red button tiny navs_popup" data-content="Deny" data-position="top center">
-                    <i class="close icon"></i>
-                </button>
-            </div>
-        </div>
-        <!-- divider -->
-        <div class="ui divider"></div>
-        <!-- agenda event -->
-        <div class="ui grid">
-            <div class="ten wide column">
-                <a href="#">
-                    <h5 class="header">
-                        Nav Night
-                    </h5>
-                </a>
-                Aug 14th
-            </div>
-            <div class="six wide column">
-                <button class="ui left attached icon basic green button tiny navs_popup" data-content="Confirm" data-position="top center">
-                    <i class="check icon"></i>
-                </button>
-                <button class="ui right attached icon basic grey button tiny navs_popup" data-content="Deny" data-position="top center">
-                    <i class="close icon"></i>
-                </button>
-            </div>
-        </div>
-        <!-- divider -->
-        <div class="ui divider"></div>
-        <!-- agenda event -->
-        <div class="ui grid">
-            <div class="ten wide column">
-                <a href="#">
-                    <h5 class="header">
-                        Nav Night
-                    </h5>
-                </a>
-                Aug 14th
-            </div>
-            <div class="six wide column">
-                <button class="ui left attached icon basic grey button tiny navs_popup" data-content="Confirm" data-position="top center">
-                    <i class="check icon"></i>
-                </button>
-                <button class="ui right attached icon basic red button tiny navs_popup" data-content="Deny" data-position="top center">
-                    <i class="close icon"></i>
-                </button>
-            </div>
-        </div>
+            <?= !(--$i) ? '' : '<div class="ui divider"></div>' ?>
+        <?php endforeach; ?>
     </div>
     <!-- contact container -->
     <div class="ui segment">

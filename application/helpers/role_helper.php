@@ -28,3 +28,17 @@ function slug_to_proper($args) {
 
     return $toRet;
 }
+
+function matrix_decode($json_matrix, $index = '', $second_index = '') {
+    $arr = json_decode($json_matrix, TRUE);
+
+    if ($index == '')
+        return $arr;
+
+    $current = $arr[$index];
+
+    if ($second_index == '')
+        return $current;
+    else
+        return $current[$second_index];
+}

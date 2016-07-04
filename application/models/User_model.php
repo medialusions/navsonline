@@ -9,7 +9,6 @@ class User_model extends MY_Model {
     public $date;
 
     public function __construct() {
-        // Call the CI_Model constructor
         parent::__construct();
     }
 
@@ -19,7 +18,10 @@ class User_model extends MY_Model {
      * @param varchar $user_id
      * @return db_resource
      */
-    public function generate_user_data($user_id) {
+    public function generate_user_data($user_id = '') {
+        if ($user_id == '')
+            $user_id = config_item('auth_user_id');
+
         $query = $this->db->get_where('users', array('user_id' => $user_id), 1);
 
         //return the first
@@ -27,7 +29,10 @@ class User_model extends MY_Model {
             return $row;
     }
 
-    public function generate_rail_data($user_id) {
+    public function generate_rail_data($user_id = '') {
+        if ($user_id == '')
+            $user_id = config_item('auth_user_id');
+        
         
     }
 

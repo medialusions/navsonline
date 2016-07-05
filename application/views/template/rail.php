@@ -9,7 +9,7 @@
         <script type="text/javascript">
             $(document).ready(function() {
 <?php
-foreach ($upcoming_events as $event):
+foreach ($rail['upcoming_events'] as $event):
     ?>
                     $('#event_confirm_<?= $event['id'] ?>')
                             .api({
@@ -52,8 +52,8 @@ foreach ($upcoming_events as $event):
             });
         </script>
         <?php
-        $i = count($upcoming_events);
-        foreach ($upcoming_events as $event):
+        $i = count($rail['upcoming_events']);
+        foreach ($rail['upcoming_events'] as $event):
             ?>
             <!-- agenda event -->
             <div class="ui grid">
@@ -79,6 +79,9 @@ foreach ($upcoming_events as $event):
             </div>
             <?= !( --$i) ? '' : '<div class="ui divider"></div>' //last item check ?>
         <?php endforeach; ?>
+        <?php if (count($rail['upcoming_events']) == 0): ?>
+            <div class="ui message">Move along, nothing to see here.</div>
+        <?php endif; ?>
     </div>
     <!-- contact container -->
     <div class="ui segment">
@@ -86,40 +89,31 @@ foreach ($upcoming_events as $event):
             <i class="small user icon"></i>
             Contact
         </h4>
-        <!-- contact -->
-        <div class="ui grid">
-            <div class="ten wide column">
-                <a href="#">
-                    Collin Stover
-                </a>
+        <?php
+        $i = count($rail['contact']);
+        foreach ($rail['contact'] as $contact):
+            ?>
+            <!-- contact -->
+            <div class="ui grid">
+                <div class="ten wide column">
+                    <a href="<?= base_url('user/view/' . $contact['user_id']) ?>">
+                        <?= $contact['first_name'] . ' ' . $contact['last_name'] ?>
+                    </a>
+                </div>
+                <div class="six wide column">
+                    <button class="ui left attached icon basic button tiny navs_popup" data-content="<?= $contact['email'] ?>" data-position="top center">
+                        <i class="mail icon"></i>
+                    </button>
+                    <button class="ui right attached icon basic button tiny navs_popup" data-content="<?= format_phone($contact['phone']) ?>" data-position="top center">
+                        <i class="phone icon"></i>
+                    </button>
+                </div>
             </div>
-            <div class="six wide column">
-                <button class="ui left attached icon basic button tiny navs_popup" data-content="cstover@example.com" data-position="top center">
-                    <i class="mail icon"></i>
-                </button>
-                <button class="ui right attached icon basic button tiny navs_popup" data-content="(303) 549-0491" data-position="top center">
-                    <i class="phone icon"></i>
-                </button>
-            </div>
-        </div>
-        <!-- divider -->
-        <div class="ui divider"></div>
-        <!-- contact -->
-        <div class="ui grid">
-            <div class="ten wide column">
-                <a href="#">
-                    Zach Smith
-                </a>
-            </div>
-            <div class="six wide column">
-                <button class="ui left attached icon basic button tiny navs_popup" data-content="zsmith@example.com" data-position="top center">
-                    <i class="mail icon"></i>
-                </button>
-                <button class="ui right attached icon basic button tiny navs_popup" data-content="(303) 549-0491" data-position="top center">
-                    <i class="phone icon"></i>
-                </button>
-            </div>
-        </div>
+            <?= !( --$i) ? '' : '<div class="ui divider"></div>' //last item check ?>
+        <?php endforeach; ?>
+        <?php if (count($rail['contact']) == 0): ?>
+            <div class="ui error message">These aren't the droids you're looking for.</div>
+        <?php endif; ?>
     </div>
     <!-- blockout container -->
     <div class="ui segment">

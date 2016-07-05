@@ -4,8 +4,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class User extends MY_Controller {
 
-    public $rail;
-
     /**
      * Constructor. Gets user data/status.
      */
@@ -16,13 +14,8 @@ class User extends MY_Controller {
         $this->load->helper('form');
 
         //pre load
-        $rail_array = array('', 'user/schedule', 'user/music', 'user/people');
-        if (array_search($this->uri->uri_string(), $rail_array) !== FALSE) {
-            $this->rail = $this->user->generate_rail_data($this->auth_user_id);
-        }
-
         $auth_array = array('', 'user/schedule', 'user/music', 'user/people', 'user/preferences');
-        if(array_search($this->uri->uri_string(), $auth_array) !== FALSE) {
+        if (array_search($this->uri->uri_string(), $auth_array) !== FALSE) {
             $this->require_min_level(1);
         }
     }
@@ -75,9 +68,11 @@ class User extends MY_Controller {
 
         $data['user'] = $this->user->generate_user_data($this->auth_user_id);
         $this->session->set_userdata('organization_id', extract_organization($data['user']['organizations']), 0);
-        
-        $data['upcoming_events'] = $this->event->generate_upcoming();
 
+        $data['upcoming_events'] = $this->event->generate_upcoming($this->auth_user_id);
+
+        $data['rail'] = $this->user->generate_rail_data($this->auth_user_id);
+        
         $this->load->view('schedule', $data);
     }
 

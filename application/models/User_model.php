@@ -29,11 +29,11 @@ class User_model extends MY_Model {
             return $row;
     }
 
-    public function generate_rail_data($user_id = '') {
-        if ($user_id == '')
-            $user_id = config_item('auth_user_id');
+    public function generate_rail_data() {
+        $data['upcoming_events'] = $this->event->generate_upcoming(config_item('auth_user_id'));
+        $data['contact'] = $this->organization->list_users(9);
         
-        
+        return $data;
     }
 
 }

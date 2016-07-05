@@ -23,8 +23,6 @@ class Event_model extends MY_Model {
 
         $timestamp = verify_date_time($event_date, $event_time);
 
-        //clean $vars
-        $event_name_clean = $this->db->escape($event_name);
         $user_id = config_item('auth_user_id');
 
         //init setup of users and roles matrix
@@ -33,7 +31,7 @@ class Event_model extends MY_Model {
 
         //setting up insert
         $data = array(
-            'name' => $event_name_clean,
+            'name' => $event_name,
             'organization' => $this->organization_id,
             'date' => $timestamp,
             'date_created' => time(),
@@ -50,11 +48,13 @@ class Event_model extends MY_Model {
     /**
      * Returns next dates. Change limit with param
      */
-    public function generate_upcoming($limit = 4) {
+    public function generate_upcoming($user_id = '', $limit = 4) {
         //build upcoming query
         $query = $this->db->query(""
-                . "SELECT * FROM event "
+                . "SELECT * "
+                . "FROM event "
                 . "WHERE organization='$this->organization_id' "
+                . ($user_id == '' ? '' : "AND  users_matrix LIKE '%$user_id%'")
                 . "AND date > " . time() . " "
                 . "ORDER BY date ASC "
                 . "LIMIT $limit");

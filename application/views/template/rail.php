@@ -153,7 +153,7 @@ foreach ($rail['upcoming_events'] as $event):
         </div>
         <div class="ui centered grid">
             <div class="column">
-                <button class="ui button dark red basic">
+                <button class="ui button dark red basic" id="blockout_new_modal">
                     <i class="add square icon"></i>
                     Add blockout date
                 </button>
@@ -161,3 +161,5 @@ foreach ($rail['upcoming_events'] as $event):
         </div>
     </div>
 </div>
+
+<?php $this->load->view('modal/blockout_add'); ?>

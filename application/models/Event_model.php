@@ -54,7 +54,7 @@ class Event_model extends MY_Model {
                 . "SELECT * "
                 . "FROM event "
                 . "WHERE organization='$this->organization_id' "
-                . ($user_id == '' ? '' : "AND  users_matrix LIKE '%$user_id%'")
+                . ($user_id == '' ? '' : "AND  users_matrix LIKE '%$user_id%' ")
                 . "AND date > " . time() . " "
                 . "ORDER BY date ASC "
                 . "LIMIT $limit");

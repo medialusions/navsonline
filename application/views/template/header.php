@@ -30,6 +30,12 @@
                             .transition('fade');
                 }, 3000);
             });
+
+            //API setup
+            $.fn.api.settings.api = {
+                'event confirm': '<?= base_url('/ajax/event-confirm'); ?>/{eid}/{uid}',
+                'event deny': '<?= base_url('/ajax/event-deny'); ?>/{eid}/{uid}'
+            };
         </script>
     </head>
     <body>

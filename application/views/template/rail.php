@@ -1,18 +1,63 @@
 <!-- left rail -->
 <div class="ui left close rail">
-    <!-- agenda container -->
     <div class="ui segment">
         <h4 class="ui horizontal divider header">
             <i class="small unordered list icon"></i>
             Upcoming
         </h4>
+        <!-- agenda container -->
+        <script type="text/javascript">
+            $(document).ready(function() {
+<?php
+foreach ($upcoming_events as $event):
+    ?>
+                    $('#event_confirm_<?= $event['id'] ?>')
+                            .api({
+                                action: 'event confirm',
+                                beforeSend: function(settings) {
+                                    $("#event_dimmer_<?= $event['id'] ?>").addClass('active');
+                                    return settings;
+                                },
+                                onComplete: function(response) {
+                                    $("#event_dimmer_<?= $event['id'] ?>").removeClass('active');
+                                    if (response.success) {
+                                        $("#event_confirm_<?= $event['id'] ?>").removeClass('grey');
+                                        $("#event_confirm_<?= $event['id'] ?>").addClass('green');
+                                        //set other as grey
+                                        $("#event_deny_<?= $event['id'] ?>").removeClass('red');
+                                        $("#event_deny_<?= $event['id'] ?>").addClass('grey');
+                                    }
+                                }
+                            });
+                    $('#event_deny_<?= $event['id'] ?>')
+                            .api({
+                                action: 'event deny',
+                                beforeSend: function(settings) {
+                                    $("#event_dimmer_<?= $event['id'] ?>").addClass('active');
+                                    return settings;
+                                },
+                                onComplete: function(response) {
+                                    $("#event_dimmer_<?= $event['id'] ?>").removeClass('active');
+                                    if (response.success) {
+                                        //set current as red
+                                        $("#event_deny_<?= $event['id'] ?>").removeClass('grey');
+                                        $("#event_deny_<?= $event['id'] ?>").addClass('red');
+                                        //set other as grey
+                                        $("#event_confirm_<?= $event['id'] ?>").removeClass('green');
+                                        $("#event_confirm_<?= $event['id'] ?>").addClass('grey');
+                                    }
+                                }
+                            });
+<?php endforeach; ?>
+            });
+        </script>
         <?php
         $i = count($upcoming_events);
         foreach ($upcoming_events as $event):
             ?>
             <!-- agenda event -->
             <div class="ui grid">
-                <div class="ui inverted dimmer event_<?= $event['id'] ?>">
+                <div class="ui inverted dimmer" id="event_dimmer_<?= $event['id'] ?>">
                     <div class="ui small loader"></div>
                 </div>
                 <div class="ten wide column">
@@ -24,10 +69,10 @@
                     <?= date('M jS', $event['date']) ?>
                 </div>
                 <div class="six wide column">
-                    <button onclick="confirm_event(<?= $event['id'] ?>, <?= $auth_user_id ?>, true)" class="ui left attached icon basic button tiny navs_popup <?= matrix_decode($event['users_matrix'], $auth_user_id . '', 'confirmed') == true ? 'green' : 'grey' ?>" data-content="Confirm" data-position="top center">
+                    <button id="event_confirm_<?= $event['id'] ?>" class="ui left attached icon basic button tiny navs_popup <?= matrix_decode($event['users_matrix'], $auth_user_id, 'confirmed') == true ? 'green' : 'grey' ?>" data-eid="<?= $event['id'] ?>" data-uid="<?= $auth_user_id ?>" data-content="Confirm" data-position="top center" >
                         <i class="check icon"></i>
                     </button>
-                    <button onclick="confirm_event(<?= $event['id'] ?>, <?= $auth_user_id ?>, true)" class="ui right attached icon basic button tiny navs_popup <?= matrix_decode($event['users_matrix'], $auth_user_id, 'confirmed') == true ? 'grey' : 'red' ?>" data-content="Deny" data-position="top center">
+                    <button id="event_deny_<?= $event['id'] ?>" class="ui right attached icon basic button tiny navs_popup <?= matrix_decode($event['users_matrix'], $auth_user_id, 'confirmed') == true ? 'grey' : 'red' ?>" data-eid="<?= $event['id'] ?>" data-uid="<?= $auth_user_id ?>" data-content="Deny" data-position="top center">
                         <i class="close icon"></i>
                     </button>
                 </div>

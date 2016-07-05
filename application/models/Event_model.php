@@ -47,17 +47,56 @@ class Event_model extends MY_Model {
         return $this->db->insert_id();
     }
 
-    public function generate_upcoming() {
+    /**
+     * Returns next dates. Change limit with param
+     */
+    public function generate_upcoming($limit = 4) {
         //build upcoming query
         $query = $this->db->query(""
                 . "SELECT * FROM event "
                 . "WHERE organization='$this->organization_id' "
                 . "AND date > " . time() . " "
                 . "ORDER BY date ASC "
-                . "LIMIT 4");
+                . "LIMIT $limit");
 
         //return the array
         return $query->result_array();
+    }
+
+    /**
+     * Updates confirmation of user with event. 
+     * 
+     * @param int $eid
+     * @param int $uid
+     * @param bool $value
+     * @return array Result of update. 
+     */
+    public function confirm($eid, $uid, $value) {//build single event query
+        $query = $this->db->query(""
+                . "SELECT users_matrix FROM event "
+                . "WHERE id='$eid' ");
+
+        //grab the first/only one in $result
+        foreach ($query->result_array() as $result)
+            break;
+
+        //json decode as associative array
+        $users_matrix = json_decode($result['users_matrix'], TRUE);
+
+        if (array_key_exists($uid, $users_matrix) === false)
+            return array('success' => FALSE, 'reason' => 'Unauthorized. User not scheduled for this event.');
+
+        //set new status
+        $users_matrix[$uid]['confirmed'] = (bool) $value;
+
+        $this->db->set('users_matrix', json_encode($users_matrix));
+        $this->db->where('id', $eid);
+        $response = $this->db->update('event');
+
+        if (!$response)
+            return array('success' => FALSE, 'reason' => 'Database query error.');
+        else
+            return array('success' => TRUE);
     }
 
 }

@@ -5,6 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src='<?= base_url(); ?>js/jquery/dist/jquery.min.js'></script>
+        <script src='<?= base_url(); ?>js/jquery/jquery-dateFormat.min.js'></script>
         <script src="<?= base_url(); ?>style/semantic/dist/semantic.min.js"></script> 
         <link rel="stylesheet" href="<?= base_url(); ?>style/semantic/dist/semantic.min.css">
 

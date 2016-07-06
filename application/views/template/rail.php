@@ -49,8 +49,7 @@ foreach ($rail['upcoming_events'] as $event):
                                 }
                             });
 <?php endforeach; ?>
-            });
-        </script>
+            });</script>
         <?php
         $i = count($rail['upcoming_events']);
         foreach ($rail['upcoming_events'] as $event):
@@ -80,7 +79,7 @@ foreach ($rail['upcoming_events'] as $event):
             <?= !( --$i) ? '' : '<div class="ui divider"></div>' //last item check ?>
         <?php endforeach; ?>
         <?php if (count($rail['upcoming_events']) == 0): ?>
-            <div class="ui message">Move along, nothing to see here.</div>
+            <div class="ui message">well my schedule is clear... what are you doing for the rest of your life?</div>
         <?php endif; ?>
     </div>
     <!-- contact container -->
@@ -112,46 +111,70 @@ foreach ($rail['upcoming_events'] as $event):
             <?= !( --$i) ? '' : '<div class="ui divider"></div>' //last item check ?>
         <?php endforeach; ?>
         <?php if (count($rail['contact']) == 0): ?>
-            <div class="ui error message">These aren't the droids you're looking for.</div>
+            <div class="ui error message">"help me obi-wan kenobi. you're my only hope!" ~luke</div>
         <?php endif; ?>
     </div>
     <!-- blockout container -->
-    <div class="ui segment">
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+<?php
+$i = count($rail['blockout_dates']);
+foreach ($rail['blockout_dates'] as $blockout):
+    ?>
+                $('#blockout_delete_<?= $i ?>')
+                        .api({
+                            action: 'blockout delete',
+                            url: '<?= base_url('/ajax/blockout-delete') . '/' . $auth_user_id . '/' . $blockout['start_date'] . '/' . $blockout['date_end'] ?>',
+                            beforeSend: function(settings) {
+                                $("#blockout_dimmer_<?= $i ?>").addClass('active');
+                                return settings;
+                            },
+                            onComplete: function(response) {
+                                $("#blockout_dimmer_<?= $i ?>").removeClass('active');
+                                if (response.success) {
+                                    $(".blockout_date_object_<?= $i ?>").remove();
+                                }
+                            }
+                        });
+    <?php
+    --$i;
+endforeach;
+?>
+        });
+    </script>
+    <div class="ui segment" id="blockout_container">
         <h4 class="ui horizontal divider header">
             <i class="small close icon"></i>
             Blockout Dates
         </h4>
-        <!-- blockout event -->
-        <div class="ui grid">
-            <div class="twelve wide column">
-                <h5 class="header">
-                    May 12th-May 14th
-                </h5>
-                Missing 0 events
+        <?php
+        $i = count($rail['blockout_dates']);
+        foreach ($rail['blockout_dates'] as $blockout):
+            ?>
+            <!-- blockout event -->
+            <div class="ui grid blockout_date_object blockout_date_object_<?= $i ?>">
+                <div class="ui inverted dimmer" id="blockout_dimmer_<?= $i ?>">
+                    <div class="ui small loader"></div>
+                </div>
+                <div class="twelve wide column">
+                    <h5 class="header">
+                        <?= $blockout['start_date'] == $blockout['date_end'] ? date('M jS', $blockout['start_date']) : date('M jS', $blockout['start_date']) . '-' . date('M jS', $blockout['date_end']) ?>
+                    </h5>
+                    <?= $blockout['reason'] ?>
+                </div>
+                <div class="four wide column">
+                    <button class="ui icon basic red button tiny navs_popup" id="blockout_delete_<?= $i ?>" data-content="Remove" data-position="top center">
+                        <i class="trash icon"></i>
+                    </button>
+                </div>
             </div>
-            <div class="four wide column">
-                <button class="ui icon basic red button tiny navs_popup" data-content="Remove" data-position="top center">
-                    <i class="trash icon"></i>
-                </button>
-            </div>
-        </div>
-        <!-- divider -->
-        <div class="ui divider"></div>
-        <!-- blockout event -->
-        <div class="ui grid">
-            <div class="twelve wide column">
-                <h5 class="header">
-                    Aug 12th-Aug 20th
-                </h5>
-                Missing 1 event
-            </div>
-            <div class="four wide column">
-                <button class="ui icon basic red button tiny navs_popup" data-content="Remove" data-position="top center">
-                    <i class="trash icon"></i>
-                </button>
-            </div>
-        </div>
-        <div class="ui centered grid">
+            <?= !( --$i) ? '' : '<div class="ui divider blockout_date_object_' . $i . '" ></div>' //last item check ?>
+        <?php endforeach; ?>
+        <?php if (count($rail['blockout_dates']) == 0): ?>
+            <div class="ui message" id="blockout_empty_message">"they may take our lives, but they'll never take our freedom!" ~braveheart</div>
+        <?php endif; ?>
+        <div class="ui centered grid" id="blockout_new_button">
             <div class="column">
                 <button class="ui button dark red basic" id="blockout_new_modal">
                     <i class="add square icon"></i>

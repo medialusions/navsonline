@@ -24,7 +24,7 @@ class User extends MY_Controller {
      * Redirect upon knowledge of login status
      */
     public function index() {
-        redirect('user/schedule');
+        $this->schedule();
     }
 
     /**
@@ -71,8 +71,8 @@ class User extends MY_Controller {
 
         $data['upcoming_events'] = $this->event->generate_upcoming($this->auth_user_id);
 
-        $data['rail'] = $this->user->generate_rail_data($this->auth_user_id);
-        
+        $data['sidebar'] = $this->user->generate_sidebar_data($this->auth_user_id);
+
         $this->load->view('schedule', $data);
     }
 

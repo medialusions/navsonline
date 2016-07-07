@@ -26,7 +26,8 @@
         $('#event_new_date').periodpicker({
             dayOfWeekStart: 7,
             formatDate: 'MM/DD/YYYY',
-            norange: true, // use only one valuecells: [1, 1],
+            norange: true,
+            cells: [1,1],
             withoutBottomPanel: true,
             yearsLine: false,
             title: false,

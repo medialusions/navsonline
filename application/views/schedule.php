@@ -1,14 +1,12 @@
 <?php $this->load->view('template/header'); ?>
 
 <!-- content -->
-<div class="ui middle aligned center aligned grid">
-    <div class="ui segment">
+<div id="main_content" class="ui stackable grid">
 
-        <?php $this->load->view('template/rail'); ?>
+    <!-- main content -->
+    <div class="ui eleven wide column">
 
-        <!-- main content -->
-        <div id="main_content">
-
+        <div class="ui segment">
             <!-- welcome message -->
             <div class="ui grid">
                 <div class="twelve wide column">
@@ -140,6 +138,8 @@
             </div>
         </div>
     </div>
+
+    <?php $this->load->view('template/sidebar'); ?>
 </div>
 
 

@@ -72,6 +72,7 @@
         $('#blockout_period_start').periodpicker({
             end: '#blockout_period_end',
             dayOfWeekStart: 7,
+            cells: [1,2],
             formatDate: 'MM/DD/YYYY',
             minDate: '<?= date('m/d/Y') ?>',
             norange: false,

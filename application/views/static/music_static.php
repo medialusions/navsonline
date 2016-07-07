@@ -4,7 +4,7 @@
 <div class="ui middle aligned center aligned grid">
     <div class="ui segment">
 
-        <?php $this->load->view('template/rail'); ?>
+        <?php $this->load->view('template/sidebar'); ?>
 
         <!-- main content -->
         <div id="main_content">

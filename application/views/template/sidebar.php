@@ -1,5 +1,5 @@
-<!-- left rail -->
-<div class="ui left close rail">
+<!-- left sidebar -->
+<div class="ui five wide column">
     <div class="ui segment">
         <h4 class="ui horizontal divider header">
             <i class="small unordered list icon"></i>
@@ -9,7 +9,7 @@
         <script type="text/javascript">
             $(document).ready(function() {
 <?php
-foreach ($rail['upcoming_events'] as $event):
+foreach ($sidebar['upcoming_events'] as $event):
     ?>
                     $('#event_confirm_<?= $event['id'] ?>')
                             .api({
@@ -51,8 +51,8 @@ foreach ($rail['upcoming_events'] as $event):
 <?php endforeach; ?>
             });</script>
         <?php
-        $i = count($rail['upcoming_events']);
-        foreach ($rail['upcoming_events'] as $event):
+        $i = count($sidebar['upcoming_events']);
+        foreach ($sidebar['upcoming_events'] as $event):
             ?>
             <!-- agenda event -->
             <div class="ui grid">
@@ -78,7 +78,7 @@ foreach ($rail['upcoming_events'] as $event):
             </div>
             <?= !( --$i) ? '' : '<div class="ui divider"></div>' //last item check ?>
         <?php endforeach; ?>
-        <?php if (count($rail['upcoming_events']) == 0): ?>
+        <?php if (count($sidebar['upcoming_events']) == 0): ?>
             <div class="ui message">well my schedule is clear... what are you doing for the rest of your life?</div>
         <?php endif; ?>
     </div>
@@ -89,8 +89,8 @@ foreach ($rail['upcoming_events'] as $event):
             Contact
         </h4>
         <?php
-        $i = count($rail['contact']);
-        foreach ($rail['contact'] as $contact):
+        $i = count($sidebar['contact']);
+        foreach ($sidebar['contact'] as $contact):
             ?>
             <!-- contact -->
             <div class="ui grid">
@@ -110,7 +110,7 @@ foreach ($rail['upcoming_events'] as $event):
             </div>
             <?= !( --$i) ? '' : '<div class="ui divider"></div>' //last item check ?>
         <?php endforeach; ?>
-        <?php if (count($rail['contact']) == 0): ?>
+        <?php if (count($sidebar['contact']) == 0): ?>
             <div class="ui error message">"help me obi-wan kenobi. you're my only hope!" ~luke</div>
         <?php endif; ?>
     </div>
@@ -119,8 +119,8 @@ foreach ($rail['upcoming_events'] as $event):
     <script type="text/javascript">
         $(document).ready(function() {
 <?php
-$i = count($rail['blockout_dates']);
-foreach ($rail['blockout_dates'] as $blockout):
+$i = count($sidebar['blockout_dates']);
+foreach ($sidebar['blockout_dates'] as $blockout):
     ?>
                 $('#blockout_delete_<?= $i ?>')
                         .api({
@@ -149,8 +149,8 @@ endforeach;
             Blockout Dates
         </h4>
         <?php
-        $i = count($rail['blockout_dates']);
-        foreach ($rail['blockout_dates'] as $blockout):
+        $i = count($sidebar['blockout_dates']);
+        foreach ($sidebar['blockout_dates'] as $blockout):
             ?>
             <!-- blockout event -->
             <div class="ui grid blockout_date_object blockout_date_object_<?= $i ?>">
@@ -171,7 +171,7 @@ endforeach;
             </div>
             <?= !( --$i) ? '' : '<div class="ui divider blockout_date_object_' . $i . '" ></div>' //last item check ?>
         <?php endforeach; ?>
-        <?php if (count($rail['blockout_dates']) == 0): ?>
+        <?php if (count($sidebar['blockout_dates']) == 0): ?>
             <div class="ui message" id="blockout_empty_message">"they may take our lives, but they'll never take our freedom!" ~braveheart</div>
         <?php endif; ?>
         <div class="ui centered grid" id="blockout_new_button">

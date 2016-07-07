@@ -17,7 +17,8 @@
                 padding: 23px 20px;
             }
             #main_content{
-                min-width: 750px;
+                max-width: 1100px;
+                margin: auto auto;
             }
         </style>
 
@@ -44,7 +45,7 @@
     <body>
 
         <div id="top_menu" class="ui inverted fixed top segment" style="background: #0b1426;">
-            <div class="ui inverted secondary pointing menu">
+            <div class="ui inverted secondary stackable pointing menu">
                 <div class="ui image small" style="margin-top: 11px;">
                     <img src="<?= base_url(); ?>logo/navsonline_400x108.png" class="image">
                 </div>
@@ -60,7 +61,7 @@
                     <i class="users icon"></i>
                     People
                 </a>
-                <div class="right menu">
+                <div class="ui secondary inverted stackable right pointing menu">
                     <a class="ui item <?= uri_string() == 'user/preferences' ? 'active' : '' ?>" href="<?= base_url('user/preferences'); ?>">
                         <i class="setting icon"></i>
                         Settings
@@ -72,6 +73,3 @@
                 </div>
             </div>
         </div>
-
-        <!-- spacer -->
-        <div style="width: 100%; height: 30px; display: block;"></div>

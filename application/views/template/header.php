@@ -4,6 +4,7 @@
         <title>NavsOnline<?= isset($title) ? ' | ' . $title : '' ?></title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" type="image/png" href="<?= base_url(); ?>logo/favicon.png"/>
         <script src='<?= base_url(); ?>js/jquery/dist/jquery.min.js'></script>
         <script src='<?= base_url(); ?>js/jquery/jquery-dateFormat.min.js'></script>
         <script src="<?= base_url(); ?>style/semantic/dist/semantic.min.js"></script> 

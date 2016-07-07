@@ -80,6 +80,8 @@ foreach ($sidebar['upcoming_events'] as $event):
         <?php endforeach; ?>
         <?php if (count($sidebar['upcoming_events']) == 0): ?>
             <div class="ui message">well my schedule is clear... what are you doing for the rest of your life?</div>
+        <?php else: ?>
+            <div class="ui basic message middle aligned">(<?= $sidebar['upcoming_events_count'] ?>) Total</div>
         <?php endif; ?>
     </div>
     <!-- contact container -->

@@ -29,7 +29,8 @@ class User_model extends MY_Model {
      * Generates the sidebar data for the left side
      */
     public function generate_sidebar_data() {
-        $data['upcoming_events'] = $this->event->generate_upcoming(config_item('auth_user_id'));
+        $data['upcoming_events_count'] = count($this->event->generate_upcoming(config_item('auth_user_id'), -1));
+        $data['upcoming_events'] = $this->event->generate_upcoming(config_item('auth_user_id'), 4);
         $data['contact'] = $this->organization->list_users(9);
         //clean up the old blockouts before returning the new
         $data['blockout_dates'] = $this->clean_blockouts(TRUE);

@@ -57,7 +57,7 @@ class Event_model extends MY_Model {
                 . ($user_id == '' ? '' : "AND  users_matrix LIKE '%$user_id%' ")
                 . "AND date > " . time() . " "
                 . "ORDER BY date ASC "
-                . "LIMIT $limit");
+                . ($limit > 0 ? "LIMIT $limit" : ''));
 
         //return the array
         return $query->result_array();

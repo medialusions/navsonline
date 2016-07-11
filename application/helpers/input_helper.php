@@ -51,3 +51,11 @@ function format_phone($unformatted_phone_number) {
         return 'err';
     }
 }
+
+/**
+ * Trims and sets the value of the object passed.
+ * @param String $value
+ */
+function trim_value(&$value) {
+    $value = trim($value);
+}

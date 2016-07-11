@@ -2,7 +2,31 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-<?php
+<?php if ($auth_level >= 9): ?>
+            $(".event_remove").click(function() {
+                var curr_button = this;
+                $('.confirm_modal')
+                        .modal('setting', 'closable', false)
+                        .modal('show')
+                        .modal({
+                            onApprove: function() {
+                                $(curr_button)
+                                        .api({
+                                            on: 'now',
+                                            onResponse: function(response) {
+                                                if (response && response.success) {
+                                                    $(curr_button).closest('tr').remove();
+                                                } else {
+                                                    $(curr_button).state('flash text', 'Error!');
+                                                }
+                                            }
+                                        });
+                                return true;
+                            }
+                        });
+            });
+    <?php
+endif;
 foreach ($upcoming_events as $event):
     ?>
             $('.event_confirm_<?= $event['id'] ?>')
@@ -61,7 +85,7 @@ foreach ($upcoming_events as $event):
                     </h1>
                 </div>
                 <div class="four wide column">
-                    <?php if ($auth_level >= 9): //admin required. modal included below ?>
+                    <?php if ($auth_level >= 9): //admin required. modal included below   ?>
                         <button class="ui button green basic tiny" id="event_new_modal">
                             <i class="add square icon"></i>
                             Add new event
@@ -101,15 +125,17 @@ foreach ($upcoming_events as $event):
                                 <td><?= date('g:ia', $event['date']) ?></td>
                                 <td><?= list_roles($event['roles_matrix'], $auth_user_id) ?></td>
                                 <td>
-                                    <a class="ui button basic blue tiny navs_popup" href="<?= base_url('event/view/' . $event['id']); ?>" data-content="View" data-position="top center">
+                                    <a class="ui icon basic blue button tiny navs_popup" href="<?= base_url('event/view/' . $event['id']); ?>" data-content="View" data-position="top center">
                                         <i class="unhide icon"></i>
-                                        View
+                                        <?= $auth_level < 9 ? 'View' : '' ?>
                                     </a>
-                                    <?php if ($auth_level >= 9): //admin required. modal included below ?>
-                                        <a class="ui button basic blue tiny navs_popup" href="<?= base_url('event/edit/' . $event['id']) ?>" data-content="Edit (admin)" data-position="top center">
+                                    <?php if ($auth_level >= 9): //admin required. modal included below   ?>
+                                        <a class="ui icon basic blue button tiny navs_popup" href="<?= base_url('event/edit/' . $event['id']) ?>" data-content="Edit (admin)" data-position="top center">
                                             <i class="write icon"></i>
-                                            Edit
                                         </a>
+                                        <button class="ui icon basic red button tiny navs_popup event_remove" data-action="event delete" data-eid="<?= $event['id'] ?>" data-content="Remove" data-position="top center">
+                                            <i class="trash icon"></i>
+                                        </button>
                                     <?php endif; ?>
                                 </td>
                                 <td>
@@ -128,7 +154,7 @@ foreach ($upcoming_events as $event):
                             </tr>
                         <?php endforeach; ?>
                     <tfoot>
-                        <tr><th><?= count($upcoming_events) . ' total' ?></th>
+                        <tr><th></th>
                             <th></th>
                             <th></th>
                             <th></th>

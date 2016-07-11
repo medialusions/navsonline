@@ -79,4 +79,48 @@ class Ajax extends MY_Controller {
             echo json_encode(array('success' => TRUE));
     }
 
+    public function event_delete($eid) {
+        $cookie = $this->verify_cookie();
+        $user_organizations = explode(',', $cookie['user_data']['organizations']);
+
+        //verify admin level
+        if ($cookie['user_data']['auth_level'] < 9) {
+            die(json_encode(array('success' => FALSE, 'message' => "You aren't authorized to do this procedure.")));
+        }
+        
+        //remove
+        $response = $this->event->delete($eid, $user_organizations[0]);
+
+        if ($response['success'])
+            echo json_encode(array('success' => TRUE, 'data' => $eid));
+        else
+            echo json_encode(array('success' => FALSE));
+    }
+
+    private function verify_cookie() {
+        $headers = getallheaders();
+        $cookies = explode(';', $headers['Cookie']);
+
+        //$cookie will have ci_session
+        foreach ($cookies as $cookie) {
+            $arr = explode('=', $cookie);
+            array_walk($arr, 'trim_value');
+            if ($arr[0] == 'ci_session') {
+                $cookie = $arr;
+                break;
+            }
+        }
+
+        //now get the session data
+        $query = $this->db->get_where('auth_sessions', array('id' => $arr[1]), 1);
+
+        //return the first
+        foreach ($query->result_array() as $row)
+            break;
+
+        $user_data = $this->user->generate_user_data($row['user_id']);
+        $row['user_data'] = $user_data;
+        return $row;
+    }
+
 }

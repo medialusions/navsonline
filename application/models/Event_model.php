@@ -101,4 +101,33 @@ class Event_model extends MY_Model {
             return array('success' => TRUE);
     }
 
+    /**
+     * Removes event if organization matches that of that event
+     * @param int $eid
+     * @param int $organization
+     * @return array Response
+     */
+    public function delete($eid, $organization = '') {
+        //get session organization if unset
+        if($organization == '')
+            $organization = $this->session->userdata('organization_id');
+        //verify organization first
+        $query = $this->db->query(""
+                . "SELECT organization FROM event "
+                . "WHERE id='$eid' ");
+        //grab the first/only one in $result
+        foreach ($query->result_array() as $result)
+            break;
+        $organization_db = $result['organization'];
+        if ($organization_db != $organization)
+            return array('success' => FALSE, 'reason' => 'Unauthorized. User has no control of this organization.');
+        //passed organization verification
+        //delete the row
+        $response = $this->db->delete('event', array('id' => $eid));
+        if (!$response)
+            return array('success' => FALSE, 'reason' => 'Database query error.');
+        else
+            return array('success' => TRUE);
+    }
+
 }

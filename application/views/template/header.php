@@ -39,7 +39,8 @@
                 'event confirm': '<?= base_url('/ajax/event-confirm'); ?>/{eid}/{uid}',
                 'event deny': '<?= base_url('/ajax/event-deny'); ?>/{eid}/{uid}',
                 'blockout add': '<?= base_url('/ajax/blockout-add'); ?>',
-                'blockout delete': '<?= base_url('/ajax/blockout-delete'); ?>/{uid}/{db}/{de}'
+                'blockout delete': '<?= base_url('/ajax/blockout-delete'); ?>/{uid}/{db}/{de}',
+                'event delete': '<?= base_url('/ajax/event-delete'); ?>/{eid}'
             };
         </script>
     </head>

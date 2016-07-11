@@ -132,11 +132,15 @@ class Ajax extends MY_Controller {
         foreach ($query->result_array() as $row)
             break;
 
+        //fetch user data and return it all
         $user_data = $this->user->generate_user_data($row['user_id']);
         $row['user_data'] = $user_data;
         return $row;
     }
 
+    /**
+     * @param id $uid To be verified against cookie data. 
+     */
     public function verify_user($uid) {
         //cookie verification
         $cookie = $this->verify_cookie();
@@ -146,6 +150,9 @@ class Ajax extends MY_Controller {
             die(json_encode(array('success' => FALSE, 'message' => "You aren't authorized to do this procedure.")));
     }
 
+    /**
+     * @param id $level To be verified against cookie data. 
+     */
     public function verify_min_level($level) {
         $cookie = $this->verify_cookie();
         //verify admin level

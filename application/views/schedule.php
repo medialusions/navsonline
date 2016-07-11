@@ -93,7 +93,7 @@ foreach ($upcoming_events as $event):
                             <!-- agenda template -->
                             <tr>
                                 <td>
-                                    <a href="#">
+                                    <a href="<?= base_url('event/view/' . $event['id']); ?>">
                                         <?= $event['name'] ?>
                                     </a>
                                 </td>

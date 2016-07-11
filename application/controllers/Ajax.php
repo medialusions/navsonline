@@ -19,6 +19,8 @@ class Ajax extends MY_Controller {
      * @return void
      */
     public function event_confirm($eid, $uid, $value = TRUE) {
+        //verify user with cookie data
+        $this->verify_user($uid);
         //call the model function
         $response = $this->event->confirm($eid, $uid, $value);
         echo json_encode($response);
@@ -28,6 +30,7 @@ class Ajax extends MY_Controller {
      * See event_confirm($eid, $uid, FALSE)
      */
     public function event_deny($eid, $uid) {
+        //confirm it
         $this->event_confirm($eid, $uid, FALSE);
     }
 
@@ -45,6 +48,9 @@ class Ajax extends MY_Controller {
         $reason = $this->input->get('reason');
         $uid = $this->input->get('uid');
 
+        //verify user with cookie data
+        $this->verify_user($uid);
+
         //send it to the model
         $result = $this->user->add_blockout($date_begin, $date_end, $reason, $uid);
         echo json_encode($result);
@@ -58,6 +64,9 @@ class Ajax extends MY_Controller {
      * @return void
      */
     public function blockout_delete($uid, $date_begin, $date_end) {
+        //verify user with cookie data
+        $this->verify_user($uid);
+
         //get all
         $blockouts = $this->user->get_blockouts($uid);
 
@@ -79,15 +88,17 @@ class Ajax extends MY_Controller {
             echo json_encode(array('success' => TRUE));
     }
 
+    /**
+     * Controller function to remove the event. Verifies with cookie auth level.
+     * @param int $eid ID of the cookie.
+     */
     public function event_delete($eid) {
         $cookie = $this->verify_cookie();
         $user_organizations = explode(',', $cookie['user_data']['organizations']);
 
         //verify admin level
-        if ($cookie['user_data']['auth_level'] < 9) {
-            die(json_encode(array('success' => FALSE, 'message' => "You aren't authorized to do this procedure.")));
-        }
-        
+        $this->verify_min_level(9);
+
         //remove
         $response = $this->event->delete($eid, $user_organizations[0]);
 
@@ -97,6 +108,9 @@ class Ajax extends MY_Controller {
             echo json_encode(array('success' => FALSE));
     }
 
+    /**
+     * @return array All user data pertaining to the current ci_session cookie that was sent.
+     */
     private function verify_cookie() {
         $headers = getallheaders();
         $cookies = explode(';', $headers['Cookie']);
@@ -121,6 +135,22 @@ class Ajax extends MY_Controller {
         $user_data = $this->user->generate_user_data($row['user_id']);
         $row['user_data'] = $user_data;
         return $row;
+    }
+
+    public function verify_user($uid) {
+        //cookie verification
+        $cookie = $this->verify_cookie();
+        $user_id = $cookie['user_id'];
+        //verify user id
+        if ($user_id != $uid)
+            die(json_encode(array('success' => FALSE, 'message' => "You aren't authorized to do this procedure.")));
+    }
+
+    public function verify_min_level($level) {
+        $cookie = $this->verify_cookie();
+        //verify admin level
+        if ($cookie['user_data']['auth_level'] < $level)
+            die(json_encode(array('success' => FALSE, 'message' => "You aren't authorized to do this procedure.")));
     }
 
 }

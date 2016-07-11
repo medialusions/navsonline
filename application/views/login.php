@@ -20,9 +20,6 @@ and open the template in the editor.
             body > .grid {
                 height: 100%;
             }
-            .image {
-                margin-top: -100px;
-            }
             .column {
                 max-width: 450px;
             }
@@ -49,9 +46,11 @@ and open the template in the editor.
 
         <div class="ui middle aligned center aligned grid">
             <div class="column">
-                <h2 class="ui image medium">
-                    <img src="<?= base_url(); ?>logo/navsonline_400x108.png" class="image">
-                </h2>
+                <a href="<?= base_url(''); ?>">
+                    <div class="ui image medium">
+                        <img src="<?= base_url(); ?>logo/navsonline_400x108.png" class="image">
+                    </div>
+                </a>
 
                 <h1 class="ui top attached center aligned header">
                     Welcome

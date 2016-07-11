@@ -49,7 +49,7 @@ foreach ($upcoming_events as $event):
 <div id="main_content" class="ui stackable grid">
 
     <!-- main content -->
-    <div class="ui eleven wide column">
+    <div class="ui twelve wide column">
 
         <div class="ui segment">
             <!-- welcome message -->

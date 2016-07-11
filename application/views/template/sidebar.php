@@ -1,5 +1,5 @@
 <!-- left sidebar -->
-<div class="ui five wide column">
+<div class="ui four wide column">
     <div class="ui segment">
         <h4 class="ui horizontal divider header">
             <i class="small unordered list icon"></i>
@@ -58,12 +58,14 @@
                     </a>
                 </div>
                 <div class="six wide column">
-                    <button class="ui left attached icon basic button tiny navs_popup" data-content="<?= $contact['email'] ?>" data-position="top center">
-                        <i class="mail icon"></i>
-                    </button>
-                    <button class="ui right attached icon basic button tiny navs_popup" data-content="<?= format_phone($contact['phone']) ?>" data-position="top center">
-                        <i class="phone icon"></i>
-                    </button>
+                    <div class="ui icon buttons tiny">
+                        <button class="ui basic button tiny navs_popup" data-content="<?= $contact['email'] ?>" data-position="top center">
+                            <i class="mail icon"></i>
+                        </button>
+                        <button class="ui basic button tiny navs_popup" data-content="<?= format_phone($contact['phone']) ?>" data-position="top center">
+                            <i class="phone icon"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
             <?= !( --$i) ? '' : '<div class="ui divider"></div>' //last item check ?>
@@ -134,7 +136,7 @@ endforeach;
         <?php endif; ?>
         <div class="ui centered grid" id="blockout_new_button">
             <div class="column">
-                <button class="ui button dark red basic" id="blockout_new_modal">
+                <button class="ui button dark red basic tiny" id="blockout_new_modal">
                     <i class="add square icon"></i>
                     Add blockout date
                 </button>

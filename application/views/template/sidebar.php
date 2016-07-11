@@ -7,6 +7,55 @@
         </h4>
         <!-- agenda container -->
         <?php
+        // useful for displaying the js when not in the schedule page
+        if (uri_string() != '' || uri_string() != 'user/schedule'):
+            ?>
+            <script type="text/javascript">
+                $(document).ready(function() {
+    <?php
+    foreach ($sidebar['upcoming_events'] as $event):
+        ?>
+                        $('.event_confirm_<?= $event['id'] ?>')
+                                .api({
+                                    action: 'event confirm',
+                                    beforeSend: function(settings) {
+                                        $(".event_dimmer_<?= $event['id'] ?>").addClass('active');
+                                        return settings;
+                                    },
+                                    onComplete: function(response) {
+                                        $(".event_dimmer_<?= $event['id'] ?>").removeClass('active');
+                                        if (response.success) {
+                                            $(".event_confirm_<?= $event['id'] ?>").removeClass('grey');
+                                            $(".event_confirm_<?= $event['id'] ?>").addClass('green');
+                                            //set other as grey
+                                            $(".event_deny_<?= $event['id'] ?>").removeClass('red');
+                                            $(".event_deny_<?= $event['id'] ?>").addClass('grey');
+                                        }
+                                    }
+                                });
+                        $('.event_deny_<?= $event['id'] ?>')
+                                .api({
+                                    action: 'event deny',
+                                    beforeSend: function(settings) {
+                                        $(".event_dimmer_<?= $event['id'] ?>").addClass('active');
+                                        return settings;
+                                    },
+                                    onComplete: function(response) {
+                                        $(".event_dimmer_<?= $event['id'] ?>").removeClass('active');
+                                        if (response.success) {
+                                            //set current as red
+                                            $(".event_deny_<?= $event['id'] ?>").removeClass('grey');
+                                            $(".event_deny_<?= $event['id'] ?>").addClass('red');
+                                            //set other as grey
+                                            $(".event_confirm_<?= $event['id'] ?>").removeClass('green');
+                                            $(".event_confirm_<?= $event['id'] ?>").addClass('grey');
+                                        }
+                                    }
+                                });
+    <?php endforeach; ?>
+                });</script>
+        <?php endif; ?>
+        <?php
         $i = count($sidebar['upcoming_events']);
         foreach ($sidebar['upcoming_events'] as $event):
             ?>

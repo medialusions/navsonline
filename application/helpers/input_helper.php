@@ -38,6 +38,11 @@ function verify_date($date, $unix = TRUE) {
     return true;
 }
 
+/**
+ * Input 10 digit int and returns formatted phone number like (303) 555-5555
+ * @param int $unformatted_phone_number
+ * @return string Formatted phone number
+ */
 function format_phone($unformatted_phone_number) {
     $ph = $unformatted_phone_number;
     if (strlen($unformatted_phone_number . '') == 10) {

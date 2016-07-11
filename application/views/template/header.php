@@ -47,9 +47,9 @@
 
         <div id="top_menu" class="ui inverted fixed top segment" style="background: #0b1426;">
             <div class="ui inverted secondary stackable pointing menu">
-                <div class="ui image small" style="margin-top: 11px;">
+                <a class="ui image small" style="margin-top: 11px;" href="<?= base_url('') ?>">
                     <img src="<?= base_url(); ?>logo/navsonline_400x108.png" class="image">
-                </div>
+                </a>
                 <a class="item <?= uri_string() == 'user/schedule' || uri_string() == '' ? 'active' : '' ?>" style="margin-left:25px;" href="<?= base_url('user/schedule'); ?>">
                     <i class="unordered list icon"></i>
                     Schedule

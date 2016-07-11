@@ -45,7 +45,8 @@ and open the template in the editor.
                     </div>
                 </div>
                 <div class="ui message">
-                    If you think this is an accident, contact your local admin.
+                    If you think this is an accident, contact your local admin.<br/>
+                    If it's any consolation, your ban is not personal. I think that, deep down, you are a good person/robot/criminal. That, though, is quite personal.
                 </div>
             </div>
         </div>

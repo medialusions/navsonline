@@ -84,7 +84,7 @@ class User extends MY_Controller {
 
         $data['user'] = $this->user->generate_user_data($this->auth_user_id);
 
-        $this->load->view('music_static', $data);
+        $this->load->view('static/music_static', $data);
     }
 
 }

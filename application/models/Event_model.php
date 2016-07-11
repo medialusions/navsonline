@@ -49,6 +49,8 @@ class Event_model extends MY_Model {
      * Returns next dates. Change limit with param
      */
     public function generate_upcoming($user_id = '', $limit = 4) {
+        //Ensure organization is set
+        $this->organization_id = $this->session->userdata('organization_id');
         //build upcoming query
         $query = $this->db->query(""
                 . "SELECT * "

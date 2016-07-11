@@ -1,5 +1,50 @@
 <?php $this->load->view('template/header'); ?>
 
+<script type="text/javascript">
+    $(document).ready(function() {
+<?php
+foreach ($upcoming_events as $event):
+    ?>
+            $('.event_confirm_<?= $event['id'] ?>')
+                    .api({
+                        action: 'event confirm',
+                        beforeSend: function(settings) {
+                            $(".event_dimmer_<?= $event['id'] ?>").addClass('active');
+                            return settings;
+                        },
+                        onComplete: function(response) {
+                            $(".event_dimmer_<?= $event['id'] ?>").removeClass('active');
+                            if (response.success) {
+                                $(".event_confirm_<?= $event['id'] ?>").removeClass('grey');
+                                $(".event_confirm_<?= $event['id'] ?>").addClass('green');
+                                //set other as grey
+                                $(".event_deny_<?= $event['id'] ?>").removeClass('red');
+                                $(".event_deny_<?= $event['id'] ?>").addClass('grey');
+                            }
+                        }
+                    });
+            $('.event_deny_<?= $event['id'] ?>')
+                    .api({
+                        action: 'event deny',
+                        beforeSend: function(settings) {
+                            $(".event_dimmer_<?= $event['id'] ?>").addClass('active');
+                            return settings;
+                        },
+                        onComplete: function(response) {
+                            $(".event_dimmer_<?= $event['id'] ?>").removeClass('active');
+                            if (response.success) {
+                                //set current as red
+                                $(".event_deny_<?= $event['id'] ?>").removeClass('grey');
+                                $(".event_deny_<?= $event['id'] ?>").addClass('red');
+                                //set other as grey
+                                $(".event_confirm_<?= $event['id'] ?>").removeClass('green');
+                                $(".event_confirm_<?= $event['id'] ?>").addClass('grey');
+                            }
+                        }
+                    });
+<?php endforeach; ?>
+    });</script>
+
 <!-- content -->
 <div id="main_content" class="ui stackable grid">
 
@@ -33,102 +78,59 @@
                 <table class="ui very basic table">
                     <thead>
                         <tr>
-                            <th class="">Event</th>
+                            <th class="">Title</th>
                             <th class="">Date</th>
-                            <th class="">Your Role</th>
+                            <th class="">Time</th>
+                            <th class="">Your Role(s)</th>
                             <th class="">Actions</th>
+                            <th class="">Availability</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- agenda template -->
-                        <tr>
-                            <td>
-                                <a href="#">
-                                    Nav Night
-                                </a>
-                            </td>
-                            <td>Aug 14th</td>
-                            <td>Lead Guitar, Vocals</td>
-                            <td>
-                                <div class="ui icon buttons tiny">
-                                    <button class="ui button basic blue tiny navs_popup" data-content="View" data-position="top center">
+                        <?php
+                        foreach ($upcoming_events as $event):
+                            ?>
+                            <!-- agenda template -->
+                            <tr>
+                                <td>
+                                    <a href="#">
+                                        <?= $event['name'] ?>
+                                    </a>
+                                </td>
+                                <td><?= date('M jS', $event['date']) ?></td>
+                                <td><?= date('g:ia', $event['date']) ?></td>
+                                <td><?= list_roles($event['roles_matrix'], $auth_user_id) ?></td>
+                                <td>
+                                    <a class="ui button basic blue tiny navs_popup" href="<?= base_url('event/view/' . $event['id']); ?>" data-content="View" data-position="top center">
                                         <i class="unhide icon"></i>
-                                    </button>
-                                    <button class="ui button basic blue tiny navs_popup" data-content="Edit (admin)" data-position="top center">
-                                        <i class="write icon"></i>
-                                    </button>
-                                </div>
-                                <div class="ui icon buttons tiny">
-                                    <button class="ui button basic green tiny navs_popup" data-content="Confirm" data-position="top center">
-                                        <i class="check icon"></i>
-                                    </button>
-                                    <button class="ui button basic red tiny navs_popup" data-content="Deny" data-position="top center">
-                                        <i class="close icon"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <!-- end template -->
-                        <!-- agenda template -->
-                        <tr>
-                            <td>
-                                <a href="#">
-                                    Nav Night
-                                </a>
-                            </td>
-                            <td>Aug 14th</td>
-                            <td>Lead Guitar, Vocals</td>
-                            <td>
-                                <div class="ui icon buttons tiny">
-                                    <button class="ui button basic blue tiny navs_popup" data-content="View" data-position="top center">
-                                        <i class="unhide icon"></i>
-                                    </button>
-                                    <button class="ui button basic blue tiny navs_popup" data-content="Edit (admin)" data-position="top center">
-                                        <i class="write icon"></i>
-                                    </button>
-                                </div>
-                                <div class="ui icon buttons tiny">
-                                    <button class="ui button basic green tiny navs_popup" data-content="Confirm" data-position="top center">
-                                        <i class="check icon"></i>
-                                    </button>
-                                    <button class="ui button basic red tiny navs_popup" data-content="Deny" data-position="top center">
-                                        <i class="close icon"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <!-- end template -->
-                        <!-- agenda template -->
-                        <tr>
-                            <td>
-                                <a href="#">
-                                    Nav Night
-                                </a>
-                            </td>
-                            <td>Aug 14th</td>
-                            <td>Lead Guitar, Vocals</td>
-                            <td>
-                                <div class="ui icon buttons tiny">
-                                    <button class="ui button basic blue tiny navs_popup" data-content="View" data-position="top center">
-                                        <i class="unhide icon"></i>
-                                    </button>
-                                    <button class="ui button basic blue tiny navs_popup" data-content="Edit (admin)" data-position="top center">
-                                        <i class="write icon"></i>
-                                    </button>
-                                </div>
-                                <div class="ui icon buttons tiny">
-                                    <button class="ui button basic green tiny navs_popup" data-content="Confirm" data-position="top center">
-                                        <i class="check icon"></i>
-                                    </button>
-                                    <button class="ui button basic red tiny navs_popup" data-content="Deny" data-position="top center">
-                                        <i class="close icon"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <!-- end template -->
+                                        View
+                                    </a>
+                                    <?php if ($auth_level >= 9): //admin required. modal included below ?>
+                                        <a class="ui button basic blue tiny navs_popup" href="<?= base_url('event/edit/' . $event['id']) ?>" data-content="Edit (admin)" data-position="top center">
+                                            <i class="write icon"></i>
+                                            Edit
+                                        </a>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                    <div class="ui inverted dimmer event_dimmer_<?= $event['id'] ?>">
+                                        <div class="ui small loader"></div>
+                                    </div>
+                                    <div class="ui icon buttons tiny">
+                                        <button class="event_confirm_<?= $event['id'] ?> ui basic button tiny navs_popup <?= matrix_decode($event['users_matrix'], $auth_user_id, 'confirmed') == true ? 'green' : 'grey' ?>" data-eid="<?= $event['id'] ?>" data-uid="<?= $auth_user_id ?>" data-content="Confirm" data-position="top center" >
+                                            <i class="check icon"></i>
+                                        </button>
+                                        <button class="event_deny_<?= $event['id'] ?> ui basic button tiny navs_popup <?= matrix_decode($event['users_matrix'], $auth_user_id, 'confirmed') == true ? 'grey' : 'red' ?>" data-eid="<?= $event['id'] ?>" data-uid="<?= $auth_user_id ?>" data-content="Deny" data-position="top center">
+                                            <i class="close icon"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
                     <tfoot>
-                        <tr><th></th>
+                        <tr><th><?= count($upcoming_events) . ' total' ?></th>
+                            <th></th>
+                            <th></th>
                             <th></th>
                             <th></th>
                             <th></th>

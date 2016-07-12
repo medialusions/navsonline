@@ -70,7 +70,8 @@ class Ajax extends MY_Controller {
         foreach ($search_result as $row) {
             array_push($result['results'], array(
                 "title" => $row['name'],
-                "id" => $row['id']
+                "id" => $row['id'],
+                "link" => $row['link']
             ));
         }
         echo json_encode($result);

@@ -28,17 +28,84 @@
         $(".media_new_modal_button").click(function(event) {
             event.preventDefault();
         });
+        
+        
         //chord matrix adder
+        $("#chord_matrix_table").hide();
         $("#chord_matrix_button").click(function(event) {
             event.preventDefault();
-            //submitted. now use data
+            //show the table
+            $("#chord_matrix_table").show();
             //ERROR: #chord_matrix_error > p
-        });
-        //chord matric deleter
-        $(".chord_matrix_delete").click(function(event) {
-            event.preventDefault();
+            if ($("input[name='media_chord']").val() === '' || $("input[name='chart_key']").val() === '') {
+                $("#chord_matrix_error").children("p").text("Enter the key AND select a file.");
+                $("#chord_matrix_error").show();
+                return false;
+            } else {
+                $("#chord_matrix_error").hide();
+            }
+            var key = $("input[name='chart_key']").val();
+            var data = JSON.parse($("input[name='media_chord']").val());
+            data.key = key;
+            //insert it
+            insert_chord_row(data);
         });
     });
+    //Input #chord_matrix
+    //Table #chord_matrix_table > tbody
+    function chord_matrix_table() {
+        var data = JSON.parse($("#chord_matrix").val());
+        var html = [];
+        $.each(data, function(i, data) {
+            //create object
+            var tr = [
+                '<tr><td>' + data.key + '</td><td><a target="_blank" href="<?= base_url() ?>' + data.link + '">' + data.title + '</a></td><td>',
+                '<button class="ui icon basic red button tiny chord_matrix_delete" data-key="' + data.key + '" ><i class="trash icon"></i></button>',
+                '</td></tr>'
+            ];
+            tr = $(tr.join(''));
+            html.push(tr);
+        });
+        $("#chord_matrix_table > tbody").html(html);
+
+        //register chord matrix deleter
+        $(".chord_matrix_delete").click(function(event) {
+            event.preventDefault();
+            var key = $(this).attr("data-key");
+            delete_chord_row(key);
+        });
+    }
+
+    function insert_chord_row(data) {
+        var current = JSON.parse($("#chord_matrix").val());
+
+        //remove the old key if adding another
+        var clean = [];
+        $.each(current, function(i, curr) {
+            if (data.key !== curr.key) {
+                clean.push(curr);
+            }
+        });
+
+        clean.push(data);
+        $("#chord_matrix").val(JSON.stringify(clean));
+        chord_matrix_table();
+    }
+
+    function delete_chord_row(key) {
+        var current = JSON.parse($("#chord_matrix").val());
+
+        //remove the old key if adding another
+        var clean = [];
+        $.each(current, function(i, curr) {
+            if (key !== curr.key) {
+                clean.push(curr);
+            }
+        });
+
+        $("#chord_matrix").val(JSON.stringify(clean));
+        chord_matrix_table();
+    }
 </script>
 <div class="ui arrangement_new_modal modal">
     <i class="close icon"></i>
@@ -150,7 +217,6 @@
         <!-- chords -->
         <h4 class="ui dividing header">Chords</h4>
         <div class="ui error message" id="chord_matrix_error">
-            <i class="close icon"></i>
             <p></p>
         </div>
         <div class="field">
@@ -184,6 +250,7 @@
                             <i class="table icon"></i>
                         </div>
                     </div>
+                    <input name="media_chord" type="hidden" value="">
                 </div>
                 <div class="field">
                     <button class="ui button teal basic" id="chord_matrix_button">
@@ -191,11 +258,11 @@
                         Add Chord Variation
                     </button>
                 </div>
-                <input name="media_chord" type="hidden" value="">
             </div>
         </div>
         <div class="field">
-            <table class="ui small teal table">
+            <input type="hidden" name="chord_matrix" id="chord_matrix" value="[]">
+            <table class="ui small teal table" id="chord_matrix_table">
                 <thead>
                     <tr>
                         <th>Key</th>
@@ -204,15 +271,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>G</td>
-                        <td>All I Can Say - G.pdf</td>
-                        <td>
-                            <button class="ui icon basic red button tiny chord_matrix_delete" >
-                                <i class="trash icon"></i>
-                            </button>
-                        </td>
-                    </tr>
+                    
                 </tbody>
             </table>
         </div>

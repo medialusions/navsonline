@@ -48,7 +48,7 @@
                             },
                             cache: false,
                             onSelect: function(result, response) {
-                                $(this).next().val(result.id);
+                                $(this).next().val(JSON.stringify(result));
                             }
                         });
                 $('.ui.search.media_lyrics')
@@ -58,7 +58,7 @@
                             },
                             cache: false,
                             onSelect: function(result, response) {
-                                $(this).next().val(result.id);
+                                $(this).next().val(JSON.stringify(result));
                             }
                         });
                 $('.ui.search.media_audio')
@@ -68,7 +68,7 @@
                             },
                             cache: false,
                             onSelect: function(result, response) {
-                                $(this).next().val(result.id);
+                                $(this).next().val(JSON.stringify(result));
                             }
                         });
             });

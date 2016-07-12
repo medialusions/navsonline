@@ -31,6 +31,7 @@ class MY_Controller extends Auth_Controller {
         $this->load->model('organization_model', 'organization', TRUE);
         $this->load->model('user_model', 'user', TRUE);
         $this->load->model('media_model', 'media', TRUE);
+        $this->load->model('arrangement_model', 'arrangement', TRUE);
         
         //upload class
         $config['upload_path'] = 'media/';

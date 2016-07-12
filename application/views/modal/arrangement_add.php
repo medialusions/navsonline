@@ -2,7 +2,6 @@
     $(document).ready(function() {
         //instantiate modal
         $('.ui.arrangement_new_modal')
-                .modal({blurring: false})
                 .modal('attach events', '#arrangement_new_modal', 'show');
 
         //instantiate form
@@ -19,17 +18,15 @@
             //get video type and put it inside of input
             $("#video_type").val($("#video_type_text").html());
             //submit the form
-            //$('#arrangement_new_modal_form').submit();
-            if ($('#arrangement_new_modal_form').form('is valid'))
-                $('.ui.arrangement_new_modal').modal('hide');
+            $('#arrangement_new_modal_form').submit();
         });
 
         //when opening modal, don't submit form
         $(".media_new_modal_button").click(function(event) {
             event.preventDefault();
         });
-        
-        
+
+
         //chord matrix adder
         $("#chord_matrix_table").hide();
         $("#chord_matrix_button").click(function(event) {
@@ -40,6 +37,8 @@
             if ($("input[name='media_chord']").val() === '' || $("input[name='chart_key']").val() === '') {
                 $("#chord_matrix_error").children("p").text("Enter the key AND select a file.");
                 $("#chord_matrix_error").show();
+                //refresh modal scroll
+                $('.ui.arrangement_new_modal').modal('refresh');
                 return false;
             } else {
                 $("#chord_matrix_error").hide();
@@ -55,6 +54,10 @@
     //Table #chord_matrix_table > tbody
     function chord_matrix_table() {
         var data = JSON.parse($("#chord_matrix").val());
+        //just hide the table if the length is 0
+        if(data.length === 0)
+            $("#chord_matrix_table").hide();
+        
         var html = [];
         $.each(data, function(i, data) {
             //create object
@@ -74,6 +77,8 @@
             var key = $(this).attr("data-key");
             delete_chord_row(key);
         });
+        //refresh modal scroll
+        $('.ui.arrangement_new_modal').modal('refresh');
     }
 
     function insert_chord_row(data) {
@@ -107,13 +112,14 @@
         chord_matrix_table();
     }
 </script>
-<div class="ui arrangement_new_modal modal">
+<div class="ui long modal arrangement_new_modal">
     <i class="close icon"></i>
     <div class="header">
         New Arrangement for <em><?= $song['title'] ?></em>
     </div>
     <div class="content">
         <?= form_open('music/add-arrangement', ['class' => 'ui large form', 'id' => 'arrangement_new_modal_form']) ?>
+        <input type="hidden" name="song" value="<?= $song['id'] ?>">
         <div class="ui error message"></div>
         <!-- artist -->
         <h4 class="ui dividing header">Artist</h4>
@@ -190,7 +196,7 @@
             <div class="three fields">
                 <div class="field">
                     <label>Video Link</label>
-                    <input type="text" class="ui inline very basic" name="video_identifier" placeholder="e.g. https://www.youtube.com/watch?v=9bZkp7q19f0">
+                    <input type="text" class="ui inline very basic" name="video" placeholder="e.g. https://www.youtube.com/watch?v=9bZkp7q19f0">
                 </div>
                 <div class="field">
                     <label>Audio</label>
@@ -271,7 +277,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    
+
                 </tbody>
             </table>
         </div>

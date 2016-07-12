@@ -21,10 +21,7 @@
                 $('.ui.music_new_modal').model('hide');
         });
 
-        $('.nav_tags')
-                .dropdown({
-                    allowAdditions: true
-                });
+        
     });
 </script>
 <div class="ui music_new_modal modal">

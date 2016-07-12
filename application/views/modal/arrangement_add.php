@@ -25,11 +25,6 @@
                 $('.ui.arrangement_new_modal').modal('hide');
         });
 
-        $('.dropdown').dropdown();
-        $('.dropdown.additions').dropdown({
-            allowAdditions: true
-        });
-
         // create an observer instance
         var observer = new MutationObserver(function(mutations) {
             mutations.forEach(function(mutation) {
@@ -136,6 +131,7 @@
                 </div>
                 <div class="field">
                     <label>Audio</label>
+                    <button class="ui button media_new_modal_button">Media Uploader</button>
                 </div>
                 <div class="field">
                     <label>Lyrics</label>

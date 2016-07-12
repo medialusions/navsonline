@@ -70,6 +70,7 @@
 <?php
 if ($auth_level >= 9):
     $this->load->view('modal/arrangement_add');
+    $this->load->view('modal/media_add');
 endif;
 
 $this->load->view('template/footer');

@@ -26,6 +26,13 @@
         <script>
             $(document).ready(function() {
                 $('.navs_popup').popup();
+                $('.dropdown').dropdown();
+                $('.dropdown.additions').dropdown({
+                    allowAdditions: true
+                });
+                $('.nav_tags').dropdown({
+                    allowAdditions: true
+                });
 
                 setTimeout(function() {
                     $('.dismissing_message')

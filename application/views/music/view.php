@@ -69,7 +69,7 @@
 
 <?php
 if ($auth_level >= 9):
-    $this->load->view('modal/event_new');
+    $this->load->view('modal/arrangement_add');
 endif;
 
 $this->load->view('template/footer');

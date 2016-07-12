@@ -59,3 +59,10 @@ function format_phone($unformatted_phone_number) {
 function trim_value(&$value) {
     $value = trim($value);
 }
+
+/**
+ * 
+ */
+function get_artists() {
+    
+}

@@ -69,7 +69,7 @@
 
 <?php
 if ($auth_level >= 9):
-    $this->load->view('modal/music_new');
+    $this->load->view('modal/song_new');
 endif;
 
 $this->load->view('template/footer');

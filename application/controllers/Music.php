@@ -32,6 +32,10 @@ class Music extends MY_Controller {
         redirect('music/edit/' . $event_id);
     }
 
+    public function add_arrangement() {
+        
+    }
+
     /**
      * Loads and gets data for schedule page
      */

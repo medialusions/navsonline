@@ -7,7 +7,7 @@ $autoload['packages'] = array(
 );
 
 $autoload['libraries'] = array(
-    'database', 'session', 'tokens', 'Authentication'
+    'database', 'session', 'tokens', 'Authentication', 'upload'
 );
 
 $autoload['drivers'] = array();

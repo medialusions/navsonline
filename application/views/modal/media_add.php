@@ -5,13 +5,7 @@
                 .modal('attach events', '.media_new_modal_button', 'show');
 
         $('#media_new_modal_form')
-                .form({
-                    fields: {
-                        file: 'empty',
-                        name: 'empty',
-                        file: 'empty'
-                    }
-                });
+                .form({fields: {file: 'empty'}});
 
         $('#media_new_modal_form_submit').click(function() {
             $('#media_new_modal_form').submit();
@@ -54,12 +48,8 @@
         Media Uploader
     </div>
     <div class="content">
-        <?= form_open('music/add-media', ['class' => 'ui large form', 'id' => 'media_new_modal_form']) ?>
+        <?= form_open_multipart('music/add-media', ['class' => 'ui large form', 'id' => 'media_new_modal_form']) ?>
         <div class="ui error message"></div>
-        <div class="field">
-            <label>Name</label>
-            <input type="text" name="name" placeholder="Name">
-        </div>
         <div class="field">
             <div class="two fields">
                 <div class="field">
@@ -82,7 +72,7 @@
                             <i class="arrow up icon"></i>
                             Choose File
                         </button>
-                        <input type="text" placeholder="no file selected" id="file_text_field" value="" readonly>
+                        <input type="text" placeholder="no file selected" name="name" id="file_text_field" value="" readonly>
                     </div>
                     <input type="file" id="hidden_file_picker" name="file" style="display: none">
                 </div>

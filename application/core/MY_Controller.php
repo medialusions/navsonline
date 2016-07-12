@@ -30,6 +30,7 @@ class MY_Controller extends Auth_Controller {
         $this->load->model('song_model', 'song', TRUE);
         $this->load->model('organization_model', 'organization', TRUE);
         $this->load->model('user_model', 'user', TRUE);
+        $this->load->model('upload_model', 'upload_model', TRUE);
     }
 
 }

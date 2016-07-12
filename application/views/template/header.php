@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>NavsOnline<?= isset($title) ? ' | ' . $title : '' ?></title>
+        <title><?= isset($title) ? $title . ' | ' : '' ?>NavsOnline</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" type="image/png" href="<?= base_url(); ?>logo/favicon.png"/>

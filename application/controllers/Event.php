@@ -10,13 +10,6 @@ class Event extends MY_Controller {
     public function __construct() {
         parent::__construct();
 
-        //load models
-        $this->load->model('blockout_model', 'blockout', TRUE);
-        $this->load->model('event_model', 'event', TRUE);
-        $this->load->model('music_model', 'music', TRUE);
-        $this->load->model('organization_model', 'organization', TRUE);
-        $this->load->model('user_model', 'user', TRUE);
-
         //helpers
         $this->load->helper('form');
     }

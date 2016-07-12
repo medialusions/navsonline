@@ -27,6 +27,7 @@ class MY_Controller extends Auth_Controller {
         $this->load->model('blockout_model', 'blockout', TRUE);
         $this->load->model('event_model', 'event', TRUE);
         $this->load->model('music_model', 'music', TRUE);
+        $this->load->model('song_model', 'song', TRUE);
         $this->load->model('organization_model', 'organization', TRUE);
         $this->load->model('user_model', 'user', TRUE);
     }

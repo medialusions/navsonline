@@ -1,21 +1,20 @@
 <script>
     $(document).ready(function() {
+        //instantiate modal
         $('.ui.arrangement_new_modal')
-                .modal({
-                    blurring: false
-                })
-                .modal('attach events', '#arrangement_new_modal', 'show')
-                ;
+                .modal({blurring: false})
+                .modal('attach events', '#arrangement_new_modal', 'show');
 
+        //instantiate form
         $('#arrangement_new_modal_form')
                 .form({
                     fields: {
                         artist: 'empty',
                         default_key: 'empty'
                     }
-                })
-                ;
+                });
 
+        //submit the form
         $('#arrangement_new_modal_form_submit').click(function() {
             //get video type and put it inside of input
             $("#video_type").val($("#video_type_text").html());
@@ -25,13 +24,20 @@
                 $('.ui.arrangement_new_modal').modal('hide');
         });
 
-        // create an observer instance
-        var observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
-                console.log(mutation.type);
-            });
+        //when opening modal, don't submit form
+        $(".media_new_modal_button").click(function(event) {
+            event.preventDefault();
         });
-        observer.observe(document.getElementById('video_type_text'), {characterData: true});
+        //chord matrix adder
+        $("#chord_matrix_button").click(function(event) {
+            event.preventDefault();
+            //submitted. now use data
+            //ERROR: #chord_matrix_error > p
+        });
+        //chord matric deleter
+        $(".chord_matrix_delete").click(function(event) {
+            event.preventDefault();
+        });
     });
 </script>
 <div class="ui arrangement_new_modal modal">
@@ -107,27 +113,17 @@
             </div>
         </div>
         <!-- attachments -->
-        <h4 class="ui dividing header">Attachments</h4>
+        <h4 class="ui dividing header">Attachments
+            <button class="ui button very basic mini orange media_new_modal_button">
+                <i class="arrow up icon"></i>
+                Upload media
+            </button>
+        </h4>
         <div class="field">
-            <div class="four fields">
+            <div class="three fields">
                 <div class="field">
-                    <label>Video</label>
-                    <h4 class="ui header">
-                        <div class="content">
-                            The video type is 
-                            <div class="ui inline dropdown">
-                                <div class="text" id="video_type_text">youtube</div>
-                                <i class="dropdown icon"></i>
-                                <div class="menu">
-                                    <div class="header">Select video type</div>
-                                    <div class="active item" data-text="youtube">YouTube</div>
-                                    <div class="item" data-text="vimeo">Vimeo</div>
-                                </div>
-                            </div>
-                            <input type="hidden" name="video_type" value="" id="video_type">
-                            <input type="text" class="ui inline very basic" name="video_identifier" placeholder="id e.g. 9bZkp7q19f0">
-                        </div>
-                    </h4>
+                    <label>Video Link</label>
+                    <input type="text" class="ui inline very basic" name="video_identifier" placeholder="e.g. https://www.youtube.com/watch?v=9bZkp7q19f0">
                 </div>
                 <div class="field">
                     <label>Audio</label>
@@ -149,27 +145,78 @@
                     </div>
                     <input name="media_lyrics" type="hidden" value="">
                 </div>
+            </div>
+        </div>
+        <!-- chords -->
+        <h4 class="ui dividing header">Chords</h4>
+        <div class="ui error message" id="chord_matrix_error">
+            <i class="close icon"></i>
+            <p></p>
+        </div>
+        <div class="field">
+            <div class="three fields">
                 <div class="field">
-                    <label>Chords</label>
+                    <div class="ui fluid search normal selection dropdown" >
+                        <input type="hidden" name="chart_key">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Key</div>
+                        <div class="menu">
+                            <div class="item" data-value="Open">Open</div>
+                            <div class="item" data-value="A">A</div>
+                            <div class="item" data-value="A#">A#</div>
+                            <div class="item" data-value="B">B</div>
+                            <div class="item" data-value="C">C</div>
+                            <div class="item" data-value="C#">C#</div>
+                            <div class="item" data-value="D">D</div>
+                            <div class="item" data-value="D#">D#</div>
+                            <div class="item" data-value="E">E</div>
+                            <div class="item" data-value="F">F</div>
+                            <div class="item" data-value="F#">F#</div>
+                            <div class="item" data-value="G">G</div>
+                            <div class="item" data-value="G#">G#</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
                     <div class="ui search media_chord">
                         <div class="ui left icon input">
-                            <input class="prompt" type="text" placeholder="Search chord charts">
+                            <input class="prompt" type="text" placeholder="Search chord charts" id="chord_search">
                             <i class="table icon"></i>
                         </div>
                     </div>
-                    <input name="media_chord" type="hidden" value="">
                 </div>
+                <div class="field">
+                    <button class="ui button teal basic" id="chord_matrix_button">
+                        <i class="plus icon"></i>
+                        Add Chord Variation
+                    </button>
+                </div>
+                <input name="media_chord" type="hidden" value="">
             </div>
+        </div>
+        <div class="field">
+            <table class="ui small teal table">
+                <thead>
+                    <tr>
+                        <th>Key</th>
+                        <th>Chord Chart</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>G</td>
+                        <td>All I Can Say - G.pdf</td>
+                        <td>
+                            <button class="ui icon basic red button tiny chord_matrix_delete" >
+                                <i class="trash icon"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
         <?= form_close() ?>
-        <div class="ui centered grid">
-            <div class="column">
-                <button class="ui button orange media_new_modal_button">
-                    <i class="arrow up icon"></i>
-                    Upload media
-                </button>
-            </div>
-        </div>
     </div>
     <div class="actions">
         <div class="ui button cancel">Cancel</div>

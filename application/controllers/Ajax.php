@@ -11,6 +11,44 @@ class Ajax extends MY_Controller {
         parent::__construct();
     }
 
+    public function media_add() {
+        //get user data
+        $this->verify_min_level(9);
+        $user_data = $this->verify_cookie();
+        //check post data first
+        if (!isset($_POST) || is_null($this->input->post("link_type")) || is_null($this->input->post("name")))
+            die(json_encode(array('success' => FALSE, 'message' => 'Incomplete post data sent.')));
+        $link_type = $this->input->post("link_type");
+        $name = $this->input->post("name");
+        //determine link type and set upload path
+        switch ($link_type) {
+            case 'audio':
+            case 'chord':
+            case 'lyric':
+                $upload_path = 'media/' . $link_type . '/';
+                break;
+            default:
+                die(json_encode(array('success' => FALSE, 'message' => 'Unknown link type.')));
+                break;
+        }
+        //upload class
+        $upload['upload_path'] = $upload_path;
+        $upload['allowed_types'] = 'doc|docx|pdf|mp3|mp4|aif|aifc|aiff|wav';
+        $upload['encrypt_name'] = TRUE;
+        $this->upload->initialize($upload);
+        //do the upload
+        $upload_result = $this->upload->do_upload("file");
+        if (!$upload_result)
+            die(json_encode(array('success' => FALSE, 'message' => 'Error with file upload.')));
+
+        //insert into db
+        $response = $this->media->add_declaration($this->upload->data(), $this->input->post(), $user_data);
+        if (!$response)
+            die(json_encode(array('success' => FALSE, 'message' => 'Error with file upload.')));
+        else
+            die(json_encode(array('success' => TRUE, 'message' => 'File uploaded.', 'data' => $response)));
+    }
+
     /**
      * API for updating event confirmation
      * @param int $eid

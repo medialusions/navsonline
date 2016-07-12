@@ -13,4 +13,25 @@ class Media_model extends MY_Model {
         $this->organization_id = $this->session->userdata('organization_id');
     }
 
+    public function add_declaration($file_data, $post_data, $user_data) {
+        $user_organizations = explode(',', $user_data['user_data']['organizations']);
+        $data = array(
+            'name' => $post_data['name'],
+            'link_type' => $post_data['link_type'],
+            'link' => 'media/' . $post_data['link_type'] . '/' . $file_data['file_name'],
+            'file_ext' => $file_data['file_ext'],
+            'file_size' => $file_data['file_size'],
+            'file_type' => $file_data['file_type'],
+            'organizations' => json_encode(array($user_organizations[0])),
+            'date_created' => time(),
+            'created_by' => $user_data['user_id']
+        );
+        if ($this->db->insert('media', $data)) {
+            $data['id'] = $this->db->insert_id();
+            return $data;
+        } else {
+            return false;
+        }
+    }
+
 }

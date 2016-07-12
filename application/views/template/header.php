@@ -45,9 +45,10 @@
             $.fn.api.settings.api = {
                 'event confirm': '<?= base_url('/ajax/event-confirm'); ?>/{eid}/{uid}',
                 'event deny': '<?= base_url('/ajax/event-deny'); ?>/{eid}/{uid}',
+                'event delete': '<?= base_url('/ajax/event-delete'); ?>/{eid}',
                 'blockout add': '<?= base_url('/ajax/blockout-add'); ?>',
                 'blockout delete': '<?= base_url('/ajax/blockout-delete'); ?>/{uid}/{db}/{de}',
-                'event delete': '<?= base_url('/ajax/event-delete'); ?>/{eid}'
+                'media add': '<?= base_url('/ajax/media-add'); ?>'
             };
         </script>
     </head>

@@ -3,16 +3,41 @@
         $('.ui.media_new_modal')
                 .modal({blurring: false})
                 .modal('attach events', '.media_new_modal_button', 'show');
-
         $('#media_new_modal_form')
                 .form({fields: {file: 'empty'}});
-
         $('#media_new_modal_form_submit').click(function() {
-            $('#media_new_modal_form').submit();
-            if ($('#media_new_modal_form').form('is valid'))
-                $('.ui.media_new_modal').model('hide');
+            $.ajax({
+                url: '<?= base_url('ajax/media-add') ?>',
+                method: 'POST',
+                data: new FormData($("#media_new_modal_form")[0]),
+                async: true,
+                cache: false,
+                contentType: false,
+                processData: false,
+                beforeSend: function() {
+                    $("#media_new_modal_form_submit").addClass('disabled');
+                    //show media upload progress
+                    $('#media_add_progress').show();
+                    $('#media_add_progress').progress('set label', 'Sending data packet');
+                    $('#media_add_progress').progress('increment');
+                },
+                complete: function(returnData, status) {
+                    var response = JSON.parse(returnData.responseText);
+                    if (response.success) {
+                        $('#media_add_progress').progress('complete');
+                    } else {
+                        $('#media_add_progress').progress('set error');
+                        $('#media_add_progress').progress('set bar label', 'Error');
+                        $('#media_add_progress').progress('set label', response.message);
+                    }
+                    $("#media_new_modal_form_submit").removeClass('disabled');
+                    $('#media_add_progress').hide();
+                    $('.ui.media_new_modal').modal('hide');
+                }
+            });
         });
-
+        //setup the progress bar
+        $('#media_add_progress').progress({total: 3, text: {success: 'File uploaded'}}).hide();
         //disable button if media type isn't selected yet
         if ($("input[name='link_type']").val() === '') {
             $("#trigger_file").addClass('disabled');
@@ -48,7 +73,7 @@
         Media Uploader
     </div>
     <div class="content">
-        <?= form_open_multipart('music/add-media', ['class' => 'ui large form', 'id' => 'media_new_modal_form']) ?>
+        <?= form_open_multipart('ajax/media-add', ['class' => 'ui large form', 'id' => 'media_new_modal_form']) ?>
         <div class="ui error message"></div>
         <div class="field">
             <div class="two fields">
@@ -80,9 +105,15 @@
         </div>
         <div id="tags_container"></div>
         <?= form_close() ?>
+        <div class="ui progress" id="media_add_progress">
+            <div class="bar">
+                <div class="progress"></div>
+            </div>
+            <div class="label">Uploading Media</div>
+        </div>
     </div>
     <div class="actions">
         <div class="ui button cancel">Cancel</div>
-        <div class="ui button blue" id="media_new_modal_form_submit">Submit</div>
+        <div class="ui button green" id="media_new_modal_form_submit">Upload</div>
     </div>
 </div>

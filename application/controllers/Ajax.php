@@ -46,7 +46,7 @@ class Ajax extends MY_Controller {
         if (!$response)
             die(json_encode(array('success' => FALSE, 'message' => 'Error with file upload.')));
         else
-            die(json_encode(array('success' => TRUE, 'message' => 'File uploaded.', 'data' => $response)));
+            die(json_encode(array('success' => TRUE, 'message' => 'File uploaded.')));
     }
 
     /**

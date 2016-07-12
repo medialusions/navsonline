@@ -12,6 +12,7 @@ application/logs/*
 !application/logs/.htaccess
 
 .htaccess
+/media/
 
 user_guide_src/build/*
 user_guide_src/cilexer/build/*

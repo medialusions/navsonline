@@ -11,6 +11,9 @@ class Ajax extends MY_Controller {
         parent::__construct();
     }
 
+    /**
+     * Uses Cookie, Post, and Files data to upload and create database instance of media files
+     */
     public function media_add() {
         //get user data
         $this->verify_min_level(9);
@@ -33,20 +36,44 @@ class Ajax extends MY_Controller {
         }
         //upload class
         $upload['upload_path'] = $upload_path;
-        $upload['allowed_types'] = 'doc|docx|pdf|mp3|mp4|aif|aifc|aiff|wav';
+        $upload['allowed_types'] = 'doc|docx|pdf|mp3|mp4|m4a|aif|aifc|aiff|wav';
         $upload['encrypt_name'] = TRUE;
         $this->upload->initialize($upload);
         //do the upload
         $upload_result = $this->upload->do_upload("file");
         if (!$upload_result)
-            die(json_encode(array('success' => FALSE, 'message' => 'Error with file upload.')));
+            die(json_encode(array('success' => FALSE, 'message' => 'Error. ' . $this->upload->display_errors('', ''), "data" => $this->upload->data())));
+
 
         //insert into db
         $response = $this->media->add_declaration($this->upload->data(), $this->input->post(), $user_data);
         if (!$response)
-            die(json_encode(array('success' => FALSE, 'message' => 'Error with file upload.')));
+            die(json_encode(array('success' => FALSE, 'message' => 'Error with databse.')));
         else
             die(json_encode(array('success' => TRUE, 'message' => 'File uploaded.')));
+    }
+
+    public function media_search() {
+        //get user data
+        $this->verify_min_level(1);
+        $user_data = $this->verify_cookie();
+        $user_organizations = explode(',', $user_data['user_data']['organizations']);
+
+        $type = $this->input->get("type");
+        $query = $this->input->get("q");
+        if (is_null($type))
+            $type = "";
+
+        //do it
+        $result = array('results' => array());
+        $search_result = $this->media->search($query, $user_organizations[0], $type);
+        foreach ($search_result as $row) {
+            array_push($result['results'], array(
+                "title" => $row['name'],
+                "id" => $row['id']
+            ));
+        }
+        echo json_encode($result);
     }
 
     /**
@@ -70,6 +97,26 @@ class Ajax extends MY_Controller {
     public function event_deny($eid, $uid) {
         //confirm it
         $this->event_confirm($eid, $uid, FALSE);
+    }
+
+    /**
+     * Controller function to remove the event. Verifies with cookie auth level.
+     * @param int $eid ID of the cookie.
+     */
+    public function event_delete($eid) {
+        $cookie = $this->verify_cookie();
+        $user_organizations = explode(',', $cookie['user_data']['organizations']);
+
+        //verify admin level
+        $this->verify_min_level(9);
+
+        //remove
+        $response = $this->event->delete($eid, $user_organizations[0]);
+
+        if ($response['success'])
+            echo json_encode(array('success' => TRUE, 'data' => $eid));
+        else
+            echo json_encode(array('success' => FALSE));
     }
 
     /**
@@ -124,26 +171,6 @@ class Ajax extends MY_Controller {
             echo json_encode(array('success' => FALSE, 'reason' => 'Database query error.'));
         else
             echo json_encode(array('success' => TRUE));
-    }
-
-    /**
-     * Controller function to remove the event. Verifies with cookie auth level.
-     * @param int $eid ID of the cookie.
-     */
-    public function event_delete($eid) {
-        $cookie = $this->verify_cookie();
-        $user_organizations = explode(',', $cookie['user_data']['organizations']);
-
-        //verify admin level
-        $this->verify_min_level(9);
-
-        //remove
-        $response = $this->event->delete($eid, $user_organizations[0]);
-
-        if ($response['success'])
-            echo json_encode(array('success' => TRUE, 'data' => $eid));
-        else
-            echo json_encode(array('success' => FALSE));
     }
 
     /**

@@ -131,17 +131,45 @@
                 </div>
                 <div class="field">
                     <label>Audio</label>
-                    <button class="ui button media_new_modal_button">Media Uploader</button>
+                    <div class="ui search media_audio">
+                        <div class="ui left icon input">
+                            <input class="prompt" type="text" name="audio" placeholder="Search audio files">
+                            <i class="volume up icon"></i>
+                        </div>
+                    </div>
+                    <input name="media_audio" type="hidden" value="">
                 </div>
                 <div class="field">
                     <label>Lyrics</label>
+                    <div class="ui search media_lyrics">
+                        <div class="ui left icon input">
+                            <input class="prompt" type="text" placeholder="Search lyrics">
+                            <i class="align left icon"></i>
+                        </div>
+                    </div>
+                    <input name="media_lyrics" type="hidden" value="">
                 </div>
                 <div class="field">
                     <label>Chords</label>
+                    <div class="ui search media_chord">
+                        <div class="ui left icon input">
+                            <input class="prompt" type="text" placeholder="Search chord charts">
+                            <i class="table icon"></i>
+                        </div>
+                    </div>
+                    <input name="media_chord" type="hidden" value="">
                 </div>
             </div>
         </div>
         <?= form_close() ?>
+        <div class="ui centered grid">
+            <div class="column">
+                <button class="ui button orange media_new_modal_button">
+                    <i class="arrow up icon"></i>
+                    Upload media
+                </button>
+            </div>
+        </div>
     </div>
     <div class="actions">
         <div class="ui button cancel">Cancel</div>

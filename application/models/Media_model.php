@@ -34,4 +34,20 @@ class Media_model extends MY_Model {
         }
     }
 
+    public function search($name, $organization, $type = "") {
+        //generate query
+        $this->db->like('name', $name);
+        $this->db->like('organizations', '"' . $organization . '"');
+        if ($type != '')
+            $this->db->where('link_type', $type);
+        $this->db->from('media');
+        
+        //get built query
+        $query_string = $this->db->get_compiled_select();
+        
+        //execute
+        $query = $this->db->query($query_string);
+        return $query->result_array();
+    }
+
 }

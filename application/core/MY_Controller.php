@@ -34,7 +34,7 @@ class MY_Controller extends Auth_Controller {
         
         //upload class
         $config['upload_path'] = 'media/';
-        $config['allowed_types'] = 'doc|docx|pdf|mp3|mp4|aif|aifc|aiff|wav';
+        $config['allowed_types'] = 'doc|docx|pdf|mp3|mp4|m4a|aif|aifc|aiff|wav';
         $config['encrypt_name'] = TRUE;
         $this->upload->initialize($config);
     }

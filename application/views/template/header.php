@@ -39,6 +39,38 @@
                             .closest('.message')
                             .transition('fade');
                 }, 3000);
+
+                //search functions
+                $('.ui.search.media_chord')
+                        .search({
+                            apiSettings: {
+                                url: '<?= base_url('/ajax/media-search'); ?>?type=chord&q={query}'
+                            },
+                            cache: false,
+                            onSelect: function(result, response) {
+                                $(this).next().val(result.id);
+                            }
+                        });
+                $('.ui.search.media_lyrics')
+                        .search({
+                            apiSettings: {
+                                url: '<?= base_url('/ajax/media-search'); ?>?type=lyric&q={query}'
+                            },
+                            cache: false,
+                            onSelect: function(result, response) {
+                                $(this).next().val(result.id);
+                            }
+                        });
+                $('.ui.search.media_audio')
+                        .search({
+                            apiSettings: {
+                                url: '<?= base_url('/ajax/media-search'); ?>?type=audio&q={query}'
+                            },
+                            cache: false,
+                            onSelect: function(result, response) {
+                                $(this).next().val(result.id);
+                            }
+                        });
             });
 
             //API setup
@@ -47,8 +79,7 @@
                 'event deny': '<?= base_url('/ajax/event-deny'); ?>/{eid}/{uid}',
                 'event delete': '<?= base_url('/ajax/event-delete'); ?>/{eid}',
                 'blockout add': '<?= base_url('/ajax/blockout-add'); ?>',
-                'blockout delete': '<?= base_url('/ajax/blockout-delete'); ?>/{uid}/{db}/{de}',
-                'media add': '<?= base_url('/ajax/media-add'); ?>'
+                'blockout delete': '<?= base_url('/ajax/blockout-delete'); ?>/{uid}/{db}/{de}'
             };
         </script>
     </head>

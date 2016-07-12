@@ -1,7 +1,8 @@
 <script>
     $(document).ready(function() {
         $('.ui.media_new_modal')
-                .modal({blurring: false})
+                .modal({blurring: false,
+                    allowMultiple: true})
                 .modal('attach events', '.media_new_modal_button', 'show');
         $('#media_new_modal_form')
                 .form({fields: {file: 'empty'}});
@@ -25,14 +26,14 @@
                     var response = JSON.parse(returnData.responseText);
                     if (response.success) {
                         $('#media_add_progress').progress('complete');
+                        $('#media_add_progress').hide();
+                        $('.ui.media_new_modal').modal('hide');
                     } else {
                         $('#media_add_progress').progress('set error');
                         $('#media_add_progress').progress('set bar label', 'Error');
                         $('#media_add_progress').progress('set label', response.message);
                     }
                     $("#media_new_modal_form_submit").removeClass('disabled');
-                    $('#media_add_progress').hide();
-                    $('.ui.media_new_modal').modal('hide');
                 }
             });
         });
@@ -67,7 +68,7 @@
         });
     });
 </script>
-<div class="ui media_new_modal modal">
+<div class="ui media_new_modal small modal">
     <i class="close icon"></i>
     <div class="header">
         Media Uploader

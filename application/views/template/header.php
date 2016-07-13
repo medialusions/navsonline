@@ -87,14 +87,16 @@
 
         <div id="top_menu" class="ui inverted fixed top segment" style="background: #0b1426;">
             <div class="ui inverted secondary stackable pointing menu">
+                <!-- LOGO -->
                 <a class="ui image small" style="margin-top: 11px;" href="<?= base_url('') ?>">
                     <img src="<?= base_url(); ?>logo/navsonline_400x108.png" class="image">
                 </a>
+                <!-- SCHEDULE -->
                 <a class="item <?= uri_string() == 'user/schedule' || uri_string() == '' ? 'active' : '' ?>" style="margin-left:25px;" href="<?= base_url('user/schedule'); ?>">
                     <i class="unordered list icon"></i>
                     Schedule
                 </a>
-                <!--  -->
+                <!-- SONGS -->
                 <?php if(strpos(uri_string(), 'music/') === false): ?>
                 <a class="item <?= uri_string() == 'user/music' ? 'active' : '' ?>" href="<?= base_url('user/music'); ?>">
                     <i class="music icon"></i>
@@ -112,7 +114,7 @@
                     </div>
                 </div>
                 <?php endif; ?>
-
+                <!-- PEOPLE -->
                 <a class="item <?= uri_string() == 'user/people' ? 'active' : '' ?>" href="<?= base_url('user/people'); ?>">
                     <i class="users icon"></i>
                     People

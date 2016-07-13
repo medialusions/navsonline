@@ -74,7 +74,7 @@ class Music extends MY_Controller {
 
         //to the model
         $result = $this->arrangement->create($post);
-        
+
         //go back to the song page
         redirect('music/view/' . $post['song']);
     }
@@ -92,6 +92,28 @@ class Music extends MY_Controller {
      */
     public function view($id) {
         $data['song'] = $this->song->get($id);
+        $data['arrangements'] = $this->arrangement->song_get($id);
+        $i = 0;
+        foreach ($data['arrangements'] as $arrangement) {
+            if ($arrangement['audio'] != '') {
+                $audio_id = $arrangement['audio'];
+                $data['arrangements'][$i]['audio'] = $this->media->get($audio_id);
+            }
+            if ($arrangement['lyrics'] != '') {
+                $lyrics_id = $arrangement['lyrics'];
+                $data['arrangements'][$i]['lyrics'] = $this->media->get($lyrics_id);
+            }
+            $song_keys = json_decode($arrangement['song_keys'], TRUE);
+            $data['arrangements'][$i]['song_keys'] = array();
+            $k = 0;
+            foreach ($song_keys as $song_key) {
+                $data['arrangements'][$i]['song_keys'][$k] = array(
+                    'key' => $song_key['key'],
+                    'media' => $this->media->get($song_key['id']));
+                $k++;
+            }
+            $i++;
+        }
 
         $data['title'] = $data['song']['title'];
 

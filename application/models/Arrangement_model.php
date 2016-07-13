@@ -13,6 +13,11 @@ class Arrangement_model extends MY_Model {
         $this->organization_id = $this->session->userdata('organization_id');
     }
 
+    public function song_get($song_id) {
+        $query = $this->db->query("SELECT * FROM arrangement WHERE song='$song_id' ORDER BY artist");
+        return $query->result_array();
+    }
+
     /**
      * @param array $data
      * @return id

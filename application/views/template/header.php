@@ -94,10 +94,25 @@
                     <i class="unordered list icon"></i>
                     Schedule
                 </a>
+                <!--  -->
+                <?php if(strpos(uri_string(), 'music/') === false): ?>
                 <a class="item <?= uri_string() == 'user/music' ? 'active' : '' ?>" href="<?= base_url('user/music'); ?>">
                     <i class="music icon"></i>
                     Songs
                 </a>
+                <?php else: ?>
+                <div class="item active">
+                    <div class="ui breadcrumb">
+                        <a href="<?= base_url('user/music'); ?>">
+                            <i class="music icon"></i>
+                            Songs
+                        </a>
+                        <div class="divider" style="color: white;"> / </div>
+                        <div class="section"><?= $title ?></div>
+                    </div>
+                </div>
+                <?php endif; ?>
+
                 <a class="item <?= uri_string() == 'user/people' ? 'active' : '' ?>" href="<?= base_url('user/people'); ?>">
                     <i class="users icon"></i>
                     People

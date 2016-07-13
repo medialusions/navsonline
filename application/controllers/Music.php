@@ -29,7 +29,7 @@ class Music extends MY_Controller {
             return;
         }
 
-        redirect('music/edit/' . $event_id);
+        redirect('music/view/' . $event_id);
     }
 
     /**
@@ -77,14 +77,6 @@ class Music extends MY_Controller {
 
         //go back to the song page
         redirect('music/view/' . $post['song']);
-    }
-
-    /**
-     * Loads and gets data for schedule page
-     */
-    public function edit($id) {
-        //admin level needed
-        $this->require_min_level(9);
     }
 
     /**

@@ -40,20 +40,29 @@
                     <thead>
                         <tr>
                             <th class="">Title</th>
-                            <th class="">Date</th>
-                            <th class="">Time</th>
-                            <th class="">Your Role(s)</th>
-                            <th class="">Actions</th>
-                            <th class="">Availability</th>
+                            <th class="">Tags</th>
+                            <th class="">Arrangements</th>
                         </tr>
                     </thead>
                     <tbody>
-
+                        <?php foreach ($songs as $song): ?>
+                            <tr>
+                                <td>
+                                    <a href="<?= base_url('music/view/' . $song['id']) ?>"><?= $song['title'] ?></a>
+                                </td>
+                                <td>
+                                    <?php
+                                    $tags = json_decode($song['tags'], TRUE);
+                                    echo implode(', ', $tags);
+                                    ?>
+                                </td>
+                                <td>
+                                    <?= count($song['arrangement']) ?> arrangements
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
                     <tfoot>
                         <tr><th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
                             <th></th>
                             <th></th>
                         </tr>

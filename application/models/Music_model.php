@@ -40,21 +40,26 @@ class Music_model extends MY_Model {
     /**
      * Returns next dates. Change limit with param
      */
-    public function generate_upcoming($user_id = '', $limit = 4) {
+    public function get() {
         //Ensure organization is set
         $this->organization_id = $this->session->userdata('organization_id');
         //build upcoming query
         $query = $this->db->query(""
                 . "SELECT * "
-                . "FROM event "
-                . "WHERE organization='$this->organization_id' "
-                . ($user_id == '' ? '' : "AND  users_matrix LIKE '%$user_id%' ")
-                . "AND date > " . time() . " "
-                . "ORDER BY date ASC "
-                . ($limit > 0 ? "LIMIT $limit" : ''));
+                . "FROM song "
+                . "WHERE organizations LIKE '%\"$this->organization_id\"%' "
+                . "ORDER BY title ASC ");
 
         //return the array
-        return $query->result_array();
+        $songs = $query->result_array();
+        
+        $i = 0;
+        foreach ($songs as $song) {
+            $songs[$i]['arrangement'] = $this->arrangement->song_get($song['id']);
+            $i++;
+        }
+        
+        return $songs;
     }
 
     /**

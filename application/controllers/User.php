@@ -80,14 +80,13 @@ class User extends MY_Controller {
      * Loads and gets data for schedule page
      */
     public function music() {
-        $data['title'] = 'Welcome';
+        $data['title'] = 'Music Center';
 
         $data['user'] = $this->user->generate_user_data($this->auth_user_id);
         $this->session->set_userdata('organization_id', extract_organization($data['user']['organizations']), 0);
-
-        $data['upcoming_events'] = $this->event->generate_upcoming($this->auth_user_id, -1);
-
         $data['sidebar'] = $this->user->generate_sidebar_data($this->auth_user_id);
+        
+        $data['songs'] = $this->music->get();
 
         $this->load->view('music', $data);
     }

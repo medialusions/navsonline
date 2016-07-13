@@ -61,8 +61,18 @@ function trim_value(&$value) {
 }
 
 /**
- * 
+ * Gets the unique artists for this organization
  */
 function get_artists() {
+    // Get a reference to the controller object
+    $CI = get_instance();
+    // You may need to load the model if it hasn't been pre-loaded
+    $CI->load->model('arrangement_model');
     
+    $rows = $CI->arrangement_model->get_unique();
+    $html = "";
+    foreach ($rows as $row) {
+        $html .= '<div class="item" data-value="' . $row['artist'] . '">' . $row['artist'] . '</div>';
+    }
+    return $html;
 }

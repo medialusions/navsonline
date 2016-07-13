@@ -13,6 +13,10 @@ class Arrangement_model extends MY_Model {
         $this->organization_id = $this->session->userdata('organization_id');
     }
 
+    /**
+     * @param array $data
+     * @return id
+     */
     public function create($data) {
         $user_id = config_item('auth_user_id');
 
@@ -35,6 +39,15 @@ class Arrangement_model extends MY_Model {
         $this->db->insert('arrangement', $data);
 
         return $this->db->insert_id();
+    }
+
+    /**
+     * @param type $column
+     * @return type array
+     */
+    public function get_unique($column = 'artist') {
+        $query = $this->db->query("SELECT * FROM arrangement WHERE organizations LIKE '%\"$this->organization_id\"%' GROUP BY($column) ORDER BY $column");
+        return $query->result_array();
     }
 
 }

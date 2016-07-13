@@ -55,9 +55,9 @@
     function chord_matrix_table() {
         var data = JSON.parse($("#chord_matrix").val());
         //just hide the table if the length is 0
-        if(data.length === 0)
+        if (data.length === 0)
             $("#chord_matrix_table").hide();
-        
+
         var html = [];
         $.each(data, function(i, data) {
             //create object
@@ -129,8 +129,7 @@
                 <i class="dropdown icon"></i>
                 <div class="default text">Search or type new artist</div>
                 <div class="menu">
-                    <div class="item" data-value="David Crowder Band">David Crowder Band</div>
-                    <div class="item" data-value="Another">Another</div>
+                    <?= get_artists() ?>
                 </div>
             </div>
         </div>

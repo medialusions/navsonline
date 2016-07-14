@@ -23,11 +23,11 @@
             $(form + "input[name='sec']").val(sec);
             $(form + "input[name='video']").val(data.video);
             if (data.audio.constructor === {}.constructor) {
-                $(form + "input[name='audio']").val(data.audio.name);
+                $(form + "input[name='audio']").val(data.audio.name.replace("&amp;", "&"));
                 $(form + "input[name='media_audio']").val(data.audio.id);
             }
             if (data.lyrics.constructor === {}.constructor) {
-                $(form + "input[name='lyrics']").val(data.lyrics.name);
+                $(form + "input[name='lyrics']").val(data.lyrics.name.replace("&amp;", "&"));
                 $(form + "input[name='media_lyrics']").val(data.lyrics.id);
             }
             var song_keys = [];

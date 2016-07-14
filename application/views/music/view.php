@@ -49,7 +49,7 @@
                             <th class="">BPM</th>
                             <th class="">Length</th>
                             <th class="">Links</th>
-                            <th class="">Keys</th>
+                            <th class="">Chord Charts</th>
                             <?php if ($auth_level >= 9): //admin required. modal included below   ?>
                                 <th class="">Delete</th>
                             <?php endif; ?>
@@ -67,7 +67,7 @@
                                     <?php endif; ?>
                                 </td>
                                 <td><?= $arrangement['default_key'] ?></td>
-                                <td><?= $arrangement['bpm'] ?> bpm</td>
+                                <td><?= $arrangement['bpm'] == '' ? '0' : $arrangement['bpm'] ?> bpm</td>
                                 <td><?= ($arrangement['length'] - ($arrangement['length'] % 60)) / 60 ?> min <?= $arrangement['length'] % 60 ?> sec</td>
                                 <td>
                                     <?php if ($arrangement['video'] != ''): ?>

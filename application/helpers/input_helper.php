@@ -68,11 +68,37 @@ function get_artists() {
     $CI = get_instance();
     // You may need to load the model if it hasn't been pre-loaded
     $CI->load->model('arrangement_model');
-    
+
     $rows = $CI->arrangement_model->get_unique();
     $html = "";
     foreach ($rows as $row) {
         $html .= '<div class="item" data-value="' . $row['artist'] . '">' . $row['artist'] . '</div>';
+    }
+    return $html;
+}
+
+/**
+ * Gets the unique artists for this organization
+ */
+function get_tags() {
+    // Get a reference to the controller object
+    $CI = get_instance();
+    // You may need to load the model if it hasn't been pre-loaded
+    $CI->load->model('song_model');
+
+    $all_songs = $CI->song_model->get();
+    $tags = array();
+    foreach ($all_songs as $song) {
+        $song_tags = json_decode($song['tags'], TRUE);
+        foreach ($song_tags as $tag) {
+            array_push($tags, $tag);
+        }
+    }
+    $unique_tags = array_unique($tags);
+    sort($unique_tags);
+    $html = "";
+    foreach ($unique_tags as $tag) {
+        $html .= '<div class="item" data-value="' . $tag . '">' . $tag . '</div>';
     }
     return $html;
 }

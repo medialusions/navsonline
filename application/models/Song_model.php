@@ -37,15 +37,19 @@ class Song_model extends MY_Model {
         return $this->db->insert_id();
     }
 
-    public function get($id) {
+    public function get($id = '') {
         $query = $this->db->query(""
                 . "SELECT * "
                 . "FROM song "
-                . "WHERE id='$id'");
+                . ($id == '' ? '' : "WHERE id='$id'"));
 
-        //return the first
-        foreach ($query->result_array() as $result)
-            return $result;
+        if ($query->num_rows() == 1) {
+            //return the first
+            foreach ($query->result_array() as $result)
+                return $result;
+        } else {
+            return $query->result_array();
+        }
     }
 
     /**

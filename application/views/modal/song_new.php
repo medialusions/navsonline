@@ -44,8 +44,7 @@
                 <i class="dropdown icon"></i>
                 <div class="default text">Manually enter custom tags like "Hymns"</div>
                 <div class="menu">
-                    <div class="item" data-value="Secular">Secular</div>
-                    <div class="item" data-value="Staples">Staples</div>
+                    <?= get_tags() ?>
                 </div>
             </div>
         </div>

@@ -78,7 +78,7 @@ function get_artists() {
 }
 
 /**
- * Gets the unique artists for this organization
+ * Gets the unique tags
  */
 function get_tags() {
     // Get a reference to the controller object

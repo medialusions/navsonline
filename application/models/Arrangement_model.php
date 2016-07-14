@@ -13,9 +13,22 @@ class Arrangement_model extends MY_Model {
         $this->organization_id = $this->session->userdata('organization_id');
     }
 
+    public function get($id) {
+        $query = $this->db->query("SELECT * FROM arrangement WHERE id='$id'");
+        
+        //return the first
+        foreach ($query->result_array() as $result)
+            return $result;
+    }
+
     public function song_get($song_id) {
         $query = $this->db->query("SELECT * FROM arrangement WHERE song='$song_id' ORDER BY artist");
         return $query->result_array();
+    }
+
+    public function delete($id) {
+        $this->db->where('id', $id);
+        $this->db->delete('arrangement');
     }
 
     /**
@@ -44,6 +57,31 @@ class Arrangement_model extends MY_Model {
         $this->db->insert('arrangement', $data);
 
         return $this->db->insert_id();
+    }
+
+    /**
+     * @param array $data
+     * @return id
+     */
+    public function edit($data) {
+        print_r($data);
+        $id = $data['arr_id'];
+        //setting up insert
+        $data = array(
+            'artist' => $data['artist'],
+            'default_key' => $data['default_key'],
+            'bpm' => $data['bpm'],
+            'length' => $data['length'],
+            'lyrics' => $data['lyrics'],
+            'video' => $data['video'],
+            'audio' => $data['audio'],
+            'song' => $data['song'],
+            'song_keys' => $data['song_keys']
+        );
+        $this->db->where('id', $id);
+        $this->db->update('arrangement', $data);
+
+        return $this->db->last_query();
     }
 
     /**

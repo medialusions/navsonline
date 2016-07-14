@@ -32,10 +32,23 @@ class Music extends MY_Controller {
         redirect('music/view/' . $event_id);
     }
 
+    public function delete_arrangement($id) {
+        $this->require_min_level(9);
+        $arr = $this->arrangement->get($id);
+        if (strpos($arr['organizations'], '"' . $_SESSION['organization_id'] . '"'))
+            $this->arrangement->delete($id);
+        else
+            show_404();
+        
+        //go back to the song page
+        redirect('music/view/' . $arr['song']);
+    }
+
     /**
      * 
      */
     public function add_arrangement() {
+        $this->require_min_level(9);
         if (!$this->input->post())
             show_404();
 
@@ -80,10 +93,67 @@ class Music extends MY_Controller {
     }
 
     /**
+     * 
+     */
+    public function edit_arrangement() {
+        $this->require_min_level(9);
+        if (!$this->input->post())
+            show_404();
+
+        //parse through media fields
+        if ($this->input->post("media_audio") && $this->input->post("media_audio") != '') {
+            if (!is_numeric($this->input->post("media_audio"))) {
+                $media_audio = json_decode($this->input->post("media_audio"), TRUE);
+                $audio = $media_audio['id'];
+            } else {
+                $audio = $this->input->post("media_audio");
+            }
+        } else {
+            $audio = '';
+        }
+        if ($this->input->post("media_lyrics") && $this->input->post("media_lyrics") != '') {
+            if (!is_numeric($this->input->post("media_lyrics"))) {
+                $media_lyrics = json_decode($this->input->post("media_lyrics"), TRUE);
+                $lyrics = $media_lyrics['id'];
+            } else {
+                $lyrics = $this->input->post("media_lyrics");
+            }
+        } else {
+            $lyrics = '';
+        }
+        if ($this->input->post("chord_edit") && $this->input->post("chord_edit") != '') {
+            $chord_matrix = json_decode($this->input->post("chord_edit"), TRUE);
+            $song_keys = array();
+            foreach ($chord_matrix as $chord_variation) {
+                $chord_var = array('key' => $chord_variation['key'], 'id' => $chord_variation['id']);
+                array_push($song_keys, $chord_var);
+            }
+        } else {
+            $song_keys = array();
+        }
+
+        //get all post data
+        $post = $this->input->post();
+        $post['lyrics'] = $lyrics;
+        $post['audio'] = $audio;
+        $post['song_keys'] = json_encode($song_keys);
+
+        //parse length in sec
+        $post['length'] = ($post['min'] * 60) + $post['sec'];
+
+        //to the model
+        $sql = $this->arrangement->edit($post);
+
+        //go back to the song page
+        redirect('music/view/' . $post['song']);
+    }
+
+    /**
      * Loads and gets data for music page
      */
     public function view($id) {
         $data['song'] = $this->song->get($id);
+        $data['arrangements'] = $this->arrangement->song_get($id);
         $data['arrangements'] = $this->arrangement->song_get($id);
         $i = 0;
         foreach ($data['arrangements'] as $arrangement) {

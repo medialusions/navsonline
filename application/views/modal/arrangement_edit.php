@@ -1,11 +1,56 @@
 <script>
     $(document).ready(function() {
         //instantiate modal
-        $('.ui.arrangement_new_modal')
-                .modal('attach events', '#arrangement_new_modal', 'show');
+        $('.arrangement_edit_modal_button').click(function(e) {
+            var string_data = $(this).next().html();
+            var data = JSON.parse(string_data);
+            var form = '#arrangement_edit_modal_form ';
+
+            $(form + "input[name='arr_id']").val(data.id);
+            $(form + "input[name='artist']").parent(".dropdown").dropdown('set selected', data.artist);
+            $(form + "input[name='default_key']").parent(".dropdown").dropdown('set selected', data.default_key);
+            $(form + "input[name='bpm']").val(data.bpm);
+            var min, sec;
+            if (data.length !== "") {
+                var length = parseInt(data.length);
+                sec = length % 60;
+                min = (length - sec) / 60;
+            } else {
+                sec = '';
+                min = '';
+            }
+            $(form + "input[name='min']").val(min);
+            $(form + "input[name='sec']").val(sec);
+            $(form + "input[name='video']").val(data.video);
+            if (data.audio.constructor === {}.constructor) {
+                $(form + "input[name='audio']").val(data.audio.name);
+                $(form + "input[name='media_audio']").val(data.audio.id);
+            }
+            if (data.lyrics.constructor === {}.constructor) {
+                $(form + "input[name='lyrics']").val(data.lyrics.name);
+                $(form + "input[name='media_lyrics']").val(data.lyrics.id);
+            }
+            var song_keys = [];
+            if (data.song_keys instanceof Array) {
+                $.each(data.song_keys, function(i, song_key) {
+                    var curr = {'key': song_key.key};
+                    curr.link = song_key.media.link;
+                    curr.title = song_key.media.name;
+                    curr.id = song_key.media.id;
+                    song_keys.push(curr);
+                });
+                $("#chord_edit").val(JSON.stringify(song_keys));
+                chord_edit_table_2();
+            } else {
+                $("#chord_edit").val(JSON.stringify(song_keys));
+            }
+
+            //show the modal
+            $('.ui.arrangement_edit_modal').modal('show');
+        });
 
         //instantiate form
-        $('#arrangement_new_modal_form')
+        $('#arrangement_edit_modal_form')
                 .form({
                     fields: {
                         artist: 'empty',
@@ -14,75 +59,71 @@
                 });
 
         //submit the form
-        $('#arrangement_new_modal_form_submit').click(function() {
+        $('#arrangement_edit_modal_form_submit').click(function() {
             //get video type and put it inside of input
             $("#video_type").val($("#video_type_text").html());
             //submit the form
-            $('#arrangement_new_modal_form').submit();
+            $('#arrangement_edit_modal_form').submit();
         });
-
-        //when opening modal, don't submit form
-        $(".media_new_modal_button").click(function(event) {
-            event.preventDefault();
-        });
-
 
         //chord matrix adder
-        $("#chord_matrix_table").hide();
-        $("#chord_matrix_button").click(function(event) {
+        $("#chord_edit_table").hide();
+        $("#chord_edit_button").click(function(event) {
             event.preventDefault();
             //show the table
-            $("#chord_matrix_table").show();
-            //ERROR: #chord_matrix_error > p
-            if ($("#arrangement_new_modal_form input[name='media_chord']").val() === '' || $("#arrangement_new_modal_form input[name='chart_key']").val() === '') {
-                $("#chord_matrix_error").children("p").text("Enter the key AND select a file.");
-                $("#chord_matrix_error").show();
+            $("#chord_edit_table").show();
+            //ERROR: #chord_edit_error > p
+            if ($("#arrangement_edit_modal_form input[name='media_chord']").val() === '' || $("#arrangement_edit_modal_form input[name='chart_key']").val() === '') {
+                $("#chord_edit_error").children("p").text("Enter the key AND select a file.");
+                $("#chord_edit_error").show();
                 //refresh modal scroll
-                $('.ui.arrangement_new_modal').modal('refresh');
+                $('.ui.arrangement_edit_modal').modal('refresh');
                 return false;
             } else {
-                $("#chord_matrix_error").hide();
+                $("#chord_edit_error").hide();
             }
-            var key = $("#arrangement_new_modal_form input[name='chart_key']").val();
-            var data = JSON.parse($("#arrangement_new_modal_form input[name='media_chord']").val());
+            var key = $("#arrangement_edit_modal_form input[name='chart_key']").val();
+            var data = JSON.parse($("#arrangement_edit_modal_form input[name='media_chord']").val());
             data.key = key;
             //insert it
-            insert_chord_row(data);
+            insert_chord_row_2(data);
         });
     });
-    //Input #chord_matrix
-    //Table #chord_matrix_table > tbody
-    function chord_matrix_table() {
-        var data = JSON.parse($("#chord_matrix").val());
+    //Input #chord_edit
+    //Table #chord_edit_table > tbody
+    function chord_edit_table_2() {
+        var data = JSON.parse($("#chord_edit").val());
         //just hide the table if the length is 0
         if (data.length === 0)
-            $("#chord_matrix_table").hide();
+            $("#chord_edit_table").hide();
+        else
+            $("#chord_edit_table").show();
 
         var html = [];
         $.each(data, function(i, data) {
             //create object
             var tr = [
                 '<tr><td>' + data.key + '</td><td><a target="_blank" href="<?= base_url() ?>' + data.link + '">' + data.title + '</a></td><td>',
-                '<button class="ui icon basic red button tiny chord_matrix_delete" data-key="' + data.key + '" ><i class="trash icon"></i></button>',
+                '<button class="ui icon basic red button tiny chord_edit_delete" data-key="' + data.key + '" ><i class="trash icon"></i></button>',
                 '</td></tr>'
             ];
             tr = $(tr.join(''));
             html.push(tr);
         });
-        $("#chord_matrix_table > tbody").html(html);
+        $("#chord_edit_table > tbody").html(html);
 
         //register chord matrix deleter
-        $(".chord_matrix_delete").click(function(event) {
+        $(".chord_edit_delete").click(function(event) {
             event.preventDefault();
             var key = $(this).attr("data-key");
-            delete_chord_row(key);
+            delete_chord_row_2(key);
         });
         //refresh modal scroll
-        $('.ui.arrangement_new_modal').modal('refresh');
+        $('.ui.arrangement_edit_modal').modal('refresh');
     }
 
-    function insert_chord_row(data) {
-        var current = JSON.parse($("#chord_matrix").val());
+    function insert_chord_row_2(data) {
+        var current = JSON.parse($("#chord_edit").val());
 
         //remove the old key if adding another
         var clean = [];
@@ -93,12 +134,12 @@
         });
 
         clean.push(data);
-        $("#chord_matrix").val(JSON.stringify(clean));
-        chord_matrix_table();
+        $("#chord_edit").val(JSON.stringify(clean));
+        chord_edit_table_2();
     }
 
-    function delete_chord_row(key) {
-        var current = JSON.parse($("#chord_matrix").val());
+    function delete_chord_row_2(key) {
+        var current = JSON.parse($("#chord_edit").val());
 
         //remove the old key if adding another
         var clean = [];
@@ -108,18 +149,19 @@
             }
         });
 
-        $("#chord_matrix").val(JSON.stringify(clean));
-        chord_matrix_table();
+        $("#chord_edit").val(JSON.stringify(clean));
+        chord_edit_table_2();
     }
 </script>
-<div class="ui long modal arrangement_new_modal">
+<div class="ui long modal arrangement_edit_modal">
     <i class="close icon"></i>
     <div class="header">
-        New Arrangement for <em><?= $song['title'] ?></em>
+        Edit Arrangement for <em><?= $song['title'] ?></em>
     </div>
     <div class="content">
-        <?= form_open('music/add-arrangement', ['class' => 'ui large form', 'id' => 'arrangement_new_modal_form']) ?>
+        <?= form_open('music/edit-arrangement', ['class' => 'ui large form', 'id' => 'arrangement_edit_modal_form']) ?>
         <input type="hidden" name="song" value="<?= $song['id'] ?>">
+        <input type="hidden" name="arr_id" value="">
         <div class="ui error message"></div>
         <!-- artist -->
         <h4 class="ui dividing header">Artist</h4>
@@ -211,7 +253,7 @@
                     <label>Lyrics</label>
                     <div class="ui search media_lyrics">
                         <div class="ui left icon input">
-                            <input class="prompt" type="text" placeholder="Search lyrics">
+                            <input class="prompt" type="text" name="lyrics" placeholder="Search lyrics">
                             <i class="align left icon"></i>
                         </div>
                     </div>
@@ -221,7 +263,7 @@
         </div>
         <!-- chords -->
         <h4 class="ui dividing header">Chords</h4>
-        <div class="ui error message" id="chord_matrix_error">
+        <div class="ui error message" id="chord_edit_error">
             <p></p>
         </div>
         <div class="field">
@@ -258,7 +300,7 @@
                     <input name="media_chord" type="hidden" value="">
                 </div>
                 <div class="field">
-                    <button class="ui button teal basic" id="chord_matrix_button">
+                    <button class="ui button teal basic" id="chord_edit_button">
                         <i class="plus icon"></i>
                         Add Chord Variation
                     </button>
@@ -266,8 +308,8 @@
             </div>
         </div>
         <div class="field">
-            <input type="hidden" name="chord_matrix" id="chord_matrix" value="[]">
-            <table class="ui small teal table" id="chord_matrix_table">
+            <input type="hidden" name="chord_edit" id="chord_edit" value="[]">
+            <table class="ui small teal table" id="chord_edit_table">
                 <thead>
                     <tr>
                         <th>Key</th>
@@ -284,6 +326,6 @@
     </div>
     <div class="actions">
         <div class="ui button cancel">Cancel</div>
-        <div class="ui button blue" id="arrangement_new_modal_form_submit">Submit</div>
+        <div class="ui button blue" id="arrangement_edit_modal_form_submit">Submit</div>
     </div>
 </div>

@@ -28,7 +28,7 @@ class Arrangement_model extends MY_Model {
 
     public function delete($id) {
         $this->db->where('id', $id);
-        $this->db->delete('arrangement');
+        return $this->db->delete('arrangement');
     }
 
     /**

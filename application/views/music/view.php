@@ -95,7 +95,7 @@
                                 </td>
                                 <?php if ($auth_level >= 9): //admin required. modal included below   ?>
                                     <td>
-                                        <a class="ui icon basic red button tiny navs_popup" href="<?= base_url('music/delete-arrangement/' . $arrangement['id']) ?>" data-content="Remove" data-position="top center">
+                                        <a class="ui icon basic red button tiny navs_popup confirm_api" data-action="arrangement delete" data-aid="<?= $arrangement['id'] ?>" data-content="Remove" data-position="top center">
                                             <i class="trash icon"></i>
                                         </a>
                                     </td>

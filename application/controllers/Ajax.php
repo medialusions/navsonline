@@ -121,8 +121,8 @@ class Ajax extends MY_Controller {
     }
 
     /**
-     * Controller function to remove the event. Verifies with cookie auth level.
-     * @param int $sid ID of the cookie.
+     * Controller function to remove the song. Verifies with cookie auth level.
+     * @param int $sid
      */
     public function song_delete($sid) {
         $cookie = $this->verify_cookie();
@@ -134,9 +134,31 @@ class Ajax extends MY_Controller {
         //remove
         $response = $this->song->delete($sid, $user_organizations[0]);
 
-        if ($response['success'])
-            echo json_encode(array('success' => TRUE, 'data' => $sid));
-        else
+        if ($response['success']) {
+            //delete the arrangements
+            $arrangements = $this->arrangement->song_get($sid);
+            foreach ($arrangements as $arr)
+                $this->arrangement->delete($arr['id']);
+
+            echo json_encode(array('success' => TRUE));
+        } else
+            echo json_encode(array('success' => FALSE));
+    }
+
+    /**
+     * Controller function to remove the arrangement. Verifies with cookie auth level.
+     * @param int $aid
+     */
+    public function arrangement_delete($aid) {
+        //verify admin level
+        $this->verify_min_level(9);
+
+        //remove
+        $response = $this->arrangement->delete($aid);
+
+        if ($response) {
+            echo json_encode(array('success' => TRUE));
+        } else
             echo json_encode(array('success' => FALSE));
     }
 

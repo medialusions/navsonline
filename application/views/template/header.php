@@ -103,6 +103,7 @@
                 'event deny': '<?= base_url('/ajax/event-deny'); ?>/{eid}/{uid}',
                 'event delete': '<?= base_url('/ajax/event-delete'); ?>/{eid}',
                 'song delete': '<?= base_url('/ajax/song-delete'); ?>/{sid}',
+                'arrangement delete': '<?= base_url('/ajax/arrangement-delete'); ?>/{aid}',
                 'blockout add': '<?= base_url('/ajax/blockout-add'); ?>',
                 'blockout delete': '<?= base_url('/ajax/blockout-delete'); ?>/{uid}/{db}/{de}'
             };

@@ -71,6 +71,30 @@
                                 $(this).next().val(JSON.stringify(result));
                             }
                         });
+                        
+                //confirm modal
+                $(".confirm_api").click(function() {
+                    var curr_button = this;
+                    $('.confirm_modal')
+                            .modal('setting', 'closable', false)
+                            .modal('show')
+                            .modal({
+                                onApprove: function() {
+                                    $(curr_button)
+                                            .api({
+                                                on: 'now',
+                                                onResponse: function(response) {
+                                                    if (response && response.success) {
+                                                        $(curr_button).closest('tr').remove();
+                                                    } else {
+                                                        $(curr_button).state('flash text', 'Error!');
+                                                    }
+                                                }
+                                            });
+                                    return true;
+                                }
+                            });
+                });
             });
 
             //API setup
@@ -78,6 +102,7 @@
                 'event confirm': '<?= base_url('/ajax/event-confirm'); ?>/{eid}/{uid}',
                 'event deny': '<?= base_url('/ajax/event-deny'); ?>/{eid}/{uid}',
                 'event delete': '<?= base_url('/ajax/event-delete'); ?>/{eid}',
+                'song delete': '<?= base_url('/ajax/song-delete'); ?>/{sid}',
                 'blockout add': '<?= base_url('/ajax/blockout-add'); ?>',
                 'blockout delete': '<?= base_url('/ajax/blockout-delete'); ?>/{uid}/{db}/{de}'
             };
@@ -97,22 +122,22 @@
                     Schedule
                 </a>
                 <!-- SONGS -->
-                <?php if(strpos(uri_string(), 'music/') === false): ?>
-                <a class="item <?= uri_string() == 'user/music' ? 'active' : '' ?>" href="<?= base_url('user/music'); ?>">
-                    <i class="music icon"></i>
-                    Songs
-                </a>
+                <?php if (strpos(uri_string(), 'music/') === false): ?>
+                    <a class="item <?= uri_string() == 'user/music' ? 'active' : '' ?>" href="<?= base_url('user/music'); ?>">
+                        <i class="music icon"></i>
+                        Songs
+                    </a>
                 <?php else: ?>
-                <div class="item active">
-                    <div class="ui breadcrumb">
-                        <a href="<?= base_url('user/music'); ?>">
-                            <i class="music icon"></i>
-                            Songs
-                        </a>
-                        <div class="divider" style="color: white;"> / </div>
-                        <div class="section"><?= $title ?></div>
+                    <div class="item active">
+                        <div class="ui breadcrumb">
+                            <a href="<?= base_url('user/music'); ?>">
+                                <i class="music icon"></i>
+                                Songs
+                            </a>
+                            <div class="divider" style="color: white;"> / </div>
+                            <div class="section"><?= $title ?></div>
+                        </div>
                     </div>
-                </div>
                 <?php endif; ?>
                 <!-- PEOPLE -->
                 <a class="item <?= uri_string() == 'user/people' ? 'active' : '' ?>" href="<?= base_url('user/people'); ?>">

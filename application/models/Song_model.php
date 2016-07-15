@@ -73,28 +73,27 @@ class Song_model extends MY_Model {
     }
 
     /**
-     * Removes event if organization matches that of that event
-     * @param int $eid
-     * @param int $organization
+     * Removes song
+     * @param int $sid
      * @return array Response
      */
-    public function delete($eid, $organization = '') {
+    public function delete($sid, $organization = '') {
         //get session organization if unset
         if ($organization == '')
             $organization = $this->session->userdata('organization_id');
         //verify organization first
         $query = $this->db->query(""
-                . "SELECT organization FROM event "
-                . "WHERE id='$eid' ");
+                . "SELECT organizations FROM song "
+                . "WHERE id='$sid' ");
         //grab the first/only one in $result
         foreach ($query->result_array() as $result)
             break;
-        $organization_db = $result['organization'];
-        if ($organization_db != $organization)
+        $organization_db = $result['organizations'];
+        if (strpos($organization_db, '"' . $organization . '"') === FALSE)
             return array('success' => FALSE, 'reason' => 'Unauthorized. User has no control of this organization.');
         //passed organization verification
         //delete the row
-        $response = $this->db->delete('event', array('id' => $eid));
+        $response = $this->db->delete('song', array('id' => $sid));
         if (!$response)
             return array('success' => FALSE, 'reason' => 'Database query error.');
         else

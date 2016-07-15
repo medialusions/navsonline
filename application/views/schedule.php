@@ -2,33 +2,7 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-<?php if ($auth_level >= 9): ?>
-            $(".event_remove").click(function() {
-                var curr_button = this;
-                $('.confirm_modal')
-                        .modal('setting', 'closable', false)
-                        .modal('show')
-                        .modal({
-                            onApprove: function() {
-                                $(curr_button)
-                                        .api({
-                                            on: 'now',
-                                            onResponse: function(response) {
-                                                if (response && response.success) {
-                                                    $(curr_button).closest('tr').remove();
-                                                } else {
-                                                    $(curr_button).state('flash text', 'Error!');
-                                                }
-                                            }
-                                        });
-                                return true;
-                            }
-                        });
-            });
-    <?php
-endif;
-foreach ($upcoming_events as $event):
-    ?>
+<?php foreach ($upcoming_events as $event): ?>
             $('.event_confirm_<?= $event['id'] ?>')
                     .api({
                         action: 'event confirm',
@@ -133,7 +107,7 @@ foreach ($upcoming_events as $event):
                                         <a class="ui icon basic blue button tiny navs_popup" href="<?= base_url('event/edit/' . $event['id']) ?>" data-content="Edit (admin)" data-position="top center">
                                             <i class="write icon"></i>
                                         </a>
-                                        <button class="ui icon basic red button tiny navs_popup event_remove" data-action="event delete" data-eid="<?= $event['id'] ?>" data-content="Remove" data-position="top center">
+                                        <button class="ui icon basic red button tiny navs_popup confirm_api" data-action="event delete" data-eid="<?= $event['id'] ?>" data-content="Remove" data-position="top center">
                                             <i class="trash icon"></i>
                                         </button>
                                     <?php endif; ?>

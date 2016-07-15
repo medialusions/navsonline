@@ -121,6 +121,26 @@ class Ajax extends MY_Controller {
     }
 
     /**
+     * Controller function to remove the event. Verifies with cookie auth level.
+     * @param int $sid ID of the cookie.
+     */
+    public function song_delete($sid) {
+        $cookie = $this->verify_cookie();
+        $user_organizations = explode(',', $cookie['user_data']['organizations']);
+
+        //verify admin level
+        $this->verify_min_level(9);
+
+        //remove
+        $response = $this->song->delete($sid, $user_organizations[0]);
+
+        if ($response['success'])
+            echo json_encode(array('success' => TRUE, 'data' => $sid));
+        else
+            echo json_encode(array('success' => FALSE));
+    }
+
+    /**
      * Uses get vars
      * ?db={db}&de={de}&reason={reason}&uid={uid}
      * @return void

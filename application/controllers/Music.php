@@ -32,6 +32,9 @@ class Music extends MY_Controller {
         redirect('music/view/' . $event_id);
     }
 
+    /**
+     * @param type $id
+     */
     public function delete_arrangement($id) {
         $this->require_min_level(9);
         $arr = $this->arrangement->get($id);
@@ -39,7 +42,7 @@ class Music extends MY_Controller {
             $this->arrangement->delete($id);
         else
             show_404();
-        
+
         //go back to the song page
         redirect('music/view/' . $arr['song']);
     }

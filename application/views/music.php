@@ -2,7 +2,7 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-
+        
     });
 </script>
 
@@ -42,6 +42,9 @@
                             <th class="">Title</th>
                             <th class="">Tags</th>
                             <th class="">Arrangements</th>
+                            <?php if ($auth_level >= 9): //admin required. modal included below   ?>
+                                <th class="">Delete</th>
+                            <?php endif; ?>
                         </tr>
                     </thead>
                     <tbody>
@@ -59,12 +62,22 @@
                                 <td>
                                     <?= count($song['arrangement']) ?> arrangements
                                 </td>
+                                <?php if ($auth_level >= 9): //admin required. modal included below   ?>
+                                    <td>
+                                        <a class="ui icon basic red button tiny navs_popup confirm_api" data-action="song delete" data-sid="<?= $song['id'] ?>" data-content="Remove" data-position="top center">
+                                            <i class="trash icon"></i>
+                                        </a>
+                                    </td>
+                                <?php endif; ?>
                             </tr>
                         <?php endforeach; ?>
                     <tfoot>
                         <tr><th></th>
                             <th></th>
                             <th></th>
+                            <?php if ($auth_level >= 9): //admin required. modal included below   ?>
+                                <th></th>
+                            <?php endif; ?>
                         </tr>
                     </tfoot>
                 </table>

@@ -84,10 +84,10 @@
         });
     });
 </script>
-<div class="ui blockout_new_modal modal">
+<div class="ui small blockout_new_modal modal">
     <i class="close icon"></i>
     <div class="header">
-        New Event
+        New Blockout Event
     </div>
     <div class="content">
         <?= form_open('ajax/blockout-add', ['class' => 'ui large form', 'id' => 'blockout_add_form']) ?>

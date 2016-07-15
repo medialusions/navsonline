@@ -24,7 +24,7 @@
         
     });
 </script>
-<div class="ui music_new_modal modal">
+<div class="ui small music_new_modal modal">
     <i class="close icon"></i>
     <div class="header">
         New Song

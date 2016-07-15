@@ -43,7 +43,7 @@
         });
     });
 </script>
-<div class="ui event_new_modal modal">
+<div class="ui small event_new_modal modal">
     <i class="close icon"></i>
     <div class="header">
         New Event

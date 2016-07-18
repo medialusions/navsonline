@@ -71,7 +71,7 @@
                                 $(this).next().val(JSON.stringify(result));
                             }
                         });
-                        
+
                 //confirm modal
                 $(".confirm_api").click(function() {
                     var curr_button = this;
@@ -123,12 +123,7 @@
                     Schedule
                 </a>
                 <!-- SONGS -->
-                <?php if (strpos(uri_string(), 'music/') === false): ?>
-                    <a class="item <?= uri_string() == 'user/music' ? 'active' : '' ?>" href="<?= base_url('user/music'); ?>">
-                        <i class="music icon"></i>
-                        Songs
-                    </a>
-                <?php else: ?>
+                <?php if (strpos(uri_string(), 'music/') !== FALSE && strpos(uri_string(), 'user/music/') === false): ?>
                     <div class="item active">
                         <div class="ui breadcrumb">
                             <a href="<?= base_url('user/music'); ?>">
@@ -139,6 +134,11 @@
                             <div class="section"><?= $title ?></div>
                         </div>
                     </div>
+                <?php else: ?>
+                    <a class="item <?= uri_string() == 'user/music' || strpos(uri_string(), 'user/music/') !== FALSE ? 'active' : '' ?>" href="<?= base_url('user/music'); ?>">
+                        <i class="music icon"></i>
+                        Songs
+                    </a>
                 <?php endif; ?>
                 <!-- PEOPLE -->
                 <a class="item <?= uri_string() == 'user/people' ? 'active' : '' ?>" href="<?= base_url('user/people'); ?>">

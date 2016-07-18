@@ -38,9 +38,9 @@ class Music_model extends MY_Model {
     }
 
     /**
-     * Returns next dates. Change limit with param
+     * Returns next set of songs. Change limit with param
      */
-    public function get() {
+    public function get($page = 1) {
         //Ensure organization is set
         $this->organization_id = $this->session->userdata('organization_id');
         //build upcoming query
@@ -48,18 +48,54 @@ class Music_model extends MY_Model {
                 . "SELECT * "
                 . "FROM song "
                 . "WHERE organizations LIKE '%\"$this->organization_id\"%' "
-                . "ORDER BY title ASC ");
+                . "ORDER BY title ASC "
+                . "LIMIT " . (($page - 1) * 10) . ", 10");
 
         //return the array
         $songs = $query->result_array();
-        
+
         $i = 0;
         foreach ($songs as $song) {
             $songs[$i]['arrangement'] = $this->arrangement->song_get($song['id']);
             $i++;
         }
-        
+
         return $songs;
+    }
+
+    /**
+     * Returns the pagination array
+     * @param int $page Page number
+     */
+    public function get_pagination($page) {
+        //Ensure organization is set
+        $this->organization_id = $this->session->userdata('organization_id');
+        //build upcoming query
+        $query = $this->db->query(""
+                . "SELECT * "
+                . "FROM song "
+                . "WHERE organizations LIKE '%\"$this->organization_id\"%' ");
+        $num_rows = $query->num_rows();
+
+        $pagination = array();
+        $pagination['last_page'] = $last_page = (int) ($num_rows / 10); //cast to int
+        $pagination['first_page'] = $first_page = 1;
+        $pagination['prev'] = ($page == 1 ? '' : $page - 1);
+        $pagination['next'] = ($page == $last_page ? '' : $page + 1);
+        //backwards
+        $current = $page - 1;
+        while ($current > $page - 3 && $current >= 1) {
+            $pagination['pages'][$current] = $current;
+            $current--;
+        }
+        $pagination['pages'][$page] = $page;
+        //forwards
+        $current = $page + 1;
+        while ($current < $page + 3 && $current <= $last_page) {
+            $pagination['pages'][$current] = $current;
+            $current++;
+        }
+        return $pagination;
     }
 
     /**

@@ -2,7 +2,7 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        
+
     });
 </script>
 
@@ -72,14 +72,25 @@
                             </tr>
                         <?php endforeach; ?>
                     <tfoot>
-                        <tr><th></th>
-                            <th></th>
-                            <th></th>
-                            <?php if ($auth_level >= 9): //admin required. modal included below   ?>
-                                <th></th>
-                            <?php endif; ?>
-                        </tr>
-                    </tfoot>
+                        <tr><th colspan="<?= $auth_level >= 9 ? 4 : 3 ?>">
+                    <div class="ui right floated pagination menu">
+
+                        <?php if ($pagination['prev'] != ''): ?>
+                            <a class="icon item" href="<?= base_url('user/music/' . $pagination['prev']) ?>">
+                                <i class="left chevron icon"></i>
+                            </a>
+                        <?php endif; ?>
+                        <?php foreach ($pagination['pages'] as $page): ?>
+                            <a class="item <?= $page == $pagination['current'] ? 'active' : '' ?>" href="<?= base_url('user/music/' . $page) ?>"><?= $page ?></a>
+                        <?php endforeach; ?>
+                        <?php if ($pagination['next'] != ''): ?>
+                            <a class="icon item" href="<?= base_url('user/music/' . $pagination['next']) ?>">
+                                <i class="right chevron icon"></i>
+                            </a>
+                        <?php endif; ?>
+                    </div>
+                    </th>
+                    </tr></tfoot>
                 </table>
             </div>
         </div>

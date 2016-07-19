@@ -79,7 +79,7 @@ class User extends MY_Controller {
     }
 
     /**
-     * Loads and gets data for schedule page
+     * Loads and gets data for music page
      */
     public function music($page = 1) {
         $this->require_min_level(1);

@@ -81,7 +81,7 @@ class Music_model extends MY_Model {
     }
 
     /**
-     * Removes event if organization matches that of that event
+     * Removes song if organization matches that of that song
      * @param int $eid
      * @param int $organization
      * @return array Response

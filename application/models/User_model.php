@@ -124,19 +124,16 @@ class User_model extends MY_Model {
     }
 
     /**
-     * 
-     * @param type $data
-     * @param type $json_encoded
-     * @param type $uid
+     * Used via ajax. Stores data to the database. 
+     * @param mixed $data Either array or json data.
+     * @param bool $json_encoded [optional] If false, data will be encoded. Default false.
+     * @param int $uid [optional]
      * @return bool Result
      */
     public function update_blockout($data, $json_encoded = FALSE, $uid = '') {
         $this->db->set('blockouts', ($json_encoded ? $data : json_encode($data)));
         $this->db->where('user_id', ($uid == '' ? config_item('auth_user_id') : $uid));
-        if (!$this->db->update('users'))
-            return FALSE;
-        else
-            return TRUE;
+        return (bool) $this->db->update('users');
     }
 
 }

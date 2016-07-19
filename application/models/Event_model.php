@@ -46,7 +46,11 @@ class Event_model extends MY_Model {
     }
 
     /**
-     * Returns next dates. Change limit with param
+     * Generates upcoming events
+     * @param int $user_id [optional]
+     * @param int $limit [optional] -1 if pagination. Otherwise limits with offset of 0.
+     * @param type $page [optional] Page number. Pages with limits of 10.
+     * @return type array results
      */
     public function generate_upcoming($user_id = '', $limit = 4, $page = 1) {
         //Ensure organization is set

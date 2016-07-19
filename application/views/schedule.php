@@ -80,8 +80,10 @@
                             <th class="">Date</th>
                             <th class="">Time</th>
                             <th class="">Your Role(s)</th>
-                            <th class="">Actions</th>
                             <th class="">Availability</th>
+                            <?php if ($auth_level >= 9): //admin required. modal included below   ?>
+                                <th class="">Delete</th>
+                            <?php endif; ?>
                         </tr>
                     </thead>
                     <tbody>
@@ -99,17 +101,6 @@
                                 <td><?= date('g:ia', $event['date']) ?></td>
                                 <td><?= list_roles($event['roles_matrix'], $auth_user_id) ?></td>
                                 <td>
-                                    <a class="ui icon basic blue button tiny navs_popup" href="<?= base_url('event/view/' . $event['id']); ?>" data-content="View" data-position="top center">
-                                        <i class="unhide icon"></i>
-                                        <?= $auth_level < 9 ? 'View' : '' ?>
-                                    </a>
-                                    <?php if ($auth_level >= 9): //admin required. modal included below   ?>
-                                        <button class="ui icon basic red button tiny navs_popup confirm_api" data-action="event delete" data-eid="<?= $event['id'] ?>" data-content="Remove" data-position="top center">
-                                            <i class="trash icon"></i>
-                                        </button>
-                                    <?php endif; ?>
-                                </td>
-                                <td>
                                     <div class="ui inverted dimmer event_dimmer_<?= $event['id'] ?>">
                                         <div class="ui small loader"></div>
                                     </div>
@@ -122,10 +113,17 @@
                                         </button>
                                     </div>
                                 </td>
+                                <?php if ($auth_level >= 9): //admin required. modal included below   ?>
+                                    <td>
+                                        <button class="ui icon basic red button tiny navs_popup confirm_api" data-action="event delete" data-eid="<?= $event['id'] ?>" data-content="Remove" data-position="top center">
+                                            <i class="trash icon"></i>
+                                        </button>
+                                    </td>
+                                <?php endif; ?>
                             </tr>
                         <?php endforeach; ?>
                     <tfoot>
-                        <tr><th colspan="6">
+                        <tr><th colspan="<?= $auth_level >= 9 ? 6 : 5 ?>">
                     <div class="ui right floated pagination menu">
 
                         <?php if ($pagination['prev'] != ''): ?>

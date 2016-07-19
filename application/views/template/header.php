@@ -112,7 +112,7 @@
     <body>
 
         <div id="top_menu" class="ui inverted fixed top segment" style="background: #0b1426;">
-            <div class="ui inverted secondary stackable pointing menu">
+            <div class="ui inverted secondary stackable pointing menu" style="border: none;">
                 <!-- LOGO -->
                 <a class="ui image small" style="margin-top: 11px;" href="<?= base_url('') ?>">
                     <img src="<?= base_url(); ?>logo/navsonline_400x108.png" class="image">
@@ -145,7 +145,7 @@
                     <i class="users icon"></i>
                     People
                 </a>
-                <div class="ui secondary inverted stackable right pointing menu">
+                <div class="ui secondary inverted stackable right pointing menu" style="border: none;">
                     <a class="ui item <?= uri_string() == 'user/preferences' ? 'active' : '' ?>" href="<?= base_url('user/preferences'); ?>">
                         <i class="setting icon"></i>
                         Settings

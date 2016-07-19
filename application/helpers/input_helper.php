@@ -102,3 +102,26 @@ function get_tags() {
     }
     return $html;
 }
+
+function pagination($num_rows, $page) {
+    $pagination = array();
+    $pagination['last_page'] = $last_page = ceil($num_rows / 10); //cast to int
+    $pagination['first_page'] = $first_page = 1;
+    $pagination['prev'] = ($page == 1 ? '' : $page - 1);
+    $pagination['next'] = ($page == $last_page ? '' : $page + 1);
+    //backwards
+    $current = $page - 1;
+    while ($current > $page - 3 && $current >= 1) {
+        $pagination['pages'][$current] = $current;
+        $current--;
+    }
+    $pagination['pages'][$page] = $page;
+    //forwards
+    $current = $page + 1;
+    while ($current < $page + 3 && $current <= $last_page) {
+        $pagination['pages'][$current] = $current;
+        $current++;
+    }
+    sort($pagination['pages']);
+    return $pagination;
+}

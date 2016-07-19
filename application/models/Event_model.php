@@ -48,9 +48,14 @@ class Event_model extends MY_Model {
     /**
      * Returns next dates. Change limit with param
      */
-    public function generate_upcoming($user_id = '', $limit = 4) {
+    public function generate_upcoming($user_id = '', $limit = 4, $page = 1) {
         //Ensure organization is set
         $this->organization_id = $this->session->userdata('organization_id');
+        if ($limit == -1) {
+            $limit_q = "LIMIT " . (($page - 1) * 10) . ", 10";
+        } else {
+            $limit_q = ($limit > 0 ? "LIMIT $limit" : '');
+        }
         //build upcoming query
         $query = $this->db->query(""
                 . "SELECT * "
@@ -59,10 +64,27 @@ class Event_model extends MY_Model {
                 . ($user_id == '' ? '' : "AND  users_matrix LIKE '%$user_id%' ")
                 . "AND date > " . time() . " "
                 . "ORDER BY date ASC "
-                . ($limit > 0 ? "LIMIT $limit" : ''));
+                . $limit_q);
 
         //return the array
         return $query->result_array();
+    }
+
+    /**
+     * Returns the pagination array
+     * @param int $page Page number
+     */
+    public function get_pagination($page) {
+        //Ensure organization is set
+        $this->organization_id = $this->session->userdata('organization_id');
+        //build upcoming query
+        $query = $this->db->query(""
+                . "SELECT * "
+                . "FROM event "
+                . "WHERE organization='$this->organization_id' ");
+        $num_rows = $query->num_rows();
+
+        return pagination($num_rows, $page);
     }
 
     /**
@@ -109,7 +131,7 @@ class Event_model extends MY_Model {
      */
     public function delete($eid, $organization = '') {
         //get session organization if unset
-        if($organization == '')
+        if ($organization == '')
             $organization = $this->session->userdata('organization_id');
         //verify organization first
         $query = $this->db->query(""

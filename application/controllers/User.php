@@ -63,13 +63,15 @@ class User extends MY_Controller {
     /**
      * Loads and gets data for schedule page
      */
-    public function schedule() {
+    public function schedule($page = 1) {
         $data['title'] = 'Welcome';
 
         $data['user'] = $this->user->generate_user_data($this->auth_user_id);
         $this->session->set_userdata('organization_id', extract_organization($data['user']['organizations']), 0);
 
         $data['upcoming_events'] = $this->event->generate_upcoming($this->auth_user_id, -1);
+        $data['pagination'] = $this->event->get_pagination($page);
+        $data['pagination']['current'] = $page;
 
         $data['sidebar'] = $this->user->generate_sidebar_data($this->auth_user_id);
 

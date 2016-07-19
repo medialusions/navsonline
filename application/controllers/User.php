@@ -12,12 +12,6 @@ class User extends MY_Controller {
 
         //helpers
         $this->load->helper('form');
-
-        //pre load
-        $auth_array = array('', 'user/schedule', 'user/people', 'user/preferences');
-        if (array_search($this->uri->uri_string(), $auth_array) !== FALSE) {
-            $this->require_min_level(1);
-        }
     }
 
     /**
@@ -64,6 +58,7 @@ class User extends MY_Controller {
      * Loads and gets data for schedule page
      */
     public function schedule($page = 1) {
+        $this->require_min_level(1);
         $data['title'] = 'Welcome';
 
         $data['user'] = $this->user->generate_user_data($this->auth_user_id);

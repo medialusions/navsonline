@@ -104,9 +104,6 @@
                                         <?= $auth_level < 9 ? 'View' : '' ?>
                                     </a>
                                     <?php if ($auth_level >= 9): //admin required. modal included below   ?>
-                                        <a class="ui icon basic blue button tiny navs_popup" href="<?= base_url('event/edit/' . $event['id']) ?>" data-content="Edit (admin)" data-position="top center">
-                                            <i class="write icon"></i>
-                                        </a>
                                         <button class="ui icon basic red button tiny navs_popup confirm_api" data-action="event delete" data-eid="<?= $event['id'] ?>" data-content="Remove" data-position="top center">
                                             <i class="trash icon"></i>
                                         </button>
@@ -132,15 +129,15 @@
                     <div class="ui right floated pagination menu">
 
                         <?php if ($pagination['prev'] != ''): ?>
-                            <a class="icon item" href="<?= base_url('user/music/' . $pagination['prev']) ?>">
+                            <a class="icon item" href="<?= base_url('user/schedule/' . $pagination['prev']) ?>">
                                 <i class="left chevron icon"></i>
                             </a>
                         <?php endif; ?>
                         <?php foreach ($pagination['pages'] as $page): ?>
-                            <a class="item <?= $page == $pagination['current'] ? 'active' : '' ?>" href="<?= base_url('user/music/' . $page) ?>"><?= $page ?></a>
+                            <a class="item <?= $page == $pagination['current'] ? 'active' : '' ?>" href="<?= base_url('user/schedule/' . $page) ?>"><?= $page ?></a>
                         <?php endforeach; ?>
                         <?php if ($pagination['next'] != ''): ?>
-                            <a class="icon item" href="<?= base_url('user/music/' . $pagination['next']) ?>">
+                            <a class="icon item" href="<?= base_url('user/schedule/' . $pagination['next']) ?>">
                                 <i class="right chevron icon"></i>
                             </a>
                         <?php endif; ?>

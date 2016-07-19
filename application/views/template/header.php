@@ -118,10 +118,23 @@
                     <img src="<?= base_url(); ?>logo/navsonline_400x108.png" class="image">
                 </a>
                 <!-- SCHEDULE -->
-                <a class="item <?= uri_string() == 'user/schedule' || uri_string() == '' ? 'active' : '' ?>" style="margin-left:25px;" href="<?= base_url('user/schedule'); ?>">
-                    <i class="unordered list icon"></i>
-                    Schedule
-                </a>
+                <?php if (strpos(uri_string(), 'schedule/') !== FALSE && strpos(uri_string(), 'user/schedule/') === false): ?>
+                    <div class="item active">
+                        <div class="ui breadcrumb">
+                            <a href="<?= base_url('user/schedule'); ?>">
+                                <i class="unordered list icon"></i>
+                                Schedule
+                            </a>
+                            <div class="divider" style="color: white;"> / </div>
+                            <div class="section"><?= $title ?></div>
+                        </div>
+                    </div>
+                <?php else: ?>
+                    <a class="item <?= strpos(uri_string(), 'user/schedule') !== FALSE || uri_string() == '' ? 'active' : '' ?>" style="margin-left:25px;" href="<?= base_url('user/schedule'); ?>">
+                        <i class="unordered list icon"></i>
+                        Schedule
+                    </a>
+                <?php endif; ?>
                 <!-- SONGS -->
                 <?php if (strpos(uri_string(), 'music/') !== FALSE && strpos(uri_string(), 'user/music/') === false): ?>
                     <div class="item active">
@@ -135,7 +148,7 @@
                         </div>
                     </div>
                 <?php else: ?>
-                    <a class="item <?= uri_string() == 'user/music' || strpos(uri_string(), 'user/music/') !== FALSE ? 'active' : '' ?>" href="<?= base_url('user/music'); ?>">
+                    <a class="item <?= strpos(uri_string(), 'user/music') !== FALSE ? 'active' : '' ?>" href="<?= base_url('user/music'); ?>">
                         <i class="music icon"></i>
                         Songs
                     </a>

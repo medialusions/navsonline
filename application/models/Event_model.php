@@ -13,6 +13,22 @@ class Event_model extends MY_Model {
         $this->organization_id = $this->session->userdata('organization_id');
     }
 
+    public function get($id) {
+        //Ensure organization is set
+        $this->organization_id = $this->session->userdata('organization_id');
+        //build upcoming query
+        $query = $this->db->query(""
+                . "SELECT * "
+                . "FROM event "
+                . "WHERE organization='$this->organization_id' "
+                . "AND id='$id'"
+                . "LIMIT 1");
+
+        //return the only
+        foreach ($query->result_array() as $row)
+            return $row;
+    }
+
     /**
      * Must have name and date/time in post data
      */

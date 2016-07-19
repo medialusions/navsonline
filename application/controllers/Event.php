@@ -40,22 +40,19 @@ class Event extends MY_Controller {
     }
 
     /**
-     * Loads and gets data for schedule page
+     * Loads and gets data for event page
      */
-    public function edit($id) {
-        //admin level needed
-        $this->require_min_level(9);
-        //verify organization id
+    public function view($id) {
+        //user login needed
+        $this->require_min_level(1);
+        //get event data
+        $data['event'] = $this->event->get($id);
+        //get event items
+        $data['items'] = $this->event_item->get($id);
 
-        //if post data found
-        if ($this->input->post())
-            $event_id = $this->event->create();
-        else {
-            show_404();
-            return;
-        }
-
-        redirect('event/edit/' . $event_id);
+        //setup view
+        $data['title'] = $data['event']['name'];
+        $this->load->view('event/view', $data);
     }
 
 }

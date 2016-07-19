@@ -38,7 +38,7 @@ class Music extends MY_Controller {
     public function delete_arrangement($id) {
         $this->require_min_level(9);
         $arr = $this->arrangement->get($id);
-        if (strpos($arr['organizations'], '"' . $_SESSION['organization_id'] . '"'))
+        if (strpos($arr['organizations'], '"' . $_SESSION['organization_id'] . '"') !== FALSE)
             $this->arrangement->delete($id);
         else
             show_404();

@@ -118,8 +118,8 @@
                     <img src="<?= base_url(); ?>logo/navsonline_400x108.png" class="image">
                 </a>
                 <!-- SCHEDULE -->
-                <?php if (strpos(uri_string(), 'schedule/') !== FALSE && strpos(uri_string(), 'user/schedule/') === false): ?>
-                    <div class="item active">
+                <?php if (strpos(uri_string(), 'event/') !== FALSE && strpos(uri_string(), 'user/schedule/') === false): ?>
+                    <div class="item active" style="margin-left:25px;">
                         <div class="ui breadcrumb">
                             <a href="<?= base_url('user/schedule'); ?>">
                                 <i class="unordered list icon"></i>

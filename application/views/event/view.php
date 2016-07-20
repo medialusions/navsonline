@@ -6,9 +6,7 @@
     });
 </script>
 <style>
-    .media_new_modal {
-        z-index: 1100 !important;
-    }
+
 </style>
 
 <!-- content -->
@@ -55,17 +53,17 @@
                             <tr>
                                 <td>
                                     <?php if ($auth_level >= 9): //admin required.   ?>
-                                        <a href="javascript:void(0)" class="e_item_edit_modal_button" class="ui header"><?= $item['name'] ?></a>
+                                        <a href="javascript:void(0)" class="e_item_edit_modal_button" class="ui header"><?= $item['title'] ?></a>
                                         <div class="hidden" style="display: none;"><?= json_encode($item) ?></div>
                                     <?php else: ?>
-                                        <div class="ui header"><?= $item['name'] ?></div>
+                                        <div class="ui header"><?= $item['title'] ?></div>
                                     <?php endif; ?>
-                                    <em><?= $item['memo'] ?></em>
+                                    <div class="sub header"><em><?= $item['memo'] ?></em></div>
                                 </td>
                                 <td>TO FILL IN</td>
                                 <?php if ($auth_level >= 9): //admin required.   ?>
                                     <td>
-                                        <a class="ui icon basic red button tiny navs_popup confirm_api" data-action="event item delete" data-aid="<?= $item['id'] ?>" data-content="Remove" data-position="top center">
+                                        <a class="ui icon basic red button tiny navs_popup confirm_api" data-action="event item delete" data-eiid="<?= $item['id'] ?>" data-content="Remove" data-position="top center">
                                             <i class="trash icon"></i>
                                         </a>
                                     </td>
@@ -91,7 +89,7 @@
 
 <?php
 if ($auth_level >= 9):
-    $this->load->view('modal/media_add');
+    $this->load->view('modal/event_item_add');
 endif;
 
 $this->load->view('template/footer');

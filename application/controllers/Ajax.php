@@ -77,6 +77,28 @@ class Ajax extends MY_Controller {
         echo json_encode($result);
     }
 
+    public function arrangement_search() {
+        //get user data
+        $this->verify_min_level(1);
+        $user_data = $this->verify_cookie();
+        $user_organizations = explode(',', $user_data['user_data']['organizations']);
+
+        $query = $this->input->get("q");
+
+        //do it
+        $result = array('results' => array());
+        $search_result = $this->arrangement->search($query, $user_organizations[0]);
+
+        foreach ($search_result as $row) {
+            array_push($result['results'], array(
+                "title" => $row['title'],
+                "description" => $row['artist'],
+                "id" => $row['id']
+            ));
+        }
+        echo json_encode($result);
+    }
+
     /**
      * API for updating event confirmation
      * @param int $eid
@@ -116,6 +138,23 @@ class Ajax extends MY_Controller {
 
         if ($response['success'])
             echo json_encode(array('success' => TRUE, 'data' => $eid));
+        else
+            echo json_encode(array('success' => FALSE));
+    }
+    
+    /**
+     * 
+     * @param int $eiid Id of event item
+     */
+    public function event_item_delete($eiid){
+        //verify admin level
+        $this->verify_min_level(9);
+
+        //remove
+        $response = $this->event_item->delete($eiid);
+
+        if ($response['success'])
+            echo json_encode(array('success' => TRUE, 'data' => $eiid));
         else
             echo json_encode(array('success' => FALSE));
     }

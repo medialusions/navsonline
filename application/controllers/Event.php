@@ -36,7 +36,16 @@ class Event extends MY_Controller {
             return;
         }
 
-        redirect('event/edit/' . $event_id);
+        redirect('event/view/' . $event_id);
+    }
+
+    public function add_item() {
+        //admin level needed
+        $this->require_min_level(9);
+
+        $this->event_item->add();
+        
+        redirect('event/view/' . $this->input->post('event_id'));
     }
 
     /**

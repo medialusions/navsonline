@@ -27,6 +27,7 @@
             $(document).ready(function() {
                 $('.navs_popup').popup();
                 $('.dropdown').dropdown();
+                $('.ui.radio.checkbox').checkbox();
                 $('.dropdown.additions').dropdown({
                     allowAdditions: true
                 });
@@ -71,6 +72,16 @@
                                 $(this).next().val(JSON.stringify(result));
                             }
                         });
+                $('.ui.search.arrangement_search')
+                        .search({
+                            apiSettings: {
+                                url: '<?= base_url('/ajax/arrangement-search'); ?>?q={query}'
+                            },
+                            cache: false,
+                            onSelect: function(result, response) {
+                                $(this).next().val(JSON.stringify(result));
+                            }
+                        });
 
                 //confirm modal
                 $(".confirm_api").click(function() {
@@ -102,6 +113,7 @@
                 'event confirm': '<?= base_url('/ajax/event-confirm'); ?>/{eid}/{uid}',
                 'event deny': '<?= base_url('/ajax/event-deny'); ?>/{eid}/{uid}',
                 'event delete': '<?= base_url('/ajax/event-delete'); ?>/{eid}',
+                'event item delete': '<?= base_url('/ajax/event-item-delete'); ?>/{eiid}',
                 'song delete': '<?= base_url('/ajax/song-delete'); ?>/{sid}',
                 'arrangement delete': '<?= base_url('/ajax/arrangement-delete'); ?>/{aid}',
                 'blockout add': '<?= base_url('/ajax/blockout-add'); ?>',

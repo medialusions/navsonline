@@ -15,7 +15,7 @@ class Arrangement_model extends MY_Model {
 
     public function get($id) {
         $query = $this->db->query("SELECT * FROM arrangement WHERE id='$id'");
-        
+
         //return the first
         foreach ($query->result_array() as $result)
             return $result;
@@ -90,6 +90,19 @@ class Arrangement_model extends MY_Model {
      */
     public function get_unique($column = 'artist') {
         $query = $this->db->query("SELECT * FROM arrangement WHERE organizations LIKE '%\"$this->organization_id\"%' GROUP BY($column) ORDER BY $column");
+        return $query->result_array();
+    }
+
+    public function search($q, $organization) {
+        //generate query
+        $query = $this->db->query(""
+                . "SELECT a.artist, s.title, a.id "
+                . "FROM arrangement a "
+                . "INNER JOIN song s "
+                . "ON a.song=s.id "
+                . "WHERE (a.organizations LIKE '%\"$organization\"%') "
+                . "AND (a.artist LIKE '%$q%' OR s.title LIKE '%$q%')");
+
         return $query->result_array();
     }
 

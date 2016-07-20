@@ -7,7 +7,12 @@
  * @param boolean $unix [optional] select return type. True for unix timestamp. False for bool
  * @return mixed
  */
-function verify_date_time($date, $time, $unix = TRUE) {
+function verify_date_time($date, $time = '', $unix = TRUE) {
+    if ($time == '') {
+        $split = explode(' ', $date);
+        $time = $split[0];
+        $date = $split[1];
+    }
     //verify length
     if (strlen($date) !== 10 || strlen($time) !== 8)
         return false;
@@ -16,7 +21,7 @@ function verify_date_time($date, $time, $unix = TRUE) {
     if ($unix)
         return $date->getTimestamp();
 
-    return true;
+    return $date;
 }
 
 /**

@@ -96,11 +96,11 @@ class Arrangement_model extends MY_Model {
     public function search($q, $organization) {
         //generate query
         $query = $this->db->query(""
-                . "SELECT a.artist, s.title, a.id "
+                . "SELECT a.artist, s.title, a.id, a.song_keys "
                 . "FROM arrangement a "
                 . "INNER JOIN song s "
                 . "ON a.song=s.id "
-                . "WHERE (a.organizations LIKE '%\"$organization\"%') "
+                . "WHERE (a.organizations LIKE '%\"$organization\"%' ) "
                 . "AND (a.artist LIKE '%$q%' OR s.title LIKE '%$q%')");
 
         return $query->result_array();

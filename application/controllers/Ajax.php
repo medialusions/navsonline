@@ -93,7 +93,8 @@ class Ajax extends MY_Controller {
             array_push($result['results'], array(
                 "title" => $row['title'],
                 "description" => $row['artist'],
-                "id" => $row['id']
+                "id" => $row['id'],
+                "keys" => $row['song_keys']
             ));
         }
         echo json_encode($result);

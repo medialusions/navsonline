@@ -41,6 +41,7 @@
                 <table class="ui very basic table">
                     <thead>
                         <tr>
+                            <th class="">Time</th>
                             <th class="">Name</th>
                             <th class="">Attachments</th>
                             <?php if ($auth_level >= 9): //admin required.   ?>
@@ -50,17 +51,34 @@
                     </thead>
                     <tbody>
                         <?php foreach ($items as $item): ?>
-                            <tr>
+                            <?php if ($item['label']): ?>
+                                <tr>
+                                    <td>
+                                        <div class="ui ribbon <?= $item['start_time'] < $event['date'] && date('d/m/Y', $item['start_time']) != date('d/m/Y', $event['date']) ? 'grey nav_italic' : 'blue' ?> label">
+                                            <?= date('l, F jS', $item['start_time']) ?>
+                                        </div>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <?php if ($auth_level >= 9): //admin required.   ?>
+                                        <td></td>
+                                    <?php endif; ?>
+                                </tr>
+                            <?php endif; ?>
+                            <tr class="<?= $item['start_time'] < $event['date'] ? 'nav_italic active' : '' ?> ">
+                                <td>
+                                    <?= date('g:ia', $item['start_time']) ?>
+                                </td>
                                 <td>
                                     <?php if ($auth_level >= 9): //admin required.   ?>
-                                        <a href="javascript:void(0)" class="e_item_edit_modal_button" class="ui header"><?= $item['title'] ?></a>
+                                        <a href="javascript:void(0)" class="e_item_edit_modal_button" style="font-weight: bold;"><?= $item['title'] ?></a>
                                         <div class="hidden" style="display: none;"><?= json_encode($item) ?></div>
                                     <?php else: ?>
-                                        <div class="ui header"><?= $item['title'] ?></div>
+                                        <div style="font-weight: bold;"><?= $item['title'] ?></div>
                                     <?php endif; ?>
-                                    <div class="sub header"><em><?= $item['memo'] ?></em></div>
+                                    <div class="sub header"><?= $item['memo'] ?></div>
                                 </td>
-                                <td>TO FILL IN</td>
+                                <td>Blank</td>
                                 <?php if ($auth_level >= 9): //admin required.   ?>
                                     <td>
                                         <a class="ui icon basic red button tiny navs_popup confirm_api" data-action="event item delete" data-eiid="<?= $item['id'] ?>" data-content="Remove" data-position="top center">
@@ -71,7 +89,9 @@
                             </tr>
                         <?php endforeach; ?>
                     <tfoot>
-                        <tr><th></th>
+                        <tr>
+                            <th></th>
+                            <th></th>
                             <th></th>
                             <?php if ($auth_level >= 9): //admin required.   ?>
                                 <th></th>

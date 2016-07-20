@@ -33,11 +33,7 @@
             title: false,
             closeButton: false,
             fullsizeButton: false,
-            timepicker: true, // use timepicker
-            timepickerOptions: {
-                seconds: false,
-                defaultTime: '<?= date('H:i', $event['date']) ?>'
-            }
+            timepicker: true // use timepicker
         });
         $('#event_new_time').val('<?= date('Y/m/d', $event['date']) ?>');
         $('#event_new_time').periodpicker('change');
@@ -60,7 +56,7 @@
     <div class="header">
         New event item for <em><?= $title ?></em>
     </div>
-    <div class="ui sub header"><em><?= date('l, F jS g:i a', $event['date']) ?></em></div>
+    <div class="ui sub header"><em><?= date('l, F jS g:ia', $event['date']) ?></em></div>
     <div class="content">
         <?= form_open('event/add-item', ['class' => 'ui large form', 'id' => 'e_item_new_modal_form']) ?>
         <input type="hidden" name="event_id" value="<?= $event['id'] ?>">
@@ -85,19 +81,19 @@
                     <div class="field">
                         <div class="ui radio checkbox">
                             <input type="radio" name="type" value="song" checked="" tabindex="0" class="hidden">
-                            <label>Song/Arrangement</label>
+                            <label>Song</label>
                         </div>
                     </div>
                     <div class="field">
                         <div class="ui radio checkbox">
                             <input type="radio" name="type" value="simple" tabindex="0" class="hidden">
-                            <label>Simple/Message</label>
+                            <label>Message</label>
                         </div>
                     </div>
                 </div>
                 <!-- Song/Arrangement -->
                 <div class="e_item_" id="e_item_song">
-                    <h3 class="ui dividing header">Song/Arrangement</h3>
+                    <h3 class="ui dividing header">Song</h3>
                     <div class="field">
                         <!-- Song Search -->
                         <label>Song Search</label>
@@ -109,10 +105,21 @@
                         </div>
                         <input name="arrangement_search" type="hidden" value="">
                     </div>
+                    <div class="field" id="a_search_key">
+                        <div class="ui fluid search normal selection dropdown" >
+                            <input type="hidden" name="a_search_key">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">Arrangement Key</div>
+                            <div class="nav menu">
+                                
+                                <div class="item" data-value="A#">A#</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- Simple/Message -->
                 <div class="e_item_" id="e_item_simple">
-                    <h3 class="ui dividing header">Simple/Message</h3>
+                    <h3 class="ui dividing header">Message</h3>
                     <!-- Title -->
                     <div class="field">
                         <label>Item Title</label>

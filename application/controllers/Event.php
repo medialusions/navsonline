@@ -44,7 +44,7 @@ class Event extends MY_Controller {
         $this->require_min_level(9);
 
         $this->event_item->add();
-        
+
         redirect('event/view/' . $this->input->post('event_id'));
     }
 
@@ -58,6 +58,17 @@ class Event extends MY_Controller {
         $data['event'] = $this->event->get($id);
         //get event items
         $data['items'] = $this->event_item->get($id);
+        //add label to first of each date
+        $dates = array();
+        $i = 0;
+        foreach ($data['items'] as $item) {
+            $data['items'][$i]['label'] = FALSE;
+            if (array_search(date('d/m/Y', $item['start_time']), $dates) === FALSE) {
+                array_push($dates, date('d/m/Y', $item['start_time']));
+                $data['items'][$i]['label'] = TRUE;
+            }
+            $i++;
+        }
 
         //setup view
         $data['title'] = $data['event']['name'];

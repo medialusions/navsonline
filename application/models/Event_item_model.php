@@ -20,7 +20,8 @@ class Event_item_model extends MY_Model {
         $query = $this->db->query(""
                 . "SELECT * "
                 . "FROM event_item "
-                . "WHERE event_id='$eid' ");
+                . "WHERE event_id='$eid' "
+                . "ORDER BY start_time");
 
         //return the only
         return $query->result_array();
@@ -39,8 +40,9 @@ class Event_item_model extends MY_Model {
         $data = array(
             'event_id' => $data['event_id'],
             'type' => $data['type'],
-            'title' => ($data['type'] == 'song' ? $song['title'] . ' - ' . $arrangement_data['artist'].'' : $data['title']),
+            'title' => ($data['type'] == 'song' ? $song['title'] . ' - ' . $arrangement_data['artist'] . '' : $data['title']),
             'arrangement_id' => ($data['type'] == 'song' ? $song['id'] : ''),
+            'arrangement_key' => ($data['type'] == 'song' ? $data['a_search_key'] : ''),
             'memo' => $data['memo'],
             'start_time' => verify_date_time($data['event_time']),
             'date_created' => time(),

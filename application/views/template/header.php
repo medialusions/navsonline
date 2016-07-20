@@ -21,6 +21,9 @@
                 max-width: 1100px;
                 margin: auto auto;
             }
+            .nav_italic{
+                font-style: italic !important;
+            }
         </style>
 
         <script>
@@ -72,6 +75,8 @@
                                 $(this).next().val(JSON.stringify(result));
                             }
                         });
+                //arrangement search
+                $("#a_search_key").hide();
                 $('.ui.search.arrangement_search')
                         .search({
                             apiSettings: {
@@ -80,6 +85,15 @@
                             cache: false,
                             onSelect: function(result, response) {
                                 $(this).next().val(JSON.stringify(result));
+                                $("#a_search_key").show();
+                                var keys = JSON.parse(result.keys);
+                                $("#a_search_key > div > .nav.menu").html('');
+                                $.each(keys, function(key, value) {
+                                    if (value.key !== 'Open') {
+                                        var html = '<div class="item" data-value="' + value.key + '">' + value.key + '</div>';
+                                        $("#a_search_key > div > .nav.menu").append(html);
+                                    }
+                                });
                             }
                         });
 

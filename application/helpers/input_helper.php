@@ -14,10 +14,10 @@ function verify_date_time($date, $time = '', $unix = TRUE) {
         $date = $split[1];
     }
     //verify length
-    if (strlen($date) !== 10 || strlen($time) !== 8)
+    if (strlen($date) !== 10 || strlen($time) !== 5)
         return false;
 
-    $date = DateTime::createFromFormat('m/d/Y H:i:s', $date . ' ' . $time);
+    $date = DateTime::createFromFormat('Y/m/d H:i:s', $date . ' ' . $time . ':00');
     if ($unix)
         return $date->getTimestamp();
 

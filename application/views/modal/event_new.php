@@ -25,7 +25,6 @@
 
         $('#event_new_date').periodpicker({
             dayOfWeekStart: 7,
-            formatDate: 'MM/DD/YYYY',
             norange: true,
             cells: [1,1],
             withoutBottomPanel: true,
@@ -38,8 +37,8 @@
         });
         $('#event_new_time').timepickeralone({
             twelveHoursFormat: true,
-            seconds: true,
-            defaultTime: ''
+            seconds: false,
+            defaultTime: '19:00'
         });
     });
 </script>

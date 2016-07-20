@@ -22,7 +22,7 @@ class MY_Controller extends Auth_Controller {
      */
     public function __construct() {
         parent::__construct();
-        
+
         //load models
         $this->load->model('user_model', 'user', TRUE);
         $this->load->model('blockout_model', 'blockout', TRUE);
@@ -33,12 +33,18 @@ class MY_Controller extends Auth_Controller {
         $this->load->model('organization_model', 'organization', TRUE);
         $this->load->model('media_model', 'media', TRUE);
         $this->load->model('arrangement_model', 'arrangement', TRUE);
-        
+
         //upload class
         $config['upload_path'] = 'media/';
         $config['allowed_types'] = 'doc|docx|pdf|mp3|mp4|m4a|aif|aifc|aiff|wav';
         $config['encrypt_name'] = TRUE;
         $this->upload->initialize($config);
+
+        //if logged in, check organizations session
+        if (isset($_COOKIE['ci_session']) && $this->require_min_level(1)) {
+            $data['user'] = $this->user->generate_user_data($this->auth_user_id);
+            $this->session->set_userdata('organization_id', extract_organization($data['user']['organizations']), 0);
+        }
     }
 
 }

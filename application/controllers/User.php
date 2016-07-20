@@ -62,7 +62,6 @@ class User extends MY_Controller {
         $data['title'] = 'Welcome';
 
         $data['user'] = $this->user->generate_user_data($this->auth_user_id);
-        $this->session->set_userdata('organization_id', extract_organization($data['user']['organizations']), 0);
 
         $data['upcoming_events'] = $this->event->generate_upcoming($this->auth_user_id, -1);
         $data['pagination'] = $this->event->get_pagination($page);

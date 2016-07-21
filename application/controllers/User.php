@@ -47,7 +47,7 @@ class User extends MY_Controller {
         }
 
         if (strtolower($_SERVER['REQUEST_METHOD']) == 'post')
-            $this->require_min_level(1);
+            $this->require_min_level(3);
 
         $this->setup_login_form();
 
@@ -58,7 +58,7 @@ class User extends MY_Controller {
      * Loads and gets data for schedule page
      */
     public function schedule($page = 1) {
-        $this->require_min_level(1);
+        $this->require_min_level(3);
         $data['title'] = 'Welcome';
 
         $data['user'] = $this->user->generate_user_data($this->auth_user_id);
@@ -76,7 +76,7 @@ class User extends MY_Controller {
      * Loads and gets data for music page
      */
     public function music($page = 1) {
-        $this->require_min_level(1);
+        $this->require_min_level(3);
         $data['title'] = 'Music Center';
 
         $data['user'] = $this->user->generate_user_data($this->auth_user_id);

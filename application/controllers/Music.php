@@ -11,7 +11,7 @@ class Music extends MY_Controller {
         parent::__construct();
 
         //pre load
-        $this->require_min_level(1);
+        $this->require_min_level(3);
     }
 
     /**
@@ -155,6 +155,7 @@ class Music extends MY_Controller {
      * Loads and gets data for music page
      */
     public function view($id) {
+        $this->require_min_level(3);
         $data['song'] = $this->song->get($id);
         $data['arrangements'] = $this->arrangement->song_get($id);
         $data['arrangements'] = $this->arrangement->song_get($id);

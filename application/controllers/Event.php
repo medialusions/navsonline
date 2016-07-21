@@ -62,7 +62,7 @@ class Event extends MY_Controller {
      */
     public function view($id) {
         //user login needed
-        $this->require_min_level(1);
+        $this->require_min_level(3);
         //get event data
         $data['event'] = $this->event->get($id);
         //get event items

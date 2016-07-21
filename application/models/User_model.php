@@ -8,6 +8,17 @@ class User_model extends MY_Model {
         parent::__construct();
     }
 
+    public function get($id = '', $organization_id = '') {
+        if ($id == '') {
+            if ($organization_id == '') {
+                $organization_id = $_SESSION['organization_id'];
+            }
+            return $this->organization->list_users();
+        } else {
+            return $this->generate_user_data($id);
+        }
+    }
+
     /**
      * Generates data from db.
      * 

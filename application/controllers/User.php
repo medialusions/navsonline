@@ -80,7 +80,6 @@ class User extends MY_Controller {
         $data['title'] = 'Music Center';
 
         $data['user'] = $this->user->generate_user_data($this->auth_user_id);
-        $this->session->set_userdata('organization_id', extract_organization($data['user']['organizations']), 0);
         $data['sidebar'] = $this->user->generate_sidebar_data($this->auth_user_id);
 
         $data['songs'] = $this->music->get($page);
@@ -88,6 +87,22 @@ class User extends MY_Controller {
         $data['pagination']['current'] = $page;
 
         $this->load->view('music', $data);
+    }
+
+    /**
+     * Loads and gets data for music page
+     */
+    public function people($page = 1) {
+        $this->require_min_level(1);
+        $data['title'] = 'People Center';
+
+        $data['user'] = $this->user->generate_user_data($this->auth_user_id);
+        $data['sidebar'] = $this->user->generate_sidebar_data($this->auth_user_id);
+
+        $data['users'] = $this->user->get();
+        $data['pagination'] = array();
+
+        $this->load->view('people', $data);
     }
 
 }

@@ -71,10 +71,11 @@
                                 <?php endif; ?>
                             </tr>
                         <?php endforeach; ?>
+                    </tbody>
                     <tfoot>
-                        <tr><th colspan="<?= $auth_level >= 9 ? 4 : 3 ?>">
+                        <tr>
+                            <th colspan="<?= $auth_level >= 9 ? 4 : 3 ?>">
                     <div class="ui right floated pagination menu">
-
                         <?php if ($pagination['prev'] != ''): ?>
                             <a class="icon item" href="<?= base_url('user/music/' . $pagination['prev']) ?>">
                                 <i class="left chevron icon"></i>
@@ -90,7 +91,8 @@
                         <?php endif; ?>
                     </div>
                     </th>
-                    </tr></tfoot>
+                    </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>

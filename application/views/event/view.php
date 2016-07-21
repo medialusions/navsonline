@@ -13,7 +13,7 @@
 <div id="main_content" class="ui stackable grid">
 
     <!-- main content -->
-    <div class="ui sixteen wide column">
+    <div class="ui twelve wide column">
 
         <div class="ui segment">
             <!-- welcome message -->
@@ -38,7 +38,7 @@
 
             <div class="ui grid">
                 <!-- agenda table -->
-                <table class="ui very basic table">
+                <table class="ui very basic small table">
                     <thead>
                         <tr>
                             <th class="">Time</th>
@@ -53,16 +53,11 @@
                         <?php foreach ($items as $item): ?>
                             <?php if ($item['label']): ?>
                                 <tr>
-                                    <td>
-                                        <div class="ui ribbon <?= $item['start_time'] < $event['date'] && date('d/m/Y', $item['start_time']) != date('d/m/Y', $event['date']) ? 'grey nav_italic' : 'blue' ?> label">
+                                    <td colspan="<?= $auth_level >= 9 ? 4 : 3 ?>">
+                                        <div class="ui ribbon <?= $item['start_time'] < $event['date'] && date('d/m/Y', $item['start_time']) != date('d/m/Y', $event['date']) ? 'grey nav_italic' : 'teal' ?> label">
                                             <?= date('l, F jS', $item['start_time']) ?>
                                         </div>
                                     </td>
-                                    <td></td>
-                                    <td></td>
-                                    <?php if ($auth_level >= 9): //admin required.   ?>
-                                        <td></td>
-                                    <?php endif; ?>
                                 </tr>
                             <?php endif; ?>
                             <tr class="<?= $item['start_time'] < $event['date'] ? 'nav_italic active' : '' ?> ">
@@ -95,9 +90,8 @@
                                 <td>
                                     <?php if ($item['type'] == 'song'): ?>
                                         <!-- to song page -->
-                                        <a class="ui icon mini button teal navs_popup" target="_blank" href="<?= base_url('music/view/' . $item['song']['id']) ?>" data-content="More..." data-position="top center">
+                                        <a class="ui icon mini button teal navs_popup" target="_blank" href="<?= base_url('music/view/' . $item['song']['id']) ?>" data-content="<?= $item['song']['title'] ?>" data-position="top center">
                                             <i class="music icon"></i>
-                                            <?= $item['song']['title'] ?>
                                         </a>
                                         <?php if ($item['arrangement']['video'] != ''): ?>
                                             <!-- youtube -->
@@ -128,21 +122,17 @@
                                 <?php if ($auth_level >= 9): //admin required.    ?>
                                     <!-- delete -->
                                     <td>
-                                        <a class="ui icon basic red button tiny navs_popup confirm_api" data-action="event item delete" data-eiid="<?= $item['id'] ?>" data-content="Remove" data-position="top center">
+                                        <a class="ui icon basic red button mini navs_popup confirm_api" data-action="event item delete" data-eiid="<?= $item['id'] ?>" data-content="Remove" data-position="top center">
                                             <i class="trash icon"></i>
                                         </a>
                                     </td>
                                 <?php endif; ?>
                             </tr>
                         <?php endforeach; ?>
+                    </tbody>
                     <tfoot>
                         <tr>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <?php if ($auth_level >= 9): //admin required.    ?>
-                                <th></th>
-                            <?php endif; ?>
+                            <th colspan="<?= $auth_level >= 9 ? 4 : 3 ?>"></th>
                         </tr>
                     </tfoot>
                 </table>
@@ -150,7 +140,16 @@
         </div>
     </div>
 
-    <?php //$this->load->view('template/sidebar');  ?>
+    <!-- right sidebar -->
+    <div class="ui four wide column">
+        <div class="ui segment">
+            <h4 class="ui horizontal divider header">
+                <i class="users icon"></i>
+                People
+            </h4>
+            <?php //@TODO ?>
+        </div>
+    </div>
 </div>
 
 

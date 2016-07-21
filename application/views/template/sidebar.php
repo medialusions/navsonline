@@ -1,5 +1,24 @@
-<!-- left sidebar -->
+<!-- right sidebar -->
 <div class="ui four wide column">
+    <div class="ui segment">
+        <h4 class="ui horizontal divider header">
+            Your Campus
+        </h4>
+        <div class="ui list">
+            <div class="item">
+                <div class="header">Name</div>
+                <?= $_SESSION['organization_data']['name'] ?>
+            </div>
+            <div class="item">
+                <div class="header">Location</div>
+                <?= $_SESSION['organization_data']['location'] ?>
+            </div>
+            <div class="item">
+                <div class="header">Timezone</div>
+                <?= $_SESSION['organization_data']['timezone'] ?>
+            </div>
+        </div>
+    </div>
     <div class="ui segment">
         <h4 class="ui horizontal divider header">
             <i class="small unordered list icon"></i>

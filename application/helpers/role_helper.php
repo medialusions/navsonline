@@ -66,3 +66,17 @@ function matrix_decode($json_matrix, $index = '', $second_index = '') {
     else
         return $current[$second_index];
 }
+
+function auth_role($auth_level) {
+    if ($auth_level >= 10) {
+        return 'Super Admin';
+    } else if ($auth_level >= 9) {
+        return 'Admin';
+    } else if ($auth_level >= 5) {
+        return 'Viewer';
+    } else if ($auth_level >= 2) {
+        return 'Archived';
+    } else if ($auth_level >= 1) {
+        return 'Denied';
+    }
+}

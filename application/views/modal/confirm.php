@@ -7,12 +7,13 @@
         <p>Please confirm whether you would like to proceed.</p>
     </div>
     <div class="actions">
-        <div class="ui cancel grey button">
+        <div class="ui cancel grey right labeled icon button">
             No
+            <i class="x icon"></i>
         </div>
         <div class="ui ok red right labeled icon button">
             Yes
-            <i class="trash icon"></i>
+            <i class="check icon"></i>
         </div>
     </div>
 </div>

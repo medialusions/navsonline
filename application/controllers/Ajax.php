@@ -94,7 +94,8 @@ class Ajax extends MY_Controller {
                 "title" => $row['title'],
                 "description" => $row['artist'],
                 "id" => $row['id'],
-                "keys" => $row['song_keys']
+                "keys" => $row['song_keys'],
+                "default" => $row['default_key']
             ));
         }
         echo json_encode($result);

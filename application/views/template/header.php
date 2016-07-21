@@ -37,13 +37,11 @@
                 $('.nav_tags').dropdown({
                     allowAdditions: true
                 });
-
                 setTimeout(function() {
                     $('.dismissing_message')
                             .closest('.message')
                             .transition('fade');
                 }, 3000);
-
                 //search functions
                 $('.ui.search.media_chord')
                         .search({
@@ -76,7 +74,7 @@
                             }
                         });
                 //arrangement search
-                $("#a_search_key").hide();
+                $(".a_search_key").hide();
                 $('.ui.search.arrangement_search')
                         .search({
                             apiSettings: {
@@ -84,19 +82,28 @@
                             },
                             cache: false,
                             onSelect: function(result, response) {
+                                //select parent field for search_key
+                                var parent = $(this).parent(".field");
+                                var a_search_key = parent.next(".a_search_key");
+                                //set the hidden field value
                                 $(this).next().val(JSON.stringify(result));
-                                $("#a_search_key").show();
+                                //show the search field
+                                a_search_key.show();
                                 var keys = JSON.parse(result.keys);
-                                $("#a_search_key > div > .nav.menu").html('');
+                                a_search_key.find(".nav.menu").html('');
+                                //run through the keys and set the dropdown
                                 $.each(keys, function(key, value) {
                                     if (value.key !== 'Open') {
                                         var html = '<div class="item" data-value="' + value.key + '">' + value.key + '</div>';
-                                        $("#a_search_key > div > .nav.menu").append(html);
+                                        a_search_key.find(".nav.menu").append(html);
                                     }
                                 });
+                                //select the default key
+                                a_search_key.children(".dropdown").dropdown('clear');
+                                a_search_key.children(".dropdown").dropdown('set text', result.default);
+                                a_search_key.children(".dropdown").dropdown('set value', result.default);
                             }
                         });
-
                 //confirm modal
                 $(".confirm_api").click(function() {
                     var curr_button = this;
@@ -121,7 +128,6 @@
                             });
                 });
             });
-
             //API setup
             $.fn.api.settings.api = {
                 'event confirm': '<?= base_url('/ajax/event-confirm'); ?>/{eid}/{uid}',

@@ -2,8 +2,8 @@
 
 /**
  * 
- * @param string $date in format m/d/Y
- * @param string $time in format H:i:s
+ * @param string $date in format Y/m/d
+ * @param string $time in format H:i:s or H:i
  * @param boolean $unix [optional] select return type. True for unix timestamp. False for bool
  * @return mixed
  */
@@ -14,10 +14,10 @@ function verify_date_time($date, $time = '', $unix = TRUE) {
         $date = $split[1];
     }
     //verify length
-    if (strlen($date) !== 10 || strlen($time) !== 5)
+    if (strlen($date) !== 10 || (strlen($time) !== 5 && strlen($time) !== 8))
         return false;
 
-    $date = DateTime::createFromFormat('Y/m/d H:i:s', $date . ' ' . $time . ':00');
+    $date = DateTime::createFromFormat('Y/m/d H:i:s', $date . ' ' . $time . (strlen($time) == 5 ? ':00' : ''));
     if ($unix)
         return $date->getTimestamp();
 

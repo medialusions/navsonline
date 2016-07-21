@@ -27,6 +27,10 @@ class Event_item_model extends MY_Model {
         return $query->result_array();
     }
 
+    /**
+     * @param type $data [optional] post data
+     * @return boolean on result
+     */
     public function add($data = '') {
         if ($data == '')
             $data = $this->input->post();
@@ -49,7 +53,35 @@ class Event_item_model extends MY_Model {
             'created_by' => config_item('auth_user_id')
         );
 
-        $this->db->insert('event_item', $data);
+        return $this->db->insert('event_item', $data);
+    }
+
+    /**
+     * @param type $data [optional] post data
+     * @return boolean On result
+     */
+    public function edit($data = '') {
+        if ($data == '')
+            $data = $this->input->post();
+
+        if ($data['type'] == 'song') {
+            $arrangement = json_decode($data['arrangement_search'], TRUE);
+            $arrangement_data = $this->arrangement->get($arrangement['id']);
+            $song = $this->song->get($arrangement_data['song']);
+        }
+
+        //setting up insert
+        $data = array(
+            'type' => $data['type'],
+            'title' => ($data['type'] == 'song' ? $song['title'] . ' - ' . $arrangement_data['artist'] . '' : $data['title']),
+            'arrangement_id' => ($data['type'] == 'song' ? $song['id'] : ''),
+            'arrangement_key' => ($data['type'] == 'song' ? $data['a_search_key'] : ''),
+            'memo' => $data['memo'],
+            'start_time' => verify_date_time($data['event_edit_date'], $data['event_edit_time'])
+        );
+
+        $this->db->where('id', $this->input->post('eiid'));
+        return $this->db->update('event_item', $data);
     }
 
     /**

@@ -4,24 +4,10 @@
         $('.ui.e_item_new_modal')
                 .modal('attach events', '#e_item_new_modal', 'show');
 
-        //instantiate form
-        $('#e_item_new_modal_form')
-                .form({
-                    fields: {
-                        artist: 'empty',
-                        default_key: 'empty'
-                    }
-                });
-
         //submit the form
         $('#e_item_new_modal_form_submit').click(function() {
             //submit the form
             $('#e_item_new_modal_form').submit();
-        });
-
-        //when opening modal, don't submit form
-        $(".media_new_modal_button").click(function(event) {
-            event.preventDefault();
         });
 
         //datetimepicker
@@ -29,7 +15,6 @@
             dayOfWeekStart: 7,
             norange: true, // use only one value
             cells: [1, 1],
-            withoutBottomPanel: true,
             title: false,
             closeButton: false,
             fullsizeButton: false,
@@ -105,7 +90,7 @@
                         </div>
                         <input name="arrangement_search" type="hidden" value="">
                     </div>
-                    <div class="field" id="a_search_key">
+                    <div class="field a_search_key">
                         <div class="ui fluid search normal selection dropdown" >
                             <input type="hidden" name="a_search_key">
                             <i class="dropdown icon"></i>

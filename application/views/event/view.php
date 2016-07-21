@@ -66,20 +66,67 @@
                                 </tr>
                             <?php endif; ?>
                             <tr class="<?= $item['start_time'] < $event['date'] ? 'nav_italic active' : '' ?> ">
+                                <!-- time -->
                                 <td>
                                     <?= date('g:ia', $item['start_time']) ?>
                                 </td>
+                                <!-- name -->
                                 <td>
-                                    <?php if ($auth_level >= 9): //admin required.   ?>
-                                        <a href="javascript:void(0)" class="e_item_edit_modal_button" style="font-weight: bold;"><?= $item['title'] ?></a>
-                                        <div class="hidden" style="display: none;"><?= json_encode($item) ?></div>
+                                    <?= $auth_level >= 9 ? '<a href="javascript:void(0)" class="e_item_edit_modal_button" style="font-weight: bold;">' : '<div style="font-weight: bold;">' ?>
+                                    <!-- title/song-info -->
+                                    <?php if ($item['type'] == 'song'): ?>
+                                        <?= $item['song']['title'] . ' - ' . $item['arrangement']['artist'] . ' [' . $item['arrangement_key'] . ']' ?>
                                     <?php else: ?>
-                                        <div style="font-weight: bold;"><?= $item['title'] ?></div>
+                                        <?= $item['title'] ?>
                                     <?php endif; ?>
+
+                                    <?= $auth_level >= 9 ? '</a>' : '</div>' ?>
+                                    <?php
+                                    if ($auth_level >= 9): //admin required.   
+                                        $item['time'] = date('H:i', $item['start_time']);
+                                        $item['date'] = date('Y/m/d', $item['start_time']);
+                                        ?>
+                                        <div class="hidden" style="display: none;"><?= json_encode($item) ?></div>
+                                    <?php endif; ?>
+
                                     <div class="sub header"><?= $item['memo'] ?></div>
                                 </td>
-                                <td>Blank</td>
-                                <?php if ($auth_level >= 9): //admin required.   ?>
+                                <!-- attachments -->
+                                <td>
+                                    <?php if ($item['type'] == 'song'): ?>
+                                        <!-- to song page -->
+                                        <a class="ui icon mini button teal navs_popup" target="_blank" href="<?= base_url('music/view/' . $item['song']['id']) ?>" data-content="More..." data-position="top center">
+                                            <i class="music icon"></i>
+                                            <?= $item['song']['title'] ?>
+                                        </a>
+                                        <?php if ($item['arrangement']['video'] != ''): ?>
+                                            <!-- youtube -->
+                                            <a class="ui icon mini button basic red navs_popup" target="_blank" href="<?= $item['arrangement']['video'] ?>" data-content="Video" data-position="top center">
+                                                <i class="play icon"></i>
+                                            </a>
+                                        <?php endif; ?>
+                                        <?php if (isset($item['arrangement']['audio']['link'])): ?>
+                                            <!-- audio file -->
+                                            <a class="ui icon mini button basic teal navs_popup" target="_blank" href="<?= base_url() . $item['arrangement']['audio']['link'] ?>" data-content="Audio File" data-position="top center">
+                                                <i class="volume up icon"></i>
+                                            </a>
+                                        <?php endif; ?>
+                                        <?php if (isset($item['arrangement']['lyrics']['link'])): ?>
+                                            <!-- lyrics -->
+                                            <a class="ui icon mini button basic grey navs_popup" target="_blank" href="<?= base_url() . $item['arrangement']['lyrics']['link'] ?>" data-content="Lyrics" data-position="top center"> 
+                                                <i class="align left icon"></i>
+                                            </a>
+                                        <?php endif; ?>
+                                        <?php foreach ($item['arrangement']['song_keys'] as $song_key): ?>
+                                            <!-- chord charts -->
+                                            <a class="ui mini button basic grey navs_popup" target="_blank" href="<?= base_url() . $song_key['media']['link'] ?>" data-content="Chord Chart (<?= $song_key['key'] ?>)" data-position="top center"> 
+                                                <?= $song_key['key'] ?>
+                                            </a>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </td>
+                                <?php if ($auth_level >= 9): //admin required.    ?>
+                                    <!-- delete -->
                                     <td>
                                         <a class="ui icon basic red button tiny navs_popup confirm_api" data-action="event item delete" data-eiid="<?= $item['id'] ?>" data-content="Remove" data-position="top center">
                                             <i class="trash icon"></i>
@@ -93,7 +140,7 @@
                             <th></th>
                             <th></th>
                             <th></th>
-                            <?php if ($auth_level >= 9): //admin required.   ?>
+                            <?php if ($auth_level >= 9): //admin required.    ?>
                                 <th></th>
                             <?php endif; ?>
                         </tr>
@@ -103,13 +150,14 @@
         </div>
     </div>
 
-    <?php //$this->load->view('template/sidebar'); ?>
+    <?php //$this->load->view('template/sidebar');  ?>
 </div>
 
 
 <?php
 if ($auth_level >= 9):
     $this->load->view('modal/event_item_add');
+    $this->load->view('modal/event_item_edit');
 endif;
 
 $this->load->view('template/footer');

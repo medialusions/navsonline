@@ -96,7 +96,7 @@ class Arrangement_model extends MY_Model {
     public function search($q, $organization) {
         //generate query
         $query = $this->db->query(""
-                . "SELECT a.artist, s.title, a.id, a.song_keys "
+                . "SELECT a.artist, s.title, a.id, a.song_keys, a.default_key "
                 . "FROM arrangement a "
                 . "INNER JOIN song s "
                 . "ON a.song=s.id "

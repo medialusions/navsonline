@@ -81,7 +81,7 @@ class MY_Controller extends Auth_Controller {
             die("error");
 
         // DATA
-        $data = $this->dbutil->backup(array('format' => 'txt', 'add_insert' => TRUE, 'add_drop' => FALSE));
+        $data = $this->dbutil->backup(array('format' => 'txt', 'add_insert' => TRUE, 'add_drop' => TRUE));
         $filename = 'data.sql';
         if (!write_file('db_backup/' . $filename, $data))
             die("error");

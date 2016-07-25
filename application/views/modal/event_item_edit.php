@@ -10,10 +10,9 @@
             $(form + "input[name='eiid']").val(data.id);
             $(form + "input[name='title']").val(data.title.replace("&amp;", "&"));
             $(form + "textarea").val(data.memo.replace("&amp;", "&"));
-            $(form + "input[name='eiid']").val(data.id);
 
             //hide or show checkbox items
-            $.each($(form + "input[name='type']"), function(item) {
+            $.each($(form + "input[name='type']"), function() {
                 var selector = "#e_item_edit_" + $(this).val();
                 if ($(this).val() === data.type) {
                     $(this).prop('checked', true);
@@ -33,7 +32,7 @@
                 var a_search_key = parent.next(".a_search_key");
                 //show the search field
                 a_search_key.show();
-                var keys = JSON.parse(data.arrangement.song_keys);
+                var keys = data.arrangement.song_keys;
                 a_search_key.find(".nav.menu").html('');
                 //run through the keys and set the dropdown
                 $.each(keys, function(key, value) {

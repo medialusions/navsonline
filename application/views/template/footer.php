@@ -3,6 +3,11 @@
 
 <!-- spacer -->
 <div style="width: 100%; height: 30px; display: block;"></div>
+<div class="ui bottom fixed inverted menu" style="background-color: black;">
+    <a href="http://www.medialusions.com" target="_blank" class="item" style="color: #999999; margin: auto auto; font-size: 0.8rem;">
+        Copyright &copy; Medialusions Interactive, Inc. &HorizontalLine; ({elapsed_time} seconds, {memory_usage})
+    </a>
+</div>
 </body>
 
 <link rel="stylesheet" href="<?= base_url(); ?>js/periodpicker/build/jquery.periodpicker.min.css">

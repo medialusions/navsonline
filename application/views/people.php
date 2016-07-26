@@ -23,7 +23,7 @@
                 </div>
                 <div class="four wide column">
                     <?php if ($auth_level >= 9): //admin required. modal included below   ?>
-                        <button class="ui button green basic tiny" id="user_new_modal">
+                        <button class="ui button green basic tiny" id="new_user_modal_button">
                             <i class="add square icon"></i>
                             Add new user
                         </button>
@@ -36,7 +36,7 @@
 
             <div class="ui grid">
                 <!-- agenda table -->
-                <table class="ui very basic table">
+                <table class="ui very basic small table">
                     <thead>
                         <tr>
                             <th class="">Role</th>
@@ -44,6 +44,7 @@
                             <th class="">Last</th>
                             <th class="">Contact</th>
                             <th class="">Last Login</th>
+                            <th class="">Last Scheduling</th>
                             <?php if ($auth_level >= 9): //admin required. modal included below   ?>
                                 <th class="">Actions</th>
                             <?php endif; ?>
@@ -66,30 +67,32 @@
                                         <button class="ui basic button tiny navs_popup" data-content="<?= $user['email'] ?>" data-position="top center">
                                             <i class="mail icon"></i>
                                         </button>
-                                        <button class="ui basic button tiny navs_popup" data-content="<?= format_phone($user['phone']) ?>" data-position="top center">
-                                            <i class="phone icon"></i>
-                                        </button>
+                                        <?php if ($user['phone']): ?>
+                                            <button class="ui basic button tiny navs_popup" data-content="<?= format_phone($user['phone']) ?>" data-position="top center">
+                                                <i class="phone icon"></i>
+                                            </button>
+                                        <?php endif; ?>
                                     </div>
                                 </td>
                                 <td>
-                                    <?php
-                                    $time = strtotime($user['last_login']);
-                                    echo date('l, F jS g:ia', $time + $_SESSION['organization_data']['offset']);
-                                    ?>
+                                    <?= $user['last_login'] ? date('D, M jS g:ia', strtotime($user['last_login']) + $_SESSION['organization_data']['offset']) : 'N/A' ?>
+                                </td>
+                                <td>
+                                    <?= ($user['last_scheduling'] !== FALSE ? date('D, M jS', $user['last_scheduling']) : 'N/A') ?>
                                 </td>
                                 <?php if ($auth_level >= 9): //admin required. modal included below   ?>
                                     <td>
                                         <?php if ($user['auth_level'] < 10): ?>
-                                            <a class="ui icon basic red button tiny <?= $user['user_id'] == $auth_user_id ? 'disabled' : 'navs_popup confirm_api ' ?>" data-action="user ban" data-sid="" data-content="Make Banned" data-position="top center">
+                                            <a class="ui icon basic red button tiny <?= $user['user_id'] == $auth_user_id ? 'disabled' : 'navs_popup confirm_api ' ?>" data-action="user ban" data-uid="" data-content="Make Banned" data-position="top center">
                                                 <i class="ban icon"></i>
                                             </a>
-                                            <a class="ui icon basic grey button tiny <?= $user['user_id'] == $auth_user_id ? 'disabled' : 'navs_popup confirm_api ' ?>" data-action="user archive" data-sid="" data-content="Archive User" data-position="top center">
+                                            <a class="ui icon basic grey button tiny <?= $user['user_id'] == $auth_user_id ? 'disabled' : 'navs_popup confirm_api ' ?>" data-action="user archive" data-uid="" data-content="Archive User" data-position="top center">
                                                 <i class="archive icon"></i>
                                             </a>
-                                            <a class="ui icon basic orange button tiny <?= $user['user_id'] == $auth_user_id ? 'disabled' : 'navs_popup confirm_api ' ?>" data-action="user make viewer" data-sid="" data-content="Make Viewer" data-position="top center">
+                                            <a class="ui icon basic orange button tiny <?= $user['user_id'] == $auth_user_id ? 'disabled' : 'navs_popup confirm_api ' ?>" data-action="user make viewer" data-uid="" data-content="Make Viewer" data-position="top center">
                                                 <i class="unhide icon"></i>
                                             </a>
-                                            <a class="ui icon basic blue button tiny <?= $user['user_id'] == $auth_user_id ? 'disabled' : 'navs_popup confirm_api ' ?>" data-action="user make viewer" data-sid="" data-content="Make Admin" data-position="top center">
+                                            <a class="ui icon basic blue button tiny <?= $user['user_id'] == $auth_user_id ? 'disabled' : 'navs_popup confirm_api ' ?>" data-action="user make viewer" data-uid="" data-content="Make Admin" data-position="top center">
                                                 <i class="unlock icon"></i>
                                             </a>
                                         <?php else: ?>
@@ -102,7 +105,7 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th colspan="<?= $auth_level >= 9 ? 6 : 5 ?>">
+                            <th colspan="<?= $auth_level >= 9 ? 7 : 6 ?>">
                             </th>
                         </tr>
                     </tfoot>

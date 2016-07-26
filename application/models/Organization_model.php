@@ -26,8 +26,17 @@ class Organization_model extends MY_Model {
                 . "ORDER BY last_name ASC"
         );
 
+        $toRet = array();
+        $i = 0;
+        foreach ($query->result_array() as $user) {
+            $toRet[$i] = $user;
+            //additional data
+            $toRet[$i]['last_scheduling'] = $this->user->last_scheduling($user['user_id']);
+            $i++;
+        }
+
         //return the array
-        return $query->result_array();
+        return $toRet;
     }
 
     public function get($organization_id = '') {

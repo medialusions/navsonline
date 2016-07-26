@@ -130,9 +130,11 @@
                         <button class="ui basic button tiny navs_popup" data-content="<?= $contact['email'] ?>" data-position="top center">
                             <i class="mail icon"></i>
                         </button>
-                        <button class="ui basic button tiny navs_popup" data-content="<?= format_phone($contact['phone']) ?>" data-position="top center">
-                            <i class="phone icon"></i>
-                        </button>
+                        <?php if ($contact['phone']): ?>
+                            <button class="ui basic button tiny navs_popup" data-content="<?= format_phone($contact['phone']) ?>" data-position="top center">
+                                <i class="phone icon"></i>
+                            </button>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

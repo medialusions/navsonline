@@ -67,7 +67,10 @@ function matrix_decode($json_matrix, $index = '', $second_index = '') {
         return $current[$second_index];
 }
 
-function auth_role($auth_level) {
+function auth_role($auth_level, $slug = FALSE) {
+    if ($slug)
+        return auth_role_slug($auth_level);
+
     if ($auth_level >= 10) {
         return 'Super Admin';
     } else if ($auth_level >= 9) {
@@ -79,4 +82,35 @@ function auth_role($auth_level) {
     } else if ($auth_level >= 1) {
         return 'Denied';
     }
+}
+
+function auth_role_slug($auth_role) {
+    switch ($auth_role) {
+        case 10:
+            return "s_admin";
+        case 9:
+            return "admin";
+        case 5:
+            return "viewer";
+        case 2:
+            return "archived";
+        case 1:
+            return "denied";
+        default:
+            return FALSE;
+    }
+}
+
+function auth_level($auth_role) {
+    $arr = array(
+        "s_admin" => 10,
+        "admin" => 9,
+        "viewer" => 5,
+        "archived" => 2,
+        "denied" => 1
+    );
+    if (array_key_exists($auth_role, $arr))
+        return $arr[$auth_role];
+    else
+        return FALSE;
 }

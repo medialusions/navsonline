@@ -7,13 +7,15 @@ $autoload['packages'] = array(
 );
 
 $autoload['libraries'] = array(
-    'database', 'session', 'tokens', 'Authentication', 'upload'
+    'database', 'session', 'tokens', 'Authentication',
+    'upload', 'form_validation', 'email'
 );
 
 $autoload['drivers'] = array();
 
 $autoload['helper'] = array(
-    'url', 'serialization', 'cookie', 'role', 'organization', 'input', 'form', 'file', 'cron'
+    'url', 'serialization', 'cookie', 'role', 'organization',
+    'input', 'form', 'file', 'cron', 'string', 'text'
 );
 
 $autoload['config'] = array(

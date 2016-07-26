@@ -90,7 +90,7 @@ class User extends MY_Controller {
      * Loads and gets data for music page
      */
     public function people($page = 1) {
-        $this->require_min_level(1);
+        $this->require_min_level(3);
         $data['title'] = 'People Center';
 
         $data['user'] = $this->user->generate_user_data($this->auth_user_id);
@@ -100,6 +100,22 @@ class User extends MY_Controller {
         $data['pagination'] = array();
 
         $this->load->view('people', $data);
+    }
+
+    /**
+     * Creates user with model
+     */
+    public function user_add() {
+        //admin needed to add
+        $this->require_min_level(9);
+        if ($this->user->create()) {
+            //bring it back
+            redirect('user/people');
+        } else {
+            $message['heading'] = 'Error creating user.';
+            $message['message'] = 'Please try again.';
+            $this->load->view('errors/html/error_general', $message);
+        }
     }
 
 }

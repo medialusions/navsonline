@@ -51,7 +51,7 @@ class MY_Controller extends Auth_Controller {
         $this->upload->initialize($config);
 
         //if logged in, check organizations session
-        if (isset($_COOKIE['ci_session']) && $this->require_min_level(1)) {
+        if (isset($_COOKIE['ci_session']) && $this->verify_min_level(1)) {
             $data['user'] = $this->user->generate_user_data($this->auth_user_id);
             $this->session->set_userdata('organization_id', extract_organization($data['user']['organizations']), 0);
             //get organization db data

@@ -11,12 +11,22 @@ class Ajax extends MY_Controller {
         parent::__construct();
     }
 
+    public function unique_username() {
+        //get the username  
+        $username = $this->input->post('username');
+        $result = $this->user->get_by_username($username);
+        if ($result === FALSE)
+            echo json_encode(['success' => TRUE, 'unique' => TRUE]);
+        else
+            echo json_encode(['success' => TRUE, 'unique' => FALSE]);
+    }
+
     /**
      * Uses Cookie, Post, and Files data to upload and create database instance of media files
      */
     public function media_add() {
         //get user data
-        $this->verify_min_level(9);
+        $this->verify_min_ajax_level(9);
         $user_data = $this->verify_cookie();
         //check post data first
         if (!isset($_POST) || is_null($this->input->post("link_type")) || is_null($this->input->post("name")))
@@ -55,7 +65,7 @@ class Ajax extends MY_Controller {
 
     public function media_search() {
         //get user data
-        $this->verify_min_level(1);
+        $this->verify_min_ajax_level(1);
         $user_data = $this->verify_cookie();
         $user_organizations = explode(',', $user_data['user_data']['organizations']);
 
@@ -79,7 +89,7 @@ class Ajax extends MY_Controller {
 
     public function arrangement_search() {
         //get user data
-        $this->verify_min_level(1);
+        $this->verify_min_ajax_level(1);
         $user_data = $this->verify_cookie();
         $user_organizations = explode(',', $user_data['user_data']['organizations']);
 
@@ -133,7 +143,7 @@ class Ajax extends MY_Controller {
         $user_organizations = explode(',', $cookie['user_data']['organizations']);
 
         //verify admin level
-        $this->verify_min_level(9);
+        $this->verify_min_ajax_level(9);
 
         //remove
         $response = $this->event->delete($eid, $user_organizations[0]);
@@ -143,14 +153,14 @@ class Ajax extends MY_Controller {
         else
             echo json_encode(array('success' => FALSE));
     }
-    
+
     /**
      * 
      * @param int $eiid Id of event item
      */
-    public function event_item_delete($eiid){
+    public function event_item_delete($eiid) {
         //verify admin level
-        $this->verify_min_level(9);
+        $this->verify_min_ajax_level(9);
 
         //remove
         $response = $this->event_item->delete($eiid);
@@ -170,7 +180,7 @@ class Ajax extends MY_Controller {
         $user_organizations = explode(',', $cookie['user_data']['organizations']);
 
         //verify admin level
-        $this->verify_min_level(9);
+        $this->verify_min_ajax_level(9);
 
         //remove
         $response = $this->song->delete($sid, $user_organizations[0]);
@@ -192,7 +202,7 @@ class Ajax extends MY_Controller {
      */
     public function arrangement_delete($aid) {
         //verify admin level
-        $this->verify_min_level(9);
+        $this->verify_min_ajax_level(9);
 
         //remove
         $response = $this->arrangement->delete($aid);
@@ -276,6 +286,9 @@ class Ajax extends MY_Controller {
 
         //now get the session data
         $query = $this->db->get_where('auth_sessions', array('id' => $arr[1]), 1);
+        
+        if ($query->num_rows() == 0)
+            die(json_encode(array('success' => FALSE, 'message' => "You aren't authorized to do this procedure.")));
 
         //return the first
         foreach ($query->result_array() as $row)
@@ -302,7 +315,7 @@ class Ajax extends MY_Controller {
     /**
      * @param id $level To be verified against cookie data. 
      */
-    public function verify_min_level($level) {
+    public function verify_min_ajax_level($level) {
         $cookie = $this->verify_cookie();
         //verify admin level
         if ($cookie['user_data']['auth_level'] < $level)

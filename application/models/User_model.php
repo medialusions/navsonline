@@ -258,7 +258,7 @@ class User_model extends MY_Model {
                 //send welcome email
                 $this->email->from('info@medialusions.com', 'NavsOnline');
                 $this->email->to($user_data['email']);
-                $this->email->subject('Setup Your Account');
+                $this->email->subject('Setup Your Account - ' . date('H:i:s'));
                 //set up image
                 $img_path = base_url() . 'logo/email_template.jpg';
                 $this->email->attach($img_path);
@@ -271,7 +271,7 @@ class User_model extends MY_Model {
                     $user_data['last_name'],
                     $_SESSION['organization_data']['name'],
                     date('D, M jS', $time + config_item('recovery_code_expiration')),
-                    base_url('user/welcome/?r=' . myurlencode($user_data['passwd_recovery_code'])),
+                    base_url('user/welcome/?r=' . myurlencode($user_data['passwd_recovery_code']) . '&u=' . $user_data['user_id']),
                     date('Y'),
                     'Medialusions Interactive, Inc.',
                     base_url('user/settings'),
@@ -297,28 +297,52 @@ class User_model extends MY_Model {
      * @param  string  the user ID
      * @param  string  the password recovery code
      */
-    protected function _change_password($password, $password2, $user_id, $recovery_code) {
+    public function change_password($password, $password2, $user_id, $recovery_code) {
         // User ID check
         if (isset($user_id) && $user_id !== FALSE) {
-            $query = $this->db->select('user_id')
-                    ->from('users')
-                    ->where('user_id', $user_id)
-                    ->where('passwd_recovery_code', $recovery_code)
-                    ->get();
-
+            $user = $this->get($user_id);
             // If above query indicates a match, change the password
-            if ($query->num_rows() == 1) {
-                $user_data = $query->row();
-
-                $this->db->where('user_id', $user_data->user_id)
-                        ->update('users', ['passwd' => $this->authentication->hash_passwd($password)]
-                );
+            if ($user && $recovery_code == $user['passwd_recovery_code'] && $password == $password2) {
+                if ($this->db->where('user_id', $user['user_id'])
+                                ->update('users', ['passwd' => $this->authentication->hash_passwd($password)]
+                                ))
+                    return TRUE;
+                else
+                    return ['result' => FALSE, 'message' => 'Error with updating password. Check the recovery code and that the passwords match.'];
+            } else {
+                return ['result' => FALSE, 'message' => 'Error with updating password. Check the recovery code and that the passwords match.'];
             }
         }
     }
 
     /**
-     * Get the user name, user salt, and hashed recovery code,
+     * Updates username if it's unique
+     * @param string $username Must start with letter, be 4-32 char long and be alphanumeric
+     * @param type $user_id
+     * @return boolean
+     */
+    public function change_username($username, $user_id) {
+        //check constraints of username
+        if (!preg_match('/^[A-Za-z][A-Za-z0-9]{3,31}$/', $username))
+            return ['result' => FALSE, 'message' => 'Username must start with letter, be 4-32 char long and be alphanumeric.'];
+        //username uniqueness
+        if ($this->get_by_username($username) != FALSE)
+            return ['result' => FALSE, 'message' => "Username isn't unique."];
+        // If above query indicates a match, check for username, then username length
+        $user = $this->get($user_id);
+        if ($user) {
+            if (!$this->db->where('user_id', $user['user_id'])
+                            ->update('users', ['username' => strtolower($username)]))
+                return ['result' => FALSE, 'message' => 'Error with updating info.'];
+            else
+                return TRUE;
+        } else {
+            return ['result' => FALSE, 'message' => 'Unknown error.'];
+        }
+    }
+
+    /**
+     * Get the user data
      * but only if the recovery code hasn't expired.
      *
      * @param  int  the user ID
@@ -326,7 +350,7 @@ class User_model extends MY_Model {
     public function get_recovery_verification_data($user_id) {
         $recovery_code_expiration = date('Y-m-d H:i:s', time() - config_item('recovery_code_expiration'));
 
-        $query = $this->db->select('username, passwd_recovery_code')
+        $query = $this->db->select('*')
                 ->from('users')
                 ->where('user_id', $user_id)
                 ->where('passwd_recovery_date >', $recovery_code_expiration)
@@ -354,6 +378,28 @@ class User_model extends MY_Model {
 
         if ($query->num_rows() == 1)
             return $query->row();
+
+        return FALSE;
+    }
+
+    /**
+     * Get data for a recovery
+     * 
+     * @param   string  the email address
+     * @return  mixed   either query data or FALSE
+     */
+    public function get_by_username($username) {
+        $query = $this->db->select('*')
+                ->from('users u')
+                ->where('LOWER( u.username ) =', strtolower($username))
+                ->limit(1)
+                ->get();
+
+        if ($query->num_rows() == 1) {
+            //return the first
+            foreach ($query->result_array() as $row)
+                return $row;
+        }
 
         return FALSE;
     }

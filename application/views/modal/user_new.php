@@ -22,7 +22,7 @@
         Add New User
     </div>
     <div class="content">
-        <?= form_open_multipart('user/user-add', ['class' => 'ui large form', 'id' => 'new_user_form']) ?>
+        <?= form_open_multipart('user/people', ['class' => 'ui large form', 'id' => 'new_user_form']) ?>
         <div class="ui error message"></div>
         <div class="field">
             <div class="two fields">

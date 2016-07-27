@@ -118,4 +118,9 @@ class User extends MY_Controller {
         }
     }
 
+    public function welcome() {
+        var_dump($this->input->get('r'));
+        var_dump(myurldecode($this->input->get('r')));
+    }
+
 }

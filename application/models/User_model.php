@@ -206,7 +206,6 @@ class User_model extends MY_Model {
                 . $this->authentication->random_salt()
                 . $this->authentication->random_salt()
                 . $this->authentication->random_salt(), 0, 72);
-
         $time = time();
         $user_data = [
             'first_name' => $this->input->post('first_name'),
@@ -260,19 +259,24 @@ class User_model extends MY_Model {
                 $this->email->from('info@medialusions.com', 'NavsOnline');
                 $this->email->to($user_data['email']);
                 $this->email->subject('Setup Your Account');
+                //set up image
+                $img_path = base_url() . 'logo/email_template.jpg';
+                $this->email->attach($img_path);
                 //get template
                 $email_template = file_get_contents('application/views/email/intro.html');
                 //set replace values and replace them
-                $keys = array('F_NAME', 'L_NAME', 'ORG_LOC', 'EXP_DATE', 'REC_LINK', 'CURRENT_YEAR', 'NAV_COMPANY', 'UPDATE_PROFILE');
+                $keys = array('F_NAME', 'L_NAME', 'ORG_LOC', 'EXP_DATE', 'REC_LINK', 'CURRENT_YEAR', 'NAV_COMPANY', 'UPDATE_PROFILE', 'LOGO_URL', '*|MC:SUBJECT|*');
                 $values = array(
                     $user_data['first_name'],
                     $user_data['last_name'],
                     $_SESSION['organization_data']['name'],
                     date('D, M jS', $time + config_item('recovery_code_expiration')),
-                    base_url('user/new/' . $user_data['passwd_recovery_code']),
+                    base_url('user/welcome/?r=' . myurlencode($user_data['passwd_recovery_code'])),
                     date('Y'),
                     'Medialusions Interactive, Inc.',
-                    base_url('user/settings')
+                    base_url('user/settings'),
+                    $this->email->attachment_cid($img_path),
+                    'Setup Your Account'
                 );
                 $email_template = str_replace($keys, $values, $email_template);
                 $this->email->message($email_template);

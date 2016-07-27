@@ -1,5 +1,17 @@
 <?php
 
+function myurlencode($string) {
+    $entities = array('%21', '%2A', '%27', '%28', '%29', '%3B', '%3A', '%40', '%26', '%3D', '%2B', '%24', '%2C', '%2F', '%3F', '%25', '%23', '%5B', '%5D', '%2E');
+    $replacements = array('!', '*', "'", "(", ")", ";", ":", "@", "&", "=", "+", "$", ",", "/", "?", "%", "#", "[", "]", ".");
+    return str_replace($replacements, $entities, urlencode($string));
+}
+
+function myurldecode($string) {
+    $entities = array('%21', '%2A', '%27', '%28', '%29', '%3B', '%3A', '%40', '%26', '%3D', '%2B', '%24', '%2C', '%2F', '%3F', '%25', '%23', '%5B', '%5D', '%2E');
+    $replacements = array('!', '*', "'", "(", ")", ";", ":", "@", "&", "=", "+", "$", ",", "/", "?", "%", "#", "[", "]", ".");
+    return str_replace($entities, $replacements, urldecode($string));
+}
+
 /**
  * 
  * @param string $date in format Y/m/d

@@ -262,7 +262,7 @@ $config['token_name'] = 'token';
   |
  */
 
-$config['recovery_code_expiration'] = 60 * 60 * 24; // 24 hours
+$config['recovery_code_expiration'] = 60 * 60 * 24 * 3; // 3 days
 
 /*
   | -----------------------------------------------------------------

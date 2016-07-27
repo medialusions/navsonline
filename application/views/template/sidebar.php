@@ -2,6 +2,7 @@
 <div class="ui four wide column">
     <div class="ui segment">
         <h4 class="ui horizontal divider header">
+            <i class="small university icon"></i>
             Your Campus
         </h4>
         <div class="ui list">

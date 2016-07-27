@@ -68,7 +68,7 @@ class Event_model extends MY_Model {
      * @param type $page [optional] Page number. Pages with limits of 10.
      * @return type array results
      */
-    public function generate_upcoming($user_id = '', $limit = 4, $page = 1) {
+    public function generate_upcoming($user_id = '', $limit = 4, $page = 1, $admin = FALSE) {
         //Ensure organization is set
         $this->organization_id = $this->session->userdata('organization_id');
         if ($limit == -1) {
@@ -81,7 +81,7 @@ class Event_model extends MY_Model {
                 . "SELECT * "
                 . "FROM event "
                 . "WHERE organization='$this->organization_id' "
-                . ($user_id == '' ? '' : "AND  users_matrix LIKE '%$user_id%' ")
+                . ($user_id == '' || $admin ? '' : "AND  users_matrix LIKE '%$user_id%' ")
                 . "AND date > " . time() . " "
                 . "ORDER BY date ASC "
                 . $limit_q);

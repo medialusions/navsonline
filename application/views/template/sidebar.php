@@ -105,7 +105,7 @@
             <?= !( --$i) ? '' : '<div class="ui divider"></div>' //last item check ?>
         <?php endforeach; ?>
         <?php if (count($sidebar['upcoming_events']) == 0): ?>
-            <div class="ui message">well my schedule is clear... what are you doing for the rest of your life?</div>
+            <div class="ui message">well my schedule is clear... what do I do with all of this free time?</div>
         <?php endif; ?>
     </div>
     <!-- contact container -->

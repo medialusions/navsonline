@@ -60,7 +60,7 @@ class User extends MY_Controller {
 
         $data['user'] = $this->user->generate_user_data($this->auth_user_id);
 
-        $data['upcoming_events'] = $this->event->generate_upcoming($this->auth_user_id, -1);
+        $data['upcoming_events'] = $this->event->generate_upcoming($this->auth_user_id, 10, $page, ($this->auth_level >= 9 || $this->input->get('v') == 'all'));
         $data['pagination'] = $this->event->get_pagination($page);
         $data['pagination']['current'] = $page;
 

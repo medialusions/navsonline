@@ -2,44 +2,47 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
+
 <?php foreach ($upcoming_events as $event): ?>
-            $('.event_confirm_<?= $event['id'] ?>')
-                    .api({
-                        action: 'event confirm',
-                        beforeSend: function(settings) {
-                            $(".event_dimmer_<?= $event['id'] ?>").addClass('active');
-                            return settings;
-                        },
-                        onComplete: function(response) {
-                            $(".event_dimmer_<?= $event['id'] ?>").removeClass('active');
-                            if (response.success) {
-                                $(".event_confirm_<?= $event['id'] ?>").removeClass('grey');
-                                $(".event_confirm_<?= $event['id'] ?>").addClass('green');
-                                //set other as grey
-                                $(".event_deny_<?= $event['id'] ?>").removeClass('red');
-                                $(".event_deny_<?= $event['id'] ?>").addClass('grey');
+    <?php if (matrix_decode($event['users_matrix'], $auth_user_id)): ?>
+                $('.event_confirm_<?= $event['id'] ?>')
+                        .api({
+                            action: 'event confirm',
+                            beforeSend: function(settings) {
+                                $(".event_dimmer_<?= $event['id'] ?>").addClass('active');
+                                return settings;
+                            },
+                            onComplete: function(response) {
+                                $(".event_dimmer_<?= $event['id'] ?>").removeClass('active');
+                                if (response.success) {
+                                    $(".event_confirm_<?= $event['id'] ?>").removeClass('grey');
+                                    $(".event_confirm_<?= $event['id'] ?>").addClass('green');
+                                    //set other as grey
+                                    $(".event_deny_<?= $event['id'] ?>").removeClass('red');
+                                    $(".event_deny_<?= $event['id'] ?>").addClass('grey');
+                                }
                             }
-                        }
-                    });
-            $('.event_deny_<?= $event['id'] ?>')
-                    .api({
-                        action: 'event deny',
-                        beforeSend: function(settings) {
-                            $(".event_dimmer_<?= $event['id'] ?>").addClass('active');
-                            return settings;
-                        },
-                        onComplete: function(response) {
-                            $(".event_dimmer_<?= $event['id'] ?>").removeClass('active');
-                            if (response.success) {
-                                //set current as red
-                                $(".event_deny_<?= $event['id'] ?>").removeClass('grey');
-                                $(".event_deny_<?= $event['id'] ?>").addClass('red');
-                                //set other as grey
-                                $(".event_confirm_<?= $event['id'] ?>").removeClass('green');
-                                $(".event_confirm_<?= $event['id'] ?>").addClass('grey');
+                        });
+                $('.event_deny_<?= $event['id'] ?>')
+                        .api({
+                            action: 'event deny',
+                            beforeSend: function(settings) {
+                                $(".event_dimmer_<?= $event['id'] ?>").addClass('active');
+                                return settings;
+                            },
+                            onComplete: function(response) {
+                                $(".event_dimmer_<?= $event['id'] ?>").removeClass('active');
+                                if (response.success) {
+                                    //set current as red
+                                    $(".event_deny_<?= $event['id'] ?>").removeClass('grey');
+                                    $(".event_deny_<?= $event['id'] ?>").addClass('red');
+                                    //set other as grey
+                                    $(".event_confirm_<?= $event['id'] ?>").removeClass('green');
+                                    $(".event_confirm_<?= $event['id'] ?>").addClass('grey');
+                                }
                             }
-                        }
-                    });
+                        });
+    <?php endif; ?>
 <?php endforeach; ?>
     });</script>
 
@@ -101,17 +104,21 @@
                                 <td><?= date('g:ia', $event['date']) ?></td>
                                 <td><?= list_roles($event['roles_matrix'], $auth_user_id) ?></td>
                                 <td>
-                                    <div class="ui inverted dimmer event_dimmer_<?= $event['id'] ?>">
-                                        <div class="ui small loader"></div>
-                                    </div>
-                                    <div class="ui icon buttons tiny">
-                                        <button class="event_confirm_<?= $event['id'] ?> ui basic button tiny navs_popup <?= matrix_decode($event['users_matrix'], $auth_user_id, 'confirmed') == true ? 'green' : 'grey' ?>" data-eid="<?= $event['id'] ?>" data-uid="<?= $auth_user_id ?>" data-content="Confirm" data-position="top center" >
-                                            <i class="check icon"></i>
-                                        </button>
-                                        <button class="event_deny_<?= $event['id'] ?> ui basic button tiny navs_popup <?= matrix_decode($event['users_matrix'], $auth_user_id, 'confirmed') == true ? 'grey' : 'red' ?>" data-eid="<?= $event['id'] ?>" data-uid="<?= $auth_user_id ?>" data-content="Deny" data-position="top center">
-                                            <i class="close icon"></i>
-                                        </button>
-                                    </div>
+                                    <?php if (matrix_decode($event['users_matrix'], $auth_user_id)): ?>
+                                        <div class="ui inverted dimmer event_dimmer_<?= $event['id'] ?>">
+                                            <div class="ui small loader"></div>
+                                        </div>
+                                        <div class="ui icon buttons tiny">
+                                            <button class="event_confirm_<?= $event['id'] ?> ui basic button tiny navs_popup <?= matrix_decode($event['users_matrix'], $auth_user_id, 'confirmed') == true ? 'green' : 'grey' ?>" data-eid="<?= $event['id'] ?>" data-uid="<?= $auth_user_id ?>" data-content="Confirm" data-position="top center" >
+                                                <i class="check icon"></i>
+                                            </button>
+                                            <button class="event_deny_<?= $event['id'] ?> ui basic button tiny navs_popup <?= matrix_decode($event['users_matrix'], $auth_user_id, 'confirmed') == true ? 'grey' : 'red' ?>" data-eid="<?= $event['id'] ?>" data-uid="<?= $auth_user_id ?>" data-content="Deny" data-position="top center">
+                                                <i class="close icon"></i>
+                                            </button>
+                                        </div>
+                                    <?php else: ?>
+                                        N/A
+                                    <?php endif; ?>
                                 </td>
                                 <?php if ($auth_level >= 9): //admin required. modal included below   ?>
                                     <td>
@@ -122,6 +129,20 @@
                                 <?php endif; ?>
                             </tr>
                         <?php endforeach; ?>
+                        <?php
+                        //empty
+                        if (count($upcoming_events) == 0):
+                            ?>
+                            <tr>
+                                <td colspan="<?= $auth_level >= 9 ? 6 : 5 ?>">
+                                    <div class="ui message">
+                                        There are no upcoming events scheduled for you. if you want, you can view all of the upcoming events by clicking <?= anchor('user/schedule/?v=all', 'here') ?>.
+                                    </div>
+                                </td>
+                            </tr>
+                            <?php
+                        endif;
+                        ?>
                     <tfoot>
                         <tr><th colspan="<?= $auth_level >= 9 ? 6 : 5 ?>">
                     <div class="ui right floated pagination menu">

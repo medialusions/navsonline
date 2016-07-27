@@ -39,6 +39,13 @@ function slug_to_proper($args, $array = FALSE) {
  */
 function list_roles($json_matrix, $user_id, $array = FALSE) {
     $arr = matrix_decode($json_matrix, $user_id);
+    if (!$arr) {
+        if ($array)
+            return array('N/A');
+        else
+            return 'N/A';
+    }
+
     $prop = slug_to_proper($arr, TRUE);
     if ($array)
         return $prop;
@@ -59,12 +66,21 @@ function matrix_decode($json_matrix, $index = '', $second_index = '') {
     if ($index == '')
         return $arr;
 
-    $current = $arr[$index];
+    //search for first
+    if (key_exists($index, $arr))
+        $current = $arr[$index];
+    else
+        return FALSE;
 
+    //if second index, search
     if ($second_index == '')
         return $current;
-    else
-        return $current[$second_index];
+    else {
+        if (key_exists($second_index, $current))
+            return $current[$second_index];
+        else
+            return FALSE;
+    }
 }
 
 function auth_role($auth_level) {

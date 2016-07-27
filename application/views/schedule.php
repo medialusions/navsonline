@@ -58,7 +58,7 @@
                 <div class="twelve wide column">
                     <h1 class="ui header">
                         Welcome, <?= $user['first_name'] . ' ' . $user['last_name'] ?>
-                        <div class="sub header">Here is the upcoming schedule</div>
+                        <div class="sub header">Here is your upcoming schedule. <?= anchor('user/schedule/?v=all', 'View all') ?></div>
                     </h1>
                 </div>
                 <div class="four wide column">
@@ -146,17 +146,17 @@
                     <tfoot>
                         <tr><th colspan="<?= $auth_level >= 9 ? 6 : 5 ?>">
                     <div class="ui right floated pagination menu">
-
+                        <?php $v_all = (!is_null($this->input->get('v')) && $this->input->get('v') == 'all' ? '?v=all' : '') ?>
                         <?php if ($pagination['prev'] != ''): ?>
-                            <a class="icon item" href="<?= base_url('user/schedule/' . $pagination['prev']) ?>">
+                            <a class="icon item" href="<?= base_url('user/schedule/' . $pagination['prev']) . $v_all ?>">
                                 <i class="left chevron icon"></i>
                             </a>
                         <?php endif; ?>
                         <?php foreach ($pagination['pages'] as $page): ?>
-                            <a class="item <?= $page == $pagination['current'] ? 'active' : '' ?>" href="<?= base_url('user/schedule/' . $page) ?>"><?= $page ?></a>
+                            <a class="item <?= $page == $pagination['current'] ? 'active' : '' ?>" href="<?= base_url('user/schedule/' . $page) . $v_all ?>"><?= $page ?></a>
                         <?php endforeach; ?>
                         <?php if ($pagination['next'] != ''): ?>
-                            <a class="icon item" href="<?= base_url('user/schedule/' . $pagination['next']) ?>">
+                            <a class="icon item" href="<?= base_url('user/schedule/' . $pagination['next']) . $v_all ?>">
                                 <i class="right chevron icon"></i>
                             </a>
                         <?php endif; ?>

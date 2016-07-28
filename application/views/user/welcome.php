@@ -201,7 +201,7 @@ and open the template in the editor.
                     <div class="field">
                         <div class="ui left icon right labeled input">
                             <i class="user icon"></i>
-                            <input type="text" name="username" placeholder="Desired username" autocomplete="off" autocorrect="off" />
+                            <input type="text" name="username" placeholder="Desired username" value="<?= isset($_POST['username']) ? $this->input->post('username') : '' ?>" autocomplete="off" autocorrect="off" />
                             <div class="ui small left pointing red basic label" style="display:none;" id="taken">
                                 <i class="ban icon"></i>
                                 Taken

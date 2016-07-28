@@ -37,6 +37,10 @@ class MY_Model extends CI_Model {
         $this->load->model('music_model', 'music', TRUE);
         $this->load->model('organization_model', 'organization', TRUE);
         $this->load->model('user_model', 'user', TRUE);
+
+        //TimeZone synchronization
+        global $sql_offset_query;
+        $this->db->query($sql_offset_query);
     }
 
     // -----------------------------------------------------------------------

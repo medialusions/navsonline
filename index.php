@@ -1,6 +1,22 @@
 <?php
 
-date_default_timezone_set('America/Los_Angeles');
+/**
+ * TimeZone Standardization
+ * 
+ * Originally set to sync with the database. NOTE that changing this after production
+ * will not update all of the stored times in the database.
+ */
+define('TIMEZONE', 'America/Los_Angeles');
+date_default_timezone_set(TIMEZONE);
+$now = new DateTime();
+$mins = $now->getOffset() / 60;
+$sgn = ($mins < 0 ? -1 : 1);
+$mins = abs($mins);
+$hrs = floor($mins / 60);
+$mins -= $hrs * 60;
+$offset = sprintf('%+d:%02d', $hrs * $sgn, $mins);
+$sql_offset_query = "SET time_zone='$offset';";
+
 /**
  * CodeIgniter
  *

@@ -55,6 +55,7 @@ date_default_timezone_set('America/Los_Angeles');
  * NOTE: If you change these, also change the error_reporting() code below
  */
 define('ENVIRONMENT', 'development');
+define('NAVS_VERSION', 'v0.4');
 
 /*
  * ---------------------------------------------------------------

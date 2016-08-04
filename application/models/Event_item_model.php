@@ -1,3 +1,6 @@
+
+
+
 <?php
 
 defined('BASEPATH') OR exit('No direct script access allowed');
@@ -45,7 +48,7 @@ class Event_item_model extends MY_Model {
             'event_id' => $data['event_id'],
             'type' => $data['type'],
             'title' => ($data['type'] == 'song' ? $song['title'] . ' - ' . $arrangement_data['artist'] . '' : $data['title']),
-            'arrangement_id' => ($data['type'] == 'song' ? $song['id'] : ''),
+            'arrangement_id' => ($data['type'] == 'song' ? $arrangement_data['id'] : ''),
             'arrangement_key' => ($data['type'] == 'song' ? $data['a_search_key'] : ''),
             'memo' => $data['memo'],
             'start_time' => verify_date_time($data['event_time']),
@@ -74,7 +77,7 @@ class Event_item_model extends MY_Model {
         $data = array(
             'type' => $data['type'],
             'title' => ($data['type'] == 'song' ? $song['title'] . ' - ' . $arrangement_data['artist'] . '' : $data['title']),
-            'arrangement_id' => ($data['type'] == 'song' ? $song['id'] : ''),
+            'arrangement_id' => ($data['type'] == 'song' ? $arrangement_data['id'] : ''),
             'arrangement_key' => ($data['type'] == 'song' ? $data['a_search_key'] : ''),
             'memo' => $data['memo'],
             'start_time' => verify_date_time($data['event_edit_date'], $data['event_edit_time'])

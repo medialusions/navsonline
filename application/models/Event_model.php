@@ -24,9 +24,13 @@ class Event_model extends MY_Model {
                 . "AND id='$id'"
                 . "LIMIT 1");
 
-        //return the only
+        //get the single result
         foreach ($query->result_array() as $row)
-            return $row;
+            break;
+
+        $row['last_entry_time'] = $this->get_last_time($id);
+
+        return $row;
     }
 
     /**
@@ -170,6 +174,25 @@ class Event_model extends MY_Model {
             return array('success' => FALSE, 'reason' => 'Database query error.');
         else
             return array('success' => TRUE);
+    }
+
+    /**
+     * Gets last time of last event item or false if none exists.
+     * @param int $id Event id
+     * @return date Time stamp of the last time entered
+     */
+    public function get_last_time($id) {
+        $query = $this->db->query(""
+                . "SELECT start_time FROM event_item "
+                . "WHERE event_id='$id' "
+                . "ORDER BY start_time DESC "
+                . "LIMIT 1");
+        if ($query->num_rows() != 1) {
+            return false;
+        } else {
+            $row = $query->row();
+            return $row->start_time;
+        }
     }
 
 }

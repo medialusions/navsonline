@@ -120,6 +120,12 @@ function get_tags() {
     return $html;
 }
 
+/**
+ * Helper function for pagination.
+ * @param int $num_rows Totla number of rows
+ * @param int $page Current page
+ * @return array Array of indexes including the previous and next indexes.
+ */
 function pagination($num_rows, $page) {
     $pagination = array();
     $pagination['last_page'] = $last_page = ceil($num_rows / 10); //cast to int

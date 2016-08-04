@@ -18,7 +18,11 @@
             title: false,
             closeButton: false,
             fullsizeButton: false,
-            timepicker: true // use timepicker
+            timepicker: true, // use timepicker
+            timepickerOptions: {
+                seconds: false,
+                defaultTime: '<?= date('H:i', $event['last_entry_time'] ? $event['last_entry_time'] + 300 : $event['date']) ?>'
+            }
         });
         $('#event_new_time').val('<?= date('Y/m/d', $event['date']) ?>');
         $('#event_new_time').periodpicker('change');
@@ -96,7 +100,7 @@
                             <i class="dropdown icon"></i>
                             <div class="default text">Arrangement Key</div>
                             <div class="nav menu">
-                                
+
                                 <div class="item" data-value="A#">A#</div>
                             </div>
                         </div>

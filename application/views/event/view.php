@@ -147,7 +147,29 @@
                 <i class="users icon"></i>
                 People
             </h4>
-            <?php //@TODO ?>
+            <div class="ui divided items">
+                <?php
+                foreach ($people as $person):
+                    ?>
+                    <div class="item">
+                        <div class="ui mini image">
+                            <i class="huge icons navs_popup" data-content="<?= $person['confirmed'] ? 'Confirmed' : 'Denied' ?>" data-position="top center">
+                                <i class="user icon"></i>
+                                <i class="corner <?= $person['confirmed'] ? 'green checkmark' : 'red remove' ?> icon"></i>
+                            </i>
+                        </div>
+                        <div class="middle aligned content">
+                            <a class="ui small header"><?= $person['first_name'] . ' ' . $person['last_name'] ?></a>
+                            <div class="description">
+                                <p><?= implode(', ', $person['roles']) ?></p>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+            <?php if (count($people) == 0): ?>
+                <div class="ui error message">"help me obi-wan kenobi. you're my only hope!" ~luke</div>
+            <?php endif; ?>
         </div>
     </div>
 </div>

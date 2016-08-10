@@ -88,10 +88,14 @@ function get_artists() {
 
     $rows = $CI->arrangement_model->get_unique();
     $html = "";
-    foreach ($rows as $row) {
-        $html .= '<div class="item" data-value="' . $row['artist'] . '">' . $row['artist'] . '</div>';
+    if (is_array($rows)) {
+        foreach ($rows as $row) {
+            $html .= '<div class="item" data-value="' . $row['artist'] . '">' . $row['artist'] . '</div>';
+        }
+        return $html;
+    } else {
+        return FALSE;
     }
-    return $html;
 }
 
 /**

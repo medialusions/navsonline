@@ -14,8 +14,6 @@ class Event_model extends MY_Model {
     }
 
     public function get($id) {
-        //Ensure organization is set
-        $this->organization_id = $this->session->userdata('organization_id');
         //build upcoming query
         $query = $this->db->query(""
                 . "SELECT * "
@@ -73,8 +71,6 @@ class Event_model extends MY_Model {
      * @return type array results
      */
     public function generate_upcoming($user_id = '', $limit = 4, $page = 1, $admin = FALSE) {
-        //Ensure organization is set
-        $this->organization_id = $this->session->userdata('organization_id');
         if ($limit == -1) {
             $limit_q = "LIMIT " . (($page - 1) * 10) . ", 10";
         } else {
@@ -99,8 +95,6 @@ class Event_model extends MY_Model {
      * @param int $page Page number
      */
     public function get_pagination($page) {
-        //Ensure organization is set
-        $this->organization_id = $this->session->userdata('organization_id');
         //build upcoming query
         $query = $this->db->query(""
                 . "SELECT * "
@@ -156,7 +150,7 @@ class Event_model extends MY_Model {
     public function delete($eid, $organization = '') {
         //get session organization if unset
         if ($organization == '')
-            $organization = $this->session->userdata('organization_id');
+            $organization = $this->organization_id;
         //verify organization first
         $query = $this->db->query(""
                 . "SELECT organization FROM event "
@@ -193,6 +187,50 @@ class Event_model extends MY_Model {
             $row = $query->row();
             return $row->start_time;
         }
+    }
+
+    /**
+     * Gets all roles from organization.
+     * @return mixed Array of roles or false on failure
+     */
+    public function get_roles($organization = '') {
+        //get session organization if unset
+        if ($organization == '')
+            $organization = $this->organization_id;
+
+        $query = $this->db->query(""
+                . "SELECT roles_matrix FROM event "
+                . "WHERE organization='$this->organization_id'");
+        if ($query->num_rows() < 1) {
+            return false;
+        } else {
+            return array_values($query->result_array());
+        }
+    }
+
+    /**
+     * Returns people array for this event
+     * @param int $id Id of event
+     * @return array Array of people associated with the event
+     */
+    public function get_people($id) {
+        $event = $this->get($id);
+        //get users
+        $u_matrix = $event['users_matrix'];
+        $users = json_decode($u_matrix, TRUE);
+        //get roles
+        $r_matrix = $event['roles_matrix'];
+        $roles = json_decode($r_matrix, TRUE);
+        $toRet = [];
+        foreach ($users as $key => $user) {
+            $toRet[$key] = $user;
+            $toRet[$key]['roles'] = [];
+            foreach ($roles[$key] as $role)
+                array_push ($toRet[$key]['roles'], slug_to_proper($role));
+            foreach ($this->user->get($key) as $u_data_key => $u_data)
+                $toRet[$key][$u_data_key] = $u_data;
+        }
+        return $toRet;
     }
 
 }

@@ -83,6 +83,37 @@ function matrix_decode($json_matrix, $index = '', $second_index = '') {
     }
 }
 
+/**
+ * Gets the unique artists for this organization
+ */
+function get_roles() {
+    // Get a reference to the controller object
+    $CI = get_instance();
+    // You may need to load the model if it hasn't been pre-loaded
+    $CI->load->model('event_model');
+
+    //process all roles
+    $rows = $CI->event_model->get_roles();
+    $roles = [];
+    foreach ($rows as $row) {
+        //associtive array
+        $ass_arr = json_decode($row, TRUE);
+        //strip keys
+        $arr = array_values($ass_arr);
+        //push it onto the array
+        foreach ($arr as $role)
+            array_push($roles, $role);
+    }
+    //remove duplicates
+    array_unique($roles);
+
+    $html = "";
+    foreach ($roles as $role) {
+        $html .= '<div class="item" data-value="' . $role . '">' . slug_to_proper($role) . '</div>';
+    }
+    return $html;
+}
+
 function auth_role($auth_level, $slug = FALSE) {
     if ($slug)
         return auth_role_slug($auth_level);

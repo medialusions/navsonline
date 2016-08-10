@@ -65,6 +65,8 @@ class Event extends MY_Controller {
         $this->require_min_level(3);
         //get event data
         $data['event'] = $this->event->get($id);
+        //get people data
+        $data['people'] = $this->event->get_people($id);
         //get event items
         $data['items'] = $this->event_item->get($id);
         //add more data to each event item

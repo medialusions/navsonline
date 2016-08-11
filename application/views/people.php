@@ -2,7 +2,7 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-
+        
     });
 </script>
 
@@ -83,16 +83,16 @@
                                 <?php if ($auth_level >= 9): //admin required. modal included below   ?>
                                     <td>
                                         <?php if ($user['auth_level'] < 10): ?>
-                                            <a class="ui icon basic red button tiny <?= $user['user_id'] == $auth_user_id ? 'disabled' : 'navs_popup confirm_api ' ?>" data-action="user ban" data-uid="" data-content="Make Banned" data-position="top center">
+                                            <a class="ui icon basic red button tiny <?= $user['user_id'] == $auth_user_id || $user['auth_level'] == 1 ? 'disabled' : 'navs_popup confirm_api ' ?>" data-action="user ban" data-uid="<?= $user['user_id'] ?>" data-content="Make Banned" data-position="top center">
                                                 <i class="ban icon"></i>
                                             </a>
-                                            <a class="ui icon basic grey button tiny <?= $user['user_id'] == $auth_user_id ? 'disabled' : 'navs_popup confirm_api ' ?>" data-action="user archive" data-uid="" data-content="Archive User" data-position="top center">
+                                            <a class="ui icon basic grey button tiny <?= $user['user_id'] == $auth_user_id || $user['auth_level'] == 2 ? 'disabled' : 'navs_popup confirm_api ' ?>" data-action="user archive" data-uid="<?= $user['user_id'] ?>" data-content="Archive User" data-position="top center">
                                                 <i class="archive icon"></i>
                                             </a>
-                                            <a class="ui icon basic orange button tiny <?= $user['user_id'] == $auth_user_id ? 'disabled' : 'navs_popup confirm_api ' ?>" data-action="user make viewer" data-uid="" data-content="Make Viewer" data-position="top center">
+                                            <a class="ui icon basic orange button tiny <?= $user['user_id'] == $auth_user_id || $user['auth_level'] == 5 ? 'disabled' : 'navs_popup confirm_api ' ?>" data-action="user make viewer" data-uid="<?= $user['user_id'] ?>" data-content="Make Viewer" data-position="top center">
                                                 <i class="unhide icon"></i>
                                             </a>
-                                            <a class="ui icon basic blue button tiny <?= $user['user_id'] == $auth_user_id ? 'disabled' : 'navs_popup confirm_api ' ?>" data-action="user make viewer" data-uid="" data-content="Make Admin" data-position="top center">
+                                            <a class="ui icon basic blue button tiny <?= $user['user_id'] == $auth_user_id || $user['auth_level'] == 9 ? 'disabled' : 'navs_popup confirm_api ' ?>" data-action="user make admin" data-uid="<?= $user['user_id'] ?>" data-content="Make Admin" data-position="top center">
                                                 <i class="unlock icon"></i>
                                             </a>
                                         <?php else: ?>

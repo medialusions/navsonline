@@ -117,7 +117,12 @@
                                                 on: 'now',
                                                 onResponse: function(response) {
                                                     if (response && response.success) {
-                                                        $(curr_button).closest('tr').remove();
+                                                        if (typeof response.reload !== 'undefined') {
+                                                            //if reload is set
+                                                            location.reload();
+                                                        } else {
+                                                            $(curr_button).closest('tr').remove();
+                                                        }
                                                     } else {
                                                         $(curr_button).state('flash text', 'Error!');
                                                     }
@@ -137,7 +142,11 @@
                 'song delete': '<?= base_url('/ajax/song-delete'); ?>/{sid}',
                 'arrangement delete': '<?= base_url('/ajax/arrangement-delete'); ?>/{aid}',
                 'blockout add': '<?= base_url('/ajax/blockout-add'); ?>',
-                'blockout delete': '<?= base_url('/ajax/blockout-delete'); ?>/{uid}/{db}/{de}'
+                'blockout delete': '<?= base_url('/ajax/blockout-delete'); ?>/{uid}/{db}/{de}',
+                'user ban': '<?= base_url('/ajax/user-role'); ?>/?update=true&uid={uid}&role=denied',
+                'user archive': '<?= base_url('/ajax/user-role'); ?>/?update=true&uid={uid}&role=archived',
+                'user make viewer': '<?= base_url('/ajax/user-role'); ?>/?update=true&uid={uid}&role=viewer',
+                'user make admin': '<?= base_url('/ajax/user-role'); ?>/?update=true&uid={uid}&role=admin'
             };
         </script>
     </head>

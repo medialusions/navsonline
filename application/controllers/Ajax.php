@@ -267,6 +267,26 @@ class Ajax extends MY_Controller {
             echo json_encode(array('success' => TRUE));
     }
 
+    public function user_role() {
+        //verify admin level
+        $this->verify_min_ajax_level(9);
+
+        if (is_null($this->input->get()) ||
+                is_null($this->input->get('uid')) ||
+                is_null($this->input->get('update')) ||
+                is_null($this->input->get('role'))) {
+            echo json_encode(array('success' => FALSE, 'reason' => 'Missing parameters.'));
+            die;
+        }
+        $auth_role = $this->input->get('role');
+        $user_id = $this->input->get('uid');
+        $success = $this->user->update_auth_level(auth_level($auth_role), $user_id);
+        if (!$success)
+            echo json_encode(array('success' => FALSE, 'reason' => 'Database query error.'));
+        else
+            echo json_encode(array('success' => TRUE, 'reload' => TRUE));
+    }
+
     /**
      * @return array All user data pertaining to the current ci_session cookie that was sent.
      */
@@ -286,7 +306,7 @@ class Ajax extends MY_Controller {
 
         //now get the session data
         $query = $this->db->get_where('auth_sessions', array('id' => $arr[1]), 1);
-        
+
         if ($query->num_rows() == 0)
             die(json_encode(array('success' => FALSE, 'message' => "You aren't authorized to do this procedure.")));
 

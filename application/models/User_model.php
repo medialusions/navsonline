@@ -33,7 +33,35 @@ class User_model extends MY_Model {
 
         //return the first
         foreach ($query->result_array() as $row)
-            return $row;
+            break;
+        
+        return $row;
+    }
+
+    /**
+     * Updates the auth level field in the user database.
+     * @param int $auth_level Authenticatin level
+     * @param int $user_id User ID
+     * @return boolean Success
+     */
+    public function update_auth_level($auth_level, $user_id = '') {
+        $refresh_after_update = FALSE;
+        if ($user_id == '') {
+            $user_id = config_item('auth_user_id');
+            $refresh_after_update = TRUE;
+        }
+
+        $this->db->set('auth_level', $auth_level);
+        $this->db->where('user_id', $user_id);
+        $success = (bool) $this->db->update('users');
+
+        if ($success) {
+            if ($refresh_after_update) {
+                $this->require_min_level(1);
+            }
+            return TRUE;
+        }
+        return FALSE;
     }
 
     /**
@@ -161,7 +189,7 @@ class User_model extends MY_Model {
         $query = $this->db->query(""
                 . "SELECT date "
                 . "FROM `event` "
-                . "WHERE roles_matrix LIKE '%" . $json . "%' "
+                . "WHERE users_matrix LIKE '%" . $json . "%' "
                 . "AND date < " . time() . " "
                 . "ORDER BY date DESC "
                 . "LIMIT 1"

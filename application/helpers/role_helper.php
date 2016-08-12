@@ -30,6 +30,32 @@ function slug_to_proper($args, $array = FALSE) {
     return $toRet;
 }
 
+function slugify($text) {
+    // replace non letter or digits by -
+    $text = preg_replace('~[^\pL\d]+~u', '-', $text);
+
+    // transliterate
+    $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+
+    // remove unwanted characters
+    $text = preg_replace('~[^-\w]+~', '', $text);
+
+    // trim
+    $text = trim($text, '-');
+
+    // remove duplicate -
+    $text = preg_replace('~-+~', '-', $text);
+
+    // lowercase
+    $text = strtolower($text);
+
+    if (empty($text)) {
+        return 'n-a';
+    }
+
+    return $text;
+}
+
 /**
  * Returns roles in proper form whether in an array or a comma separated string
  * @param String $json_matrix Json encoded array.
@@ -91,27 +117,29 @@ function get_roles() {
     $CI = get_instance();
     // You may need to load the model if it hasn't been pre-loaded
     $CI->load->model('event_model');
-
-    //process all roles
-    $rows = $CI->event_model->get_roles();
-    $roles = [];
-    foreach ($rows as $row) {
-        //associtive array
-        $ass_arr = json_decode($row, TRUE);
-        //strip keys
-        $arr = array_values($ass_arr);
-        //push it onto the array
-        foreach ($arr as $role)
-            array_push($roles, $role);
+    $roles = $CI->event_model->get_roles();
+    if (!$roles) {
+        //failure
+        return '';
+    } else {
+        $ind_roles = array();
+        foreach ($roles as $roles_matrix) {
+            $arr = json_decode($roles_matrix['roles_matrix'], TRUE);
+            $no_keys = array_values($arr);
+            foreach ($no_keys as $u) {
+                foreach ($u as $role) {
+                    if (array_search($role, $ind_roles) === FALSE) {
+                        array_push($ind_roles, $role);
+                    }
+                }
+            }
+        }
+        $html = "";
+        foreach ($ind_roles as $ind_role) {
+            $html .= '<div class="item" data-value="' . slug_to_proper($ind_role) . '">' . slug_to_proper($ind_role) . '</div>';
+        }
+        return $html;
     }
-    //remove duplicates
-    array_unique($roles);
-
-    $html = "";
-    foreach ($roles as $role) {
-        $html .= '<div class="item" data-value="' . $role . '">' . slug_to_proper($role) . '</div>';
-    }
-    return $html;
 }
 
 function auth_role($auth_level, $slug = FALSE) {

@@ -38,6 +38,22 @@ class Organization_model extends MY_Model {
         //return the array
         return $toRet;
     }
+    
+    public function user_search($name, $organization) {
+        //generate query
+        $this->db->like('first_name', $name, 'after');
+        $this->db->or_like('last_name', $name, 'after');
+        $this->db->like('organizations', '' . $organization . ',');
+        $this->db->limit(8);
+        $this->db->from('users');
+
+        //get built query
+        $query_string = $this->db->get_compiled_select();
+
+        //execute
+        $query = $this->db->query($query_string);
+        return $query->result_array();
+    }
 
     public function get($organization_id = '') {
         if ($organization_id == '')

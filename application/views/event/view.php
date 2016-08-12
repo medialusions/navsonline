@@ -147,11 +147,11 @@
                 <i class="users icon"></i>
                 People
             </h4>
-            <div class="ui divided items">
+            <div class="ui divided items" id="persons_list">
                 <?php
                 foreach ($people as $person):
                     ?>
-                    <div class="item">
+                    <div class="item" id="person_<?= $person['user_id'] ?>">
                         <div class="ui mini image">
                             <i class="huge icons navs_popup" data-content="<?= $person['confirmed'] ? 'Confirmed' : 'Denied' ?>" data-position="top center">
                                 <i class="user icon"></i>
@@ -159,17 +159,32 @@
                             </i>
                         </div>
                         <div class="middle aligned content">
-                            <a class="ui small header"><?= $person['first_name'] . ' ' . $person['last_name'] ?></a>
+                            <a href="javascript:void(0)" class="ui small header people_edit_modal_link"><?= $person['first_name'] . ' ' . $person['last_name'] ?></a>
+                            <div class="hidden" style="display: none;"><?=
+                                json_encode([
+                                    'name' => $person['first_name'] . ' ' . $person['last_name'],
+                                    'user_id' => $person['user_id'],
+                                    'roles' => $person['roles']
+                                ])
+                                ?></div>
                             <div class="description">
                                 <p><?= implode(', ', $person['roles']) ?></p>
                             </div>
                         </div>
                     </div>
-                <?php endforeach; ?>
+            <?php endforeach; ?>
             </div>
             <?php if (count($people) == 0): ?>
                 <div class="ui error message">"help me obi-wan kenobi. you're my only hope!" ~luke</div>
-            <?php endif; ?>
+<?php endif; ?>
+            <div class="ui centered grid">
+                <div class="column">
+                    <button class="ui button green basic tiny person_new_modal_button">
+                        <i class="add square icon"></i>
+                        Add person
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -179,6 +194,8 @@
 if ($auth_level >= 9):
     $this->load->view('modal/event_item_add');
     $this->load->view('modal/event_item_edit');
+    $this->load->view('modal/person_add');
+    $this->load->view('modal/person_edit');
 endif;
 
 $this->load->view('template/footer');

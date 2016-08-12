@@ -73,6 +73,16 @@
                                 $(this).next().val(JSON.stringify(result));
                             }
                         });
+                $('.ui.search.user_search')
+                        .search({
+                            apiSettings: {
+                                url: '<?= base_url('/ajax/user-search'); ?>?q={query}'
+                            },
+                            cache: false,
+                            onSelect: function(result, response) {
+                                $(this).next().val(JSON.stringify(result));
+                            }
+                        });
                 //arrangement search
                 $(".a_search_key").hide();
                 $('.ui.search.arrangement_search')
@@ -108,6 +118,7 @@
                 $(".confirm_api").click(function() {
                     var curr_button = this;
                     $('.confirm_modal')
+                            .modal({allowMultiple: true})
                             .modal('setting', 'closable', false)
                             .modal('show')
                             .modal({
@@ -121,7 +132,8 @@
                                                             //if reload is set
                                                             location.reload();
                                                         } else {
-                                                            $(curr_button).closest('tr').remove();
+                                                            if (!$(curr_button).hasClass('no_delete'))
+                                                                $(curr_button).closest('tr').remove();
                                                         }
                                                     } else {
                                                         $(curr_button).state('flash text', 'Error!');
@@ -140,6 +152,7 @@
                 'event delete': '<?= base_url('/ajax/event-delete'); ?>/{eid}',
                 'event item delete': '<?= base_url('/ajax/event-item-delete'); ?>/{eiid}',
                 'song delete': '<?= base_url('/ajax/song-delete'); ?>/{sid}',
+                'event person delete': '<?= base_url('/ajax/event-person-delete'); ?>/{eid}/{uid}',
                 'arrangement delete': '<?= base_url('/ajax/arrangement-delete'); ?>/{aid}',
                 'blockout add': '<?= base_url('/ajax/blockout-add'); ?>',
                 'blockout delete': '<?= base_url('/ajax/blockout-delete'); ?>/{uid}/{db}/{de}',

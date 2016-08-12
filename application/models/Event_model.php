@@ -13,7 +13,7 @@ class Event_model extends MY_Model {
         $this->organization_id = $this->session->userdata('organization_id');
     }
 
-    public function get($id) {
+    public function get($id, $last_entry_time = TRUE) {
         //build upcoming query
         $query = $this->db->query(""
                 . "SELECT * "
@@ -26,7 +26,8 @@ class Event_model extends MY_Model {
         foreach ($query->result_array() as $row)
             break;
 
-        $row['last_entry_time'] = $this->get_last_time($id);
+        if ($last_entry_time)
+            $row['last_entry_time'] = $this->get_last_time($id);
 
         return $row;
     }
@@ -61,6 +62,17 @@ class Event_model extends MY_Model {
         $this->db->insert('event', $data);
 
         return $this->db->insert_id();
+    }
+
+    /**
+     * Updates raw data
+     * @param array $data
+     * @param id $eid
+     */
+    public function update($data, $eid) {
+        $this->db->set($data);
+        $this->db->where('id', $eid);
+        return $this->db->update('event');
     }
 
     /**
@@ -226,7 +238,7 @@ class Event_model extends MY_Model {
             $toRet[$key] = $user;
             $toRet[$key]['roles'] = [];
             foreach ($roles[$key] as $role)
-                array_push ($toRet[$key]['roles'], slug_to_proper($role));
+                array_push($toRet[$key]['roles'], slug_to_proper($role));
             foreach ($this->user->get($key) as $u_data_key => $u_data)
                 $toRet[$key][$u_data_key] = $u_data;
         }

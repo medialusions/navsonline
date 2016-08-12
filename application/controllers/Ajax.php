@@ -11,16 +11,6 @@ class Ajax extends MY_Controller {
         parent::__construct();
     }
 
-    public function unique_username() {
-        //get the username  
-        $username = $this->input->post('username');
-        $result = $this->user->get_by_username($username);
-        if ($result === FALSE)
-            echo json_encode(['success' => TRUE, 'unique' => TRUE]);
-        else
-            echo json_encode(['success' => TRUE, 'unique' => FALSE]);
-    }
-
     /**
      * Uses Cookie, Post, and Files data to upload and create database instance of media files
      */
@@ -87,25 +77,24 @@ class Ajax extends MY_Controller {
         echo json_encode($result);
     }
 
-    public function arrangement_search() {
+    public function user_search() {
         //get user data
         $this->verify_min_ajax_level(1);
         $user_data = $this->verify_cookie();
         $user_organizations = explode(',', $user_data['user_data']['organizations']);
 
+        $type = $this->input->get("type");
         $query = $this->input->get("q");
+        if (is_null($type))
+            $type = "";
 
         //do it
         $result = array('results' => array());
-        $search_result = $this->arrangement->search($query, $user_organizations[0]);
-
+        $search_result = $this->organization->user_search($query, $user_organizations[0], $type);
         foreach ($search_result as $row) {
             array_push($result['results'], array(
-                "title" => $row['title'],
-                "description" => $row['artist'],
-                "id" => $row['id'],
-                "keys" => $row['song_keys'],
-                "default" => $row['default_key']
+                "title" => $row['first_name'] . ' ' . $row['last_name'],
+                "id" => $row['user_id']
             ));
         }
         echo json_encode($result);
@@ -172,6 +161,94 @@ class Ajax extends MY_Controller {
     }
 
     /**
+     * Via POST variables
+     */
+    public function event_person_add($eid) {
+        //verify admin level
+        $this->verify_min_ajax_level(9);
+        //get post data
+        if (!is_null($this->input->post("user"))) { //new user
+            $user = $this->input->post("user");
+            $user_arr = json_decode($user, TRUE);
+        } else if (!is_null($this->input->post("user_id"))) { //editing existing user
+            $user_arr = array('title' => $this->input->post("user_name"), 'id' => $this->input->post("user_id"));
+        }
+        $role = $this->input->post("roles");
+        $role_arr = explode(",", $role);
+        //get current data
+        $event = $this->event->get($eid, FALSE);
+        $users_matrix = $event['users_matrix'];
+        $users = json_decode($users_matrix, TRUE);
+        $roles_matrix = $event['roles_matrix'];
+        $roles = json_decode($roles_matrix, TRUE);
+        //update data
+        if (!key_exists($user_arr['id'], $users))
+            $users[$user_arr['id']] = ['confirmed' => TRUE];
+
+        $role_slugs = array_map('slugify', $role_arr);
+        if (!key_exists($user_arr['id'], $roles)) {
+            $roles[$user_arr['id']] = $role_slugs;
+        } else {
+            $roles[$user_arr['id']] = $role_slugs;
+        }
+        //put back and send it to DB
+        $event['users_matrix'] = json_encode($users);
+        $event['roles_matrix'] = json_encode($roles);
+        $result = $this->event->update($event, $eid);
+        if ($result) {
+            $imploded = implode(', ', $role_arr);
+            $json_data = json_encode([
+                'name' => $user_arr['title'],
+                'user_id' => $user_arr['id'],
+                'roles' => $role_arr
+            ]);
+            $confirmed = $users[$user_arr['id']]['confirmed'] ? 'green checkmark' : 'red remove';
+            $html = <<< HTML
+                    <div class="item" id="person_{$user_arr['id']}">
+                        <div class="ui mini image">
+                            <i class="huge icons navs_popup" data-content="Confirmed" data-position="top center">
+                                <i class="user icon"></i>
+                                <i class="corner $confirmed icon"></i>
+                            </i>
+                        </div>
+                        <div class="middle aligned content">
+                            <a href="javascript:void(0)" class="ui small header people_edit_modal_link">{$user_arr['title']}</a>
+                            <div class="hidden" style="display: none;">$json_data</div>
+                            <div class="description">
+                                <p>$imploded</p>
+                            </div>
+                        </div>
+                    </div>
+HTML;
+            die(json_encode(['success' => TRUE, 'html' => $html]));
+        } else {
+            die(json_encode(['success' => FALSE]));
+        }
+    }
+
+    public function event_person_delete($eid, $uid) {
+        //get current data
+        $event = $this->event->get($eid, FALSE);
+        $users_matrix = $event['users_matrix'];
+        $users = json_decode($users_matrix, TRUE);
+        $roles_matrix = $event['roles_matrix'];
+        $roles = json_decode($roles_matrix, TRUE);
+
+        //remove
+        unset($users[$uid]);
+        unset($roles[$uid]);
+
+        //put back and send it to DB
+        $event['users_matrix'] = json_encode($users);
+        $event['roles_matrix'] = json_encode($roles);
+        $result = $this->event->update($event, $eid);
+        if (!$result)
+            echo json_encode(array('success' => FALSE));
+        else
+            echo json_encode(array('success' => TRUE, 'reload' => TRUE));
+    }
+
+    /**
      * Controller function to remove the song. Verifies with cookie auth level.
      * @param int $sid
      */
@@ -211,6 +288,30 @@ class Ajax extends MY_Controller {
             echo json_encode(array('success' => TRUE));
         } else
             echo json_encode(array('success' => FALSE));
+    }
+
+    public function arrangement_search() {
+        //get user data
+        $this->verify_min_ajax_level(1);
+        $user_data = $this->verify_cookie();
+        $user_organizations = explode(',', $user_data['user_data']['organizations']);
+
+        $query = $this->input->get("q");
+
+        //do it
+        $result = array('results' => array());
+        $search_result = $this->arrangement->search($query, $user_organizations[0]);
+
+        foreach ($search_result as $row) {
+            array_push($result['results'], array(
+                "title" => $row['title'],
+                "description" => $row['artist'],
+                "id" => $row['id'],
+                "keys" => $row['song_keys'],
+                "default" => $row['default_key']
+            ));
+        }
+        echo json_encode($result);
     }
 
     /**
@@ -285,6 +386,16 @@ class Ajax extends MY_Controller {
             echo json_encode(array('success' => FALSE, 'reason' => 'Database query error.'));
         else
             echo json_encode(array('success' => TRUE, 'reload' => TRUE));
+    }
+
+    public function unique_username() {
+        //get the username  
+        $username = $this->input->post('username');
+        $result = $this->user->get_by_username($username);
+        if ($result === FALSE)
+            echo json_encode(['success' => TRUE, 'unique' => TRUE]);
+        else
+            echo json_encode(['success' => TRUE, 'unique' => FALSE]);
     }
 
     /**

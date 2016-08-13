@@ -9,6 +9,13 @@
 
 </style>
 
+<?php
+/**
+ * @TODO Role: Event Manager with admin privileges
+ * @TODO If user has active blockout, disallow scheduling
+ */
+?>
+
 <!-- content -->
 <div id="main_content" class="ui stackable grid">
 

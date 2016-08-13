@@ -5,15 +5,10 @@ application/cache/*
 !application/cache/.htaccess
 
 application/config/config.php
-application/config/database.php
 
 application/logs/*
 !application/logs/index.html
 !application/logs/.htaccess
-
-.htaccess
-/media/
-db_backup/data.sql
 
 user_guide_src/build/*
 user_guide_src/cilexer/build/*

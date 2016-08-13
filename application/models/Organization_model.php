@@ -38,8 +38,18 @@ class Organization_model extends MY_Model {
         //return the array
         return $toRet;
     }
-    
-    public function user_search($name, $organization) {
+
+    public function user_search($name, $organization, $restriction = "") {
+        //restrictions
+        $restricted = FALSE;
+        if ($restriction != "") {
+            $restricted = TRUE;
+            $eid = $restriction;
+            $event = $this->event->get($eid);
+            $users_matrix = json_decode($event['users_matrix'], TRUE);
+            $date = $event['date'];
+        }
+
         //generate query
         $this->db->like('first_name', $name, 'after');
         $this->db->or_like('last_name', $name, 'after');
@@ -52,7 +62,25 @@ class Organization_model extends MY_Model {
 
         //execute
         $query = $this->db->query($query_string);
-        return $query->result_array();
+        $result = $query->result_array();
+        if ($restricted) {
+            //remove users who have a blockout or are already scheduled
+            $updated = array();
+            foreach ($result as $user) {
+                $okay_for_scheduling = TRUE;
+                $blockouts = json_decode($user['blockouts'], TRUE);
+                foreach ($blockouts as $blockout) //sift through the blockouts
+                    if ($date <= $blockout['date_end'] && $date >= $blockout['start_date'])
+                        $okay_for_scheduling = FALSE; //remove user potential
+                if (key_exists($user['user_id'], $users_matrix))
+                    $okay_for_scheduling = FALSE; //remove user potential
+                if ($okay_for_scheduling) //only add if it passed
+                    array_push($updated, $user);
+            }
+            return $updated;
+        } else {
+            return $result;
+        }
     }
 
     public function get($organization_id = '') {

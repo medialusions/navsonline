@@ -83,6 +83,16 @@
                                 $(this).next().val(JSON.stringify(result));
                             }
                         });
+                $('.ui.search.user_search.restricted_search')
+                        .search({
+                            apiSettings: {
+                                url: '<?= base_url('/ajax/user-search'); ?>?q={query}&restricted={eid}'
+                            },
+                            cache: false,
+                            onSelect: function(result, response) {
+                                $(this).next().val(JSON.stringify(result));
+                            }
+                        });
                 //arrangement search
                 $(".a_search_key").hide();
                 $('.ui.search.arrangement_search')

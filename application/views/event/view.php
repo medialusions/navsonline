@@ -12,7 +12,6 @@
 <?php
 /**
  * @TODO Role: Event Manager with admin privileges
- * @TODO If user has active blockout, disallow scheduling
  */
 ?>
 

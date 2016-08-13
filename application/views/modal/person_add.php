@@ -37,7 +37,7 @@
                 }
             });
         });
-        
+
         //ensure form is never submitted
         $('#person_new_modal_form').submit(function(e) {
             return false;
@@ -56,7 +56,7 @@
             <div class="two fields">
                 <div class="field">
                     <label>User</label>
-                    <div class="ui search user_search">
+                    <div class="ui search user_search restricted_search" data-eid="<?= $event['id'] ?>">
                         <div class="ui left icon input">
                             <input class="prompt" type="text" name="user" placeholder="Search active users">
                             <i class="user icon"></i>

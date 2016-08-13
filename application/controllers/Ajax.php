@@ -83,14 +83,14 @@ class Ajax extends MY_Controller {
         $user_data = $this->verify_cookie();
         $user_organizations = explode(',', $user_data['user_data']['organizations']);
 
-        $type = $this->input->get("type");
+        $restriction = $this->input->get("restricted");
         $query = $this->input->get("q");
-        if (is_null($type))
-            $type = "";
+        if (is_null($restriction))
+            $restriction = "";
 
         //do it
         $result = array('results' => array());
-        $search_result = $this->organization->user_search($query, $user_organizations[0], $type);
+        $search_result = $this->organization->user_search($query, $user_organizations[0], $restriction);
         foreach ($search_result as $row) {
             array_push($result['results'], array(
                 "title" => $row['first_name'] . ' ' . $row['last_name'],

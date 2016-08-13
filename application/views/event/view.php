@@ -30,7 +30,7 @@
                     </h1>
                 </div>
                 <div class="four wide column">
-                    <?php if ($auth_level >= 9): //admin required.   ?>
+                    <?php if ($auth_level >= 9 || $is_event_manager): //admin required.   ?>
                         <button class="ui button green basic tiny" id="e_item_new_modal">
                             <i class="add square icon"></i>
                             Add item
@@ -50,7 +50,7 @@
                             <th class="">Time</th>
                             <th class="">Name</th>
                             <th class="">Attachments</th>
-                            <?php if ($auth_level >= 9): //admin required.   ?>
+                            <?php if ($auth_level >= 9 || $is_event_manager): //admin required.   ?>
                                 <th class="">Delete</th>
                             <?php endif; ?>
                         </tr>
@@ -59,7 +59,7 @@
                         <?php foreach ($items as $item): ?>
                             <?php if ($item['label']): ?>
                                 <tr>
-                                    <td colspan="<?= $auth_level >= 9 ? 4 : 3 ?>">
+                                    <td colspan="<?= $auth_level >= 9 || $is_event_manager ? 4 : 3 ?>">
                                         <div class="ui ribbon <?= $item['start_time'] < $event['date'] && date('d/m/Y', $item['start_time']) != date('d/m/Y', $event['date']) ? 'grey nav_italic' : 'teal' ?> label">
                                             <?= date('l, F jS', $item['start_time']) ?>
                                         </div>
@@ -73,7 +73,7 @@
                                 </td>
                                 <!-- name -->
                                 <td>
-                                    <?= $auth_level >= 9 ? '<a href="javascript:void(0)" class="e_item_edit_modal_button" style="font-weight: bold;">' : '<div style="font-weight: bold;">' ?>
+                                    <?= $auth_level >= 9 || $is_event_manager ? '<a href="javascript:void(0)" class="e_item_edit_modal_button" style="font-weight: bold;">' : '<div style="font-weight: bold;">' ?>
                                     <!-- title/song-info -->
                                     <?php if ($item['type'] == 'song'): ?>
                                         <?= $item['song']['title'] . ' - ' . $item['arrangement']['artist'] . ' [' . $item['arrangement_key'] . ']' ?>
@@ -81,9 +81,9 @@
                                         <?= $item['title'] ?>
                                     <?php endif; ?>
 
-                                    <?= $auth_level >= 9 ? '</a>' : '</div>' ?>
+                                    <?= $auth_level >= 9 || $is_event_manager ? '</a>' : '</div>' ?>
                                     <?php
-                                    if ($auth_level >= 9): //admin required.   
+                                    if ($auth_level >= 9 || $is_event_manager): //admin required.   
                                         $item['time'] = date('H:i', $item['start_time']);
                                         $item['date'] = date('Y/m/d', $item['start_time']);
                                         ?>
@@ -125,7 +125,7 @@
                                         <?php endforeach; ?>
                                     <?php endif; ?>
                                 </td>
-                                <?php if ($auth_level >= 9): //admin required.    ?>
+                                <?php if ($auth_level >= 9 || $is_event_manager): //admin required.    ?>
                                     <!-- delete -->
                                     <td>
                                         <a class="ui icon basic red button mini navs_popup confirm_api" data-action="event item delete" data-eiid="<?= $item['id'] ?>" data-content="Remove" data-position="top center">
@@ -138,7 +138,7 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th colspan="<?= $auth_level >= 9 ? 4 : 3 ?>"></th>
+                            <th colspan="<?= $auth_level >= 9 || $is_event_manager ? 4 : 3 ?>"></th>
                         </tr>
                     </tfoot>
                 </table>
@@ -178,11 +178,11 @@
                             </div>
                         </div>
                     </div>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
             </div>
             <?php if (count($people) == 0): ?>
                 <div class="ui error message">"help me obi-wan kenobi. you're my only hope!" ~luke</div>
-<?php endif; ?>
+            <?php endif; ?>
             <div class="ui centered grid">
                 <div class="column">
                     <button class="ui button green basic tiny person_new_modal_button">
@@ -197,7 +197,7 @@
 
 
 <?php
-if ($auth_level >= 9):
+if ($auth_level >= 9 || $is_event_manager):
     $this->load->view('modal/event_item_add');
     $this->load->view('modal/event_item_edit');
     $this->load->view('modal/person_add');

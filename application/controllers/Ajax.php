@@ -149,7 +149,7 @@ class Ajax extends MY_Controller {
      */
     public function event_item_delete($eiid) {
         //verify admin level
-        $this->verify_min_ajax_level(9);
+        $this->verify_min_ajax_level(5);
 
         //remove
         $response = $this->event_item->delete($eiid);
@@ -165,7 +165,7 @@ class Ajax extends MY_Controller {
      */
     public function event_person_add($eid) {
         //verify admin level
-        $this->verify_min_ajax_level(9);
+        $this->verify_min_ajax_level(5);
         //get post data
         if (!is_null($this->input->post("user"))) { //new user
             $user = $this->input->post("user");
@@ -227,6 +227,8 @@ HTML;
     }
 
     public function event_person_delete($eid, $uid) {
+        //verify admin level
+        $this->verify_min_ajax_level(5);
         //get current data
         $event = $this->event->get($eid, FALSE);
         $users_matrix = $event['users_matrix'];

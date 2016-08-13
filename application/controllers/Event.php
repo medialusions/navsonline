@@ -41,7 +41,7 @@ class Event extends MY_Controller {
 
     public function add_item() {
         //admin level needed
-        $this->require_min_level(9);
+        $this->require_min_level(5);
 
         $this->event_item->add();
 
@@ -50,7 +50,7 @@ class Event extends MY_Controller {
 
     public function edit_item() {
         //admin level needed
-        $this->require_min_level(9);
+        $this->require_min_level(5);
 
         $this->event_item->edit();
 
@@ -67,6 +67,13 @@ class Event extends MY_Controller {
         $data['event'] = $this->event->get($id);
         //get people data
         $data['people'] = $this->event->get_people($id);
+        //check if event manager
+        $curr_uid = $this->auth_user_id;
+        $curr_person_roles = $data['people'][$curr_uid]['roles'];
+        if (array_search('Event Manager', $curr_person_roles) !== FALSE)
+            $data['is_event_manager'] = TRUE;
+        else
+            $data['is_event_manager'] = FALSE;
         //get event items
         $data['items'] = $this->event_item->get($id);
         //add more data to each event item

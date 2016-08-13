@@ -51,7 +51,7 @@ class MY_Controller extends Auth_Controller {
         $this->upload->initialize($config);
 
         //if logged in, check organizations session
-        if (isset($_COOKIE['ci_session']) && $this->verify_min_level(1)) {
+        if (isset($_COOKIE['ci_session']) && $this->require_min_level(1)) {
             $data['user'] = $this->user->generate_user_data($this->auth_user_id);
             $this->session->set_userdata('organization_id', extract_organization($data['user']['organizations']), 0);
             //get organization db data
@@ -81,7 +81,7 @@ class MY_Controller extends Auth_Controller {
             die("error");
 
         // DATA
-        $data = $this->dbutil->backup(array('format' => 'txt', 'add_insert' => TRUE, 'add_drop' => TRUE));
+        $data = $this->dbutil->backup(array('format' => 'txt', 'add_insert' => TRUE, 'add_drop' => FALSE));
         $filename = 'data.sql';
         if (!write_file('db_backup/' . $filename, $data))
             die("error");

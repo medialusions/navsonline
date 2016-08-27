@@ -440,8 +440,8 @@ class User_model extends MY_Model {
      * @return bool
      */
     public function update_user_raw_data($the_user, $user_data = []) {
-        $this->db->where('user_id', $the_user)
-                ->update(config_item('user_table'), $user_data);
+        return $this->db->where('user_id', $the_user)
+                        ->update(config_item('user_table'), $user_data);
     }
 
     public function reset_password($email, $g_recaptcha) {

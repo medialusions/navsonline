@@ -69,7 +69,7 @@ class Event extends MY_Controller {
         $data['people'] = $this->event->get_people($id);
         //check if event manager
         $curr_uid = $this->auth_user_id;
-        $curr_person_roles = $data['people'][$curr_uid]['roles'];
+        $curr_person_roles = $data['people'][$curr_uid]['roles']; //@TODO curr user should be checked via isset()
         if (array_search('Event Manager', $curr_person_roles) !== FALSE)
             $data['is_event_manager'] = TRUE;
         else

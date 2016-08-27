@@ -52,6 +52,54 @@ class User extends MY_Controller {
     }
 
     /**
+     * Loads forgot password prompt
+     */
+    public function forgot() {
+        $data = [];
+        if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
+            try {
+                $response = $this->user->reset_password($this->input->post('email'), $this->input->post('g-recaptcha-response'));
+                if($response)
+                    $data['success'] = TRUE;
+            } catch (Exception $e) {
+                $msg = explode('%', $e->getMessage());
+                $code = $e->getCode();
+                show_error($msg[0], $code, $msg[1]);
+            }
+        }
+
+        $this->load->view('user/forgot', $data);
+    }
+
+    public function reset() {
+        $r = $this->input->get('r');
+        $u = $this->input->get('u');
+
+        if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
+            try {
+                $this->user->reset_password($this->input->post('email'));
+            } catch (Exception $e) {
+                $msg = explode('%', $e->getMessage());
+                $code = $e->getCode();
+                show_error($msg[0], $code, $msg[1]);
+            }
+        }
+
+        //missing something or hack
+        if (is_null($u) || is_null($r))
+            show_error("You're missing a few things.", 400, "Error Resetting Password");
+
+        $u_rec = $this->user->get_recovery_verification_data($u);
+
+        $r_dec = myurldecode($r);
+        //recovery code doesn't match the one stored
+        if ($r_dec != $u_rec->passwd_recovery_code)
+            show_error("Something isn't right. Request a new reset link.", 401, "Error Resetting Password");
+
+        $this->load->view('user/reset');
+    }
+
+    /**
      * Loads and gets data for schedule page
      */
     public function schedule($page = 1) {

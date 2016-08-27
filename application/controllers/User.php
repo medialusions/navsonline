@@ -95,6 +95,8 @@ class User extends MY_Controller {
                 $change_passwd_response = $this->user->change_password($this->input->post('password'), $this->input->post('password_2'), $u, $r_dec);
                 if (is_array($change_passwd_response)) {
                     $data['errors'] = $change_passwd_response['message'];
+                } else {
+                    $data['success'] = TRUE;
                 }
             }
         }

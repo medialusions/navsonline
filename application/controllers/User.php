@@ -58,7 +58,7 @@ class User extends MY_Controller {
         $data = [];
         if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
             try {
-                $response = $this->user->reset_password($this->input->post('email'), $this->input->post('g-recaptcha-response'));
+                $response = $this->user->reset_password($this->input->post('username'), $this->input->post('g-recaptcha-response'));
                 if($response)
                     $data['success'] = TRUE;
             } catch (Exception $e) {

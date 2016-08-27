@@ -59,7 +59,7 @@ class User extends MY_Controller {
         if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
             try {
                 $response = $this->user->reset_password($this->input->post('username'), $this->input->post('g-recaptcha-response'));
-                if($response)
+                if ($response)
                     $data['success'] = TRUE;
             } catch (Exception $e) {
                 $msg = explode('%', $e->getMessage());
@@ -75,16 +75,6 @@ class User extends MY_Controller {
         $r = $this->input->get('r');
         $u = $this->input->get('u');
 
-        if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
-            try {
-                $this->user->reset_password($this->input->post('email'));
-            } catch (Exception $e) {
-                $msg = explode('%', $e->getMessage());
-                $code = $e->getCode();
-                show_error($msg[0], $code, $msg[1]);
-            }
-        }
-
         //missing something or hack
         if (is_null($u) || is_null($r))
             show_error("You're missing a few things.", 400, "Error Resetting Password");
@@ -96,7 +86,19 @@ class User extends MY_Controller {
         if ($r_dec != $u_rec->passwd_recovery_code)
             show_error("Something isn't right. Request a new reset link.", 401, "Error Resetting Password");
 
-        $this->load->view('user/reset');
+        //init view data
+        $data = [];
+        if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
+            if ($this->input->post('password') == '' || $this->input->post('strength') < 3) {
+                $data['errors'] = "Password is not strong enough";
+            } else {
+                $change_passwd_response = $this->user->change_password($this->input->post('password'), $this->input->post('password_2'), $u, $r_dec);
+                if (is_array($change_passwd_response)) {
+                    $data['errors'] = $change_passwd_response['message'];
+                }
+            }
+        }
+        $this->load->view('user/reset', $data);
     }
 
     /**

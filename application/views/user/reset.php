@@ -132,7 +132,7 @@ and open the template in the editor.
                 </h1>
                 <div class="ui bottom attached segment">
                     <?php
-                    if ($success)
+                    if (isset($success))
                         echo '<div class="ui success message dismissing_message">Password update successful! <a href="' . base_url('login') . '">Login now.</a></div>';
                     if (isset($errors)):
                         ?>

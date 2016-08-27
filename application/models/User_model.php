@@ -474,7 +474,7 @@ class User_model extends MY_Model {
             //send welcome email
             $this->email->from('info@medialusions.com', 'NavsOnline');
             $this->email->to($user['email']);
-            $this->email->subject('Setup Your Account - ' . date('H:i:s'));
+            $this->email->subject('Password Reset Request - ' . date('H:i:s'));
             //set up image
             $img_path = base_url() . 'logo/email_template.jpg';
             $this->email->attach($img_path);
@@ -486,7 +486,7 @@ class User_model extends MY_Model {
                 $user['first_name'],
                 $user['last_name'],
                 date('D, M jS', $time + config_item('recovery_code_expiration')),
-                base_url('user/welcome/?r=' . myurlencode($user['passwd_recovery_code']) . '&u=' . $user['user_id']),
+                base_url('user/reset/?r=' . myurlencode($user['passwd_recovery_code']) . '&u=' . $user['user_id']),
                 date('Y'),
                 'Medialusions Interactive, Inc.',
                 base_url('user/settings'),

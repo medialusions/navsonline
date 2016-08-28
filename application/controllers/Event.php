@@ -69,11 +69,16 @@ class Event extends MY_Controller {
         $data['people'] = $this->event->get_people($id);
         //check if event manager
         $curr_uid = $this->auth_user_id;
-        $curr_person_roles = $data['people'][$curr_uid]['roles'];
-        if (array_search('Event Manager', $curr_person_roles) !== FALSE)
-            $data['is_event_manager'] = TRUE;
-        else
+        $has_roles = isset($data['people'][$curr_uid]);
+        if ($has_roles) {
+            $curr_person_roles = $data['people'][$curr_uid]['roles'];
+            if (array_search('Event Manager', $curr_person_roles) !== FALSE)
+                $data['is_event_manager'] = TRUE;
+            else
+                $data['is_event_manager'] = FALSE;
+        }else {
             $data['is_event_manager'] = FALSE;
+        }
         //get event items
         $data['items'] = $this->event_item->get($id);
         //add more data to each event item

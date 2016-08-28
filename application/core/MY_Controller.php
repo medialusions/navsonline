@@ -49,9 +49,8 @@ class MY_Controller extends Auth_Controller {
         $config['allowed_types'] = 'doc|docx|pdf|mp3|mp4|m4a|aif|aifc|aiff|wav';
         $config['encrypt_name'] = TRUE;
         $this->upload->initialize($config);
-
         //if logged in, check organizations session
-        if (isset($_COOKIE['ci_session']) && $this->verify_min_level(1)) {
+        if (isset($_COOKIE['ci_session']) && !is_null(config_item('auth_level'))) {
             $this->require_min_level(1); //go ahead and require the session cookies
             $data['user'] = $this->user->generate_user_data($this->auth_user_id);
             $this->session->set_userdata('organization_id', extract_organization($data['user']['organizations']), 0);

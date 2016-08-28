@@ -9,12 +9,6 @@
 
 </style>
 
-<?php
-/**
- * @TODO Role: Event Manager with admin privileges
- */
-?>
-
 <!-- content -->
 <div id="main_content" class="ui stackable grid">
 

@@ -121,8 +121,21 @@ class Auth_Controller extends CI_Controller {
      */
     protected function require_min_level($level) {
         // Has user already been authenticated?
-        if (!is_null($this->auth_level) && $this->auth_level >= $level) {
-            return TRUE;
+        if (!is_null($this->auth_level)) {
+            //before continuing, check that user is not banned or archived
+            if ($this->auth_level < 3) {
+                switch ($this->auth_level) {
+                    case '2':
+                        show_error('This username or email has been marked `archived`.', 500, 'User Removed');
+                        break;
+                    case '1':
+                        show_error('This username or email has been marked `banned`.', 500, 'User Banned');
+                        break;
+                }
+                die;
+            }
+            if ($this->auth_level >= $level)
+                return TRUE;
         }
 
         // Check if logged in or if login attempt
@@ -533,6 +546,18 @@ class Auth_Controller extends CI_Controller {
      * override this method in your MY_Controller.
      */
     protected function post_auth_hook() {
+        //before continuing, check that user is not banned or archived
+        if ($this->auth_level < 3) {
+            switch ($this->auth_level) {
+                case '2':
+                    show_error('This username or email has been marked `archived`.', 500, 'User Removed');
+                    break;
+                case '1':
+                    show_error('This username or email has been marked `banned`.', 500, 'User Banned');
+                    break;
+            }
+            die;
+        }
         return;
     }
 

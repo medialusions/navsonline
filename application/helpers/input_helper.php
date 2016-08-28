@@ -152,3 +152,27 @@ function pagination($num_rows, $page) {
     sort($pagination['pages']);
     return $pagination;
 }
+
+function recaptcha_validation($g_recaptcha_response, $g_recaptcha_secret) {
+    //set POST variables
+    $url = 'https://www.google.com/recaptcha/api/siteverify';
+    $remoteip = $_SERVER['REMOTE_ADDR'];
+    //open connection
+    $ch = curl_init();
+    //set the url, number of POST vars, POST data
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_POST, TRUE);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, "secret=$g_recaptcha_secret&response=$g_recaptcha_response&remoteip=$remoteip");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    //execute post
+    $result = curl_exec($ch);
+    //close connection
+    curl_close($ch);
+
+    $json_response = json_decode($result, TRUE);
+    if (!is_null($json_response)) {
+        return $json_response['success'];
+    } else {
+        throw new Exception('reCAPTCHA response invalid.%Validation Error', 500);
+    }
+}

@@ -34,7 +34,7 @@ class User_model extends MY_Model {
         //return the first
         foreach ($query->result_array() as $row)
             break;
-        
+
         return $row;
     }
 
@@ -440,8 +440,69 @@ class User_model extends MY_Model {
      * @return bool
      */
     public function update_user_raw_data($the_user, $user_data = []) {
-        $this->db->where('user_id', $the_user)
-                ->update(config_item('user_table'), $user_data);
+        return $this->db->where('user_id', $the_user)
+                        ->update(config_item('user_table'), $user_data);
+    }
+
+    public function reset_password($email, $g_recaptcha) {
+        if (is_null($email) || is_null($g_recaptcha))
+            throw new Exception('Could not process request.%More Information Required', 403);
+        //check recaptcha
+        if (!recaptcha_validation($g_recaptcha, GOOGLE_RECAPTCHA_SECRET))
+            throw new Exception('You did not pass reCAPTCHA validation.%Validation Issue', 400);
+        //obtain user.
+        $get_by_email = $this->get_by_email($email);
+        $get_by_user = $this->get_by_username($email);
+        if (!$get_by_email && !$get_by_user) {
+            throw new Exception('User not found.%Error Resetting Password', 402);
+        } else if (!$get_by_email) {
+            $user = $get_by_user;
+        } else {
+            $user = $get_by_email;
+        }
+
+        //for email recovery
+        $recovery_code = substr($this->authentication->random_salt()
+                . $this->authentication->random_salt()
+                . $this->authentication->random_salt()
+                . $this->authentication->random_salt(), 0, 72);
+        $time = time();
+        $user['passwd_recovery_code'] = $this->authentication->hash_passwd($recovery_code);
+        $user['passwd_recovery_date'] = date('Y-m-d H:i:s', $time);
+
+        if ($this->update_user_raw_data($user['user_id'], $user)) {
+            //send welcome email
+            $this->email->from('info@medialusions.com', 'NavsOnline');
+            $this->email->to($user['email']);
+            $this->email->subject('Password Reset Request - ' . date('H:i:s'));
+            //set up image
+            $img_path = base_url() . 'logo/email_template.jpg';
+            $this->email->attach($img_path);
+            //get template
+            $email_template = file_get_contents('application/views/email/reset.html');
+            //set replace values and replace them
+            $keys = array('F_NAME', 'L_NAME', 'EXP_DATE', 'REC_LINK', 'CURRENT_YEAR', 'NAV_COMPANY', 'UPDATE_PROFILE', 'LOGO_URL', '*|MC:SUBJECT|*');
+            $values = array(
+                $user['first_name'],
+                $user['last_name'],
+                date('D, M jS', $time + config_item('recovery_code_expiration')),
+                base_url('user/reset/?r=' . myurlencode($user['passwd_recovery_code']) . '&u=' . $user['user_id']),
+                date('Y'),
+                'Medialusions Interactive, Inc.',
+                base_url('user/settings'),
+                $this->email->attachment_cid($img_path),
+                'Setup Your Account'
+            );
+            $email_template = str_replace($keys, $values, $email_template);
+            $this->email->message($email_template);
+            if ($this->email->send()) {
+                return TRUE;
+            } else {
+                throw new Exception('Internal server error.%Error Sending Reset Link', 500);
+            }
+        } else {
+            throw new Exception('Please try again.%Internal Server Error', 501);
+        }
     }
 
 }

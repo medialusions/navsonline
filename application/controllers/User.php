@@ -56,7 +56,7 @@ class User extends MY_Controller {
                 $proceed = TRUE;
             }
             if ($proceed) //test login
-                $this->require_min_level(3);
+                $this->require_min_level(1);
         }
 
         $this->setup_login_form();

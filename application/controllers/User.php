@@ -34,6 +34,7 @@ class User extends MY_Controller {
      * Loads login page and handles login actions
      */
     public function login() {
+        $data = [];
         // Method should not be directly accessible
         if ($this->uri->uri_string() == 'user/login')
             redirect('login');
@@ -43,12 +44,24 @@ class User extends MY_Controller {
             return;
         }
 
-        if (strtolower($_SERVER['REQUEST_METHOD']) == 'post')
-            $this->require_min_level(3);
+        if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
+            $proceed = FALSE;
+            if (!is_null($this->input->post('g-recaptcha-response'))) {
+                $g_response = recaptcha_validation($this->input->post('g-recaptcha-response'), GOOGLE_RECAPTCHA_SECRET);
+                if (!$g_response)
+                    $data['g_error'] = TRUE;
+                else
+                    $proceed = TRUE;
+            } else {
+                $proceed = TRUE;
+            }
+            if ($proceed) //test login
+                $this->require_min_level(3);
+        }
 
         $this->setup_login_form();
 
-        $this->load->view('login');
+        $this->load->view('login', $data);
     }
 
     /**

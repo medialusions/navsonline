@@ -63,6 +63,8 @@ and open the template in the editor.
                         echo '<div class="ui success message dismissing_message">You have successfully logged out.</div>';
                     if (isset($login_error_mesg))
                         echo '<div class="ui error message">Login Error #' . $this->authentication->login_errors_count . '/' . config_item('max_allowed_attempts') . '</div>';
+                    if (isset($g_error))
+                        echo '<div class="ui error message">Error with reCAPTCHA validation.</div>';
                     ?>
                     <?= form_open($login_url, ['class' => 'ui large form']) ?>
                     <div class="ui error message"></div>
@@ -78,6 +80,11 @@ and open the template in the editor.
                             <input type="password" name="login_pass" placeholder="Password">
                         </div>
                     </div>
+                    <?php if (isset($login_error_mesg) && $this->authentication->login_errors_count >= 2): ?>
+                        <div class="field">
+                            <div class="g-recaptcha" data-sitekey="6LesrSgTAAAAAE2B71fMi4H0yKpK0KyiRUCiv6pi"></div>
+                        </div>
+                    <?php endif; ?>
                     <input class="ui fluid large teal submit button" type="submit" value="Login">
                     <?= form_close() ?>
                 </div>

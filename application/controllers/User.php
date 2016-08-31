@@ -84,17 +84,16 @@ class User extends MY_Controller {
                 array_push($update['form_errors'], 'User information could not be saved.');
                 $data['form_errors'] = $update['form_errors'];
             }
-        } else {
-            $this->require_min_level(3);
-            $data['title'] = 'User Preferences';
-
-            $data['user'] = $this->user->generate_user_data($this->auth_user_id);
-            $data['sidebar'] = $this->user->generate_sidebar_data($this->auth_user_id);
-
-            $data['pagination'] = array();
-
-            $this->load->view('preferences', $data);
         }
+        $this->require_min_level(3);
+        $data['title'] = 'User Preferences';
+
+        $data['user'] = $this->user->generate_user_data($this->auth_user_id);
+        $data['sidebar'] = $this->user->generate_sidebar_data($this->auth_user_id);
+
+        $data['pagination'] = array();
+
+        $this->load->view('preferences', $data);
     }
 
     public function phone() {

@@ -88,15 +88,21 @@
                 Preferences
                 <div class="sub header">If things aren't going the way you want them to, this is the place to change 'em.</div>
             </h1>
-            <?php if (isset($form_errors)): ?>
-                <div class="ui error message">
-                    <ul class="list">
-                        <?php foreach ($form_errors as $errors): ?>
-                            <li><?= $errors ?></li>
-                        <?php endforeach; ?>
-                    </ul>
-                </div>
-            <?php endif; ?>
+            <?php
+            if (isset($form_errors)):
+                if (count($form_errors) > 0):
+                    ?>
+                    <div class="ui error message">
+                        <ul class="list">
+                            <?php foreach ($form_errors as $errors): ?>
+                                <li><?= $errors ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                    <?php
+                endif;
+            endif;
+            ?>
             <?= form_open('user/preferences', ['id' => 'username', 'class' => 'ui form']) ?>
             <!-- GENERAL SECTION -->
             <h2 class="ui dividing header">

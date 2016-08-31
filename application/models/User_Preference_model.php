@@ -21,9 +21,9 @@ class User_Preference_model extends User_model {
         /**
          * Communication preference logic
          */
-        if ($posted_data['comm_preference'] == 'phone' && (!preg_match('((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}', $posted_data['phone']))) {
+        if ($posted_data['comm_preference'] == 'phone' && strlen(preg_replace('/[^0-9,]|,[0-9]*$/', '', $posted_data['phone']) != 10)) {
             array_push($form_errors, 'If you select `phone` as your communication preference, you must supply a valid number.');
-        } else if (array_search($posted_data['comm_preference'], ['email', 'phone'])) {
+        } else if (array_search($posted_data['comm_preference'], ['email', 'phone']) !== FALSE) {
             $update['comm_preference'] = $posted_data['comm_preference'];
         } else {
             array_push($form_errors, 'Invalid data provided for your communication preference.');
@@ -32,14 +32,8 @@ class User_Preference_model extends User_model {
          * Phone number logic
          */
         if ($posted_data['phone'] != '') {
-            if (preg_match('((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}', $posted_data['phone'])) {
-                $phone = '';
-                $phone .= substr($posted_data['phone'], 1, 3);
-                $phone .= substr($posted_data['phone'], 6, 3);
-                $phone .= substr($posted_data['phone'], 10, 4);
-                if (!is_numeric($phone)) {
-                    array_push($form_errors, 'Phone number contains invalid characters.');
-                }
+            $phone = preg_replace('/[^0-9,]|,[0-9]*$/', '', $posted_data['phone']);
+            if (strlen($phone) == 10) {
                 if ($phone != $user['phone']) {
                     $toRet['phone_validation_required'] = $phone;
                     $update['phone_to_confirm'] = $phone;
@@ -47,6 +41,8 @@ class User_Preference_model extends User_model {
             } else {
                 array_push($form_errors, 'Phone number appears to be invalid.');
             }
+        } else {
+            $update['phone'] = '';
         }
         /**
          * Full name logic

@@ -139,7 +139,7 @@ class User_Preference_model extends User_model {
                 'phone_confirmation' => '',
                 'phone_confirmation_date' => date("Y-m-d H:i:s"),
                 'phone' => $user['phone_to_confirm'],
-                'phine_to_confirm' => ''
+                'phone_to_confirm' => ''
             ]);
             return ['success' => TRUE, 'message' => 'Code matches.'];
         } else

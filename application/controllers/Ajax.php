@@ -11,6 +11,29 @@ class Ajax extends MY_Controller {
         parent::__construct();
     }
 
+    public function resend_phone_confirmation() {
+        //get user data
+        $this->verify_min_ajax_level(3);
+        $user_data = $this->verify_cookie();
+        //tell pref model to resend
+        $this->preference->confirm_phone($user_data['user_id'], $user_data['user_data']['phone_to_confirm']);
+        echo json_encode(array('success' => TRUE, 'message' => 'Message resent.'));
+    }
+
+    public function confirm_phone_confirmation() {
+        //get user data
+        $this->verify_min_ajax_level(3);
+        $user_data = $this->verify_cookie();
+        //get post data
+        $confirmation = $this->input->post('confirmation');
+        //check post data first
+        if (is_null($confirmation))
+            die(json_encode(array('success' => FALSE, 'message' => 'Incomplete post data sent.')));
+        //tell pref model to check confirmation
+        $response = $this->preference->confirm_phone_confirmation($user_data['user_id'], $confirmation);
+        echo json_encode($response);
+    }
+
     /**
      * Uses Cookie, Post, and Files data to upload and create database instance of media files
      */

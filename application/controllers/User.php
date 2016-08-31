@@ -64,6 +64,43 @@ class User extends MY_Controller {
         $this->load->view('login', $data);
     }
 
+    public function preferences() {
+
+        if ($this->input->post()) {
+            //admin needed to add
+            $this->require_min_level(9);
+            $update = $this->preference->update();
+            if ($update['success']) {
+                if (isset($update['phone_validation_required'])) {
+                    $this->preference->confirm_phone($this->auth_user_id, $update['phone_validation_required']);
+                    $this->load->view('user/confirm_phone');
+                    return; //will be sent back with ajax call
+                } else {
+                    //bring it back
+                    $data['form_errors'] = $update['form_errors'];
+                }
+            } else {
+                //bring it back
+                array_push($update['form_errors'], 'User information could not be saved.');
+                $data['form_errors'] = $update['form_errors'];
+            }
+        } else {
+            $this->require_min_level(3);
+            $data['title'] = 'User Preferences';
+
+            $data['user'] = $this->user->generate_user_data($this->auth_user_id);
+            $data['sidebar'] = $this->user->generate_sidebar_data($this->auth_user_id);
+
+            $data['pagination'] = array();
+
+            $this->load->view('preferences', $data);
+        }
+    }
+
+    public function phone() {
+        $this->load->view('user/confirm_phone');
+    }
+
     /**
      * Loads forgot password prompt
      */

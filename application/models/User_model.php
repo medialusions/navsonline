@@ -332,7 +332,7 @@ class User_model extends MY_Model {
             // If above query indicates a match, change the password
             if ($user && $recovery_code == $user['passwd_recovery_code'] && $password == $password2) {
                 if ($this->db->where('user_id', $user['user_id'])
-                                ->update('users', ['passwd' => $this->authentication->hash_passwd($password)]
+                                ->update('users', ['passwd' => $this->authentication->hash_passwd($password), 'passwd_recovery_code' => '', 'passwd_recovery_date' => '']
                                 ))
                     return TRUE;
                 else

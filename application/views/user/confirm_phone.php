@@ -49,18 +49,18 @@ and open the template in the editor.
                     url: '<?= base_url('ajax/resend-phone-confirmation') ?>',
                     on: 'click',
                     onResponse: function(response) {
-                        console.log(response);
                         $("#resend_button").state('flash text', response.message);
                     }
                 });
                 $("#confirm_button").api({
                     url: '<?= base_url('ajax/confirm-phone-confirmation') ?>',
                     on: 'click',
-                    method: 'POST',
+                    method: 'post',
+                    data: {
+                        confirmation: $('#confirmation').val()
+                    },
                     beforeSend: function(settings) {
-                        settings.urlData = {
-                            confirmation: $("input[name='confirmation']").val()
-                        };
+                        settings.data.confirmation = $('#confirmation').val();
                         return settings;
                     },
                     onResponse: function(response) {
@@ -93,7 +93,7 @@ and open the template in the editor.
                     <div class="ui large form">
                         <div class="ui error message"></div>
                         <div class="field">
-                            <input type="text" maxlength="6" name="confirmation" placeholder="Confirmation #" />
+                            <input type="text" maxlength="6" name="confirmation" id="confirmation" placeholder="Confirmation #" />
                         </div>
                         <div class="two fields">
                             <div class="field">

@@ -132,7 +132,6 @@ class Auth_Controller extends CI_Controller {
                         show_error('This username or email has been marked `banned`.', 500, 'User Banned');
                         break;
                 }
-                die;
             }
             if ($this->auth_level >= $level)
                 return TRUE;
@@ -556,7 +555,6 @@ class Auth_Controller extends CI_Controller {
                     show_error('This username or email has been marked `banned`.', 500, 'User Banned');
                     break;
             }
-            die;
         }
         return;
     }

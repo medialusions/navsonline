@@ -556,6 +556,24 @@ class Auth_Controller extends CI_Controller {
                     break;
             }
         }
+
+        //set organization session data
+        $data['user'] = $this->user->generate_user_data(config_item('auth_user_id'));
+        $this->session->set_userdata('organization_id', extract_organization($data['user']['organizations']), 0);
+        //get organization db data
+        $organization_data = $this->organization->get($_SESSION['organization_id']);
+        //get tz offset
+        $tz_navs = new DateTimeZone(date_default_timezone_get());
+        $tz_org = new DateTimeZone($organization_data['timezone']);
+        $dateTime1 = new DateTime("now", $tz_navs);
+        $dateTime2 = new DateTime("now", $tz_org);
+        $tz_navs_offset = $tz_navs->getOffset($dateTime1);
+        $tz_org_offset = $tz_org->getOffset($dateTime2);
+        $organization_data['offset'] = $tz_org_offset - $tz_navs_offset; //in seconds
+        //set session variables
+        $this->session->set_userdata('organization_data', $organization_data, 0);
+        
+        //bring it back
         return;
     }
 

@@ -116,7 +116,7 @@
                 </div>
 
                 <div class="field">
-                    <label>First Name</label>
+                    <label>Last Name</label>
                     <input name="last_name" type="text" value="<?= $user['last_name'] ?>" >
                 </div>
             </div>

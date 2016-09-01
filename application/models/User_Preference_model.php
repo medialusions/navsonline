@@ -21,7 +21,7 @@ class User_Preference_model extends User_model {
         /**
          * Communication preference logic
          */
-        if ($posted_data['comm_preference'] == 'phone' && strlen(preg_replace('/[^0-9,]|,[0-9]*$/', '', $posted_data['phone']) != 10)) {
+        if ($posted_data['comm_preference'] == 'phone' && strlen(preg_replace('/[^0-9,]|,[0-9]*$/', '', $posted_data['phone'])) != 10) {
             array_push($form_errors, 'If you select `phone` as your communication preference, you must supply a valid number.');
         } else if (array_search($posted_data['comm_preference'], ['email', 'phone']) !== FALSE) {
             $update['comm_preference'] = $posted_data['comm_preference'];

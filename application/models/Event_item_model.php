@@ -48,11 +48,13 @@ class Event_item_model extends MY_Model {
             'arrangement_id' => ($data['type'] == 'song' ? $arrangement_data['id'] : ''),
             'arrangement_key' => ($data['type'] == 'song' ? $data['a_search_key'] : ''),
             'memo' => $data['memo'],
-            'start_time' => verify_date_time($data['event_time']),
+            'start_time' => strtotime($data['event_time']),
             'date_created' => time(),
             'created_by' => config_item('auth_user_id')
         );
-
+        var_dump($_POST);
+        var_dump($data);
+        die;
         return $this->db->insert('event_item', $data);
     }
 

@@ -534,10 +534,10 @@ class Auth_Controller extends CI_Controller {
      * override this method in your MY_Controller.
      */
     protected function post_auth_hook() {
-        var_dump($_SESSION);
-        var_dump($_COOKIE);
-        var_dump($this->auth_user_id);
-        die;
+        if (is_null($this->auth_user_id)) {
+            return;
+        }
+
         //before continuing, check that user is not banned or archived
         if ($this->auth_level < 3) {
             switch ($this->auth_level) {

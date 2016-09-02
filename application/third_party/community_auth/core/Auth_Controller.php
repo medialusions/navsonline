@@ -122,17 +122,6 @@ class Auth_Controller extends CI_Controller {
     protected function require_min_level($level) {
         // Has user already been authenticated?
         if (!is_null($this->auth_level)) {
-            //before continuing, check that user is not banned or archived
-            if ($this->auth_level < 3) {
-                switch ($this->auth_level) {
-                    case '2':
-                        show_error('This username or email has been marked `archived`.', 500, 'User Removed');
-                        break;
-                    case '1':
-                        show_error('This username or email has been marked `banned`.', 500, 'User Banned');
-                        break;
-                }
-            }
             if ($this->auth_level >= $level)
                 return TRUE;
         }
@@ -545,6 +534,10 @@ class Auth_Controller extends CI_Controller {
      * override this method in your MY_Controller.
      */
     protected function post_auth_hook() {
+        if (is_null($this->auth_user_id)) {
+            return;
+        }
+
         //before continuing, check that user is not banned or archived
         if ($this->auth_level < 3) {
             switch ($this->auth_level) {
@@ -558,7 +551,7 @@ class Auth_Controller extends CI_Controller {
         }
 
         //set organization session data
-        $data['user'] = $this->user->generate_user_data(config_item('auth_user_id'));
+        $data['user'] = $this->user->generate_user_data($this->auth_user_id);
         $this->session->set_userdata('organization_id', extract_organization($data['user']['organizations']), 0);
         //get organization db data
         $organization_data = $this->organization->get($_SESSION['organization_id']);
@@ -572,7 +565,7 @@ class Auth_Controller extends CI_Controller {
         $organization_data['offset'] = $tz_org_offset - $tz_navs_offset; //in seconds
         //set session variables
         $this->session->set_userdata('organization_data', $organization_data, 0);
-        
+
         //bring it back
         return;
     }

@@ -6,7 +6,7 @@ class User_Preference_model extends User_model {
 
     public function __construct() {
         parent::__construct();
-        include APPPATH . 'third_party/Twilio/autoload.php';
+        include_once APPPATH . 'third_party/Twilio/autoload.php';
     }
 
     public function update() {
@@ -81,18 +81,6 @@ class User_Preference_model extends User_model {
             $toRet['success'] = FALSE;
         }
         return $toRet;
-    }
-
-    public function notify($event_id, $user_id) {
-        
-    }
-
-    public function _email_notify($event_id, $user_id) {
-        
-    }
-
-    public function _sms_notify($event_id, $user_id) {
-        
     }
 
     public function confirm_phone($user_id, $phone) {

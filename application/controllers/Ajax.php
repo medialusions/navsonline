@@ -205,8 +205,11 @@ class Ajax extends MY_Controller {
         $roles_matrix = $event['roles_matrix'];
         $roles = json_decode($roles_matrix, TRUE);
         //update data
-        if (!key_exists($user_arr['id'], $users))
+        if (!key_exists($user_arr['id'], $users)) {
             $users[$user_arr['id']] = ['confirmed' => TRUE];
+            //enqueue notification
+            $this->communication->enqueue('event', $user_arr['id'], ['eid' => $eid]);
+        }
 
         $role_slugs = array_map('slugify', $role_arr);
         if (!key_exists($user_arr['id'], $roles)) {
@@ -315,6 +318,7 @@ HTML;
             echo json_encode(array('success' => FALSE));
     }
 
+    //@TODO Search with link for songs page
     public function arrangement_search() {
         //get user data
         $this->verify_min_ajax_level(1);

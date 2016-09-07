@@ -284,7 +284,7 @@ class User_model extends MY_Model {
 
             if ($this->db->set($user_data)->insert('users')) {
                 //send welcome email
-                $this->email->from('info@medialusions.com', 'NavsOnline');
+                $this->email->from('info@medialusions.com', 'NavsBot');
                 $this->email->to($user_data['email']);
                 $this->email->subject('Setup Your Account - ' . date('H:i:s'));
                 //set up image
@@ -302,7 +302,7 @@ class User_model extends MY_Model {
                     base_url('user/welcome/?r=' . myurlencode($user_data['passwd_recovery_code']) . '&u=' . $user_data['user_id']),
                     date('Y'),
                     'Medialusions Interactive, Inc.',
-                    base_url('user/settings'),
+                    base_url('user/preferences'),
                     $this->email->attachment_cid($img_path),
                     'Setup Your Account'
                 );
@@ -472,7 +472,7 @@ class User_model extends MY_Model {
 
         if ($this->update_user_raw_data($user['user_id'], $user)) {
             //send welcome email
-            $this->email->from('info@medialusions.com', 'NavsOnline');
+            $this->email->from('info@medialusions.com', 'NavsBot');
             $this->email->to($user['email']);
             $this->email->subject('Password Reset Request - ' . date('H:i:s'));
             //set up image
@@ -489,7 +489,7 @@ class User_model extends MY_Model {
                 base_url('user/reset/?r=' . myurlencode($user['passwd_recovery_code']) . '&u=' . $user['user_id']),
                 date('Y'),
                 'Medialusions Interactive, Inc.',
-                base_url('user/settings'),
+                base_url('user/preferences'),
                 $this->email->attachment_cid($img_path),
                 'Setup Your Account'
             );

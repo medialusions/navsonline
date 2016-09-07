@@ -55,7 +55,7 @@ class Communication_model extends MY_Model {
             $this->update_raw_data($id, ['status' => 'dequeued']);
         else
             $this->update_raw_data($id, ['status' => 'error']);
-        
+
         return;
     }
 
@@ -96,7 +96,8 @@ class Communication_model extends MY_Model {
                 $subject = 'Scheduling Request';
                 $replace = [
                     'LINK' => base_url('event/view' . $pertanent_data['eid']),
-                    'F_NAME' => $user['first_name']
+                    'F_NAME' => $user['first_name'],
+                    '*|MC:SUBJECT|*' => 'Setup Your Account'
                 ];
                 break;
             default:
@@ -115,11 +116,12 @@ class Communication_model extends MY_Model {
             'CURRENT_YEAR' => date('Y'),
             'NAV_COMPANY' => 'Medialusions Interactive, Inc.',
             'UPDATE_PROFILE' => base_url('user/preferences'),
-            'LOGO_URL' => $this->email->attachment_cid($img_path),
-            '*|MC:SUBJECT|*' => 'Setup Your Account'
+            'LOGO_URL' => $this->email->attachment_cid($img_path)
         ];
         //append template replace
-        array_push($default_email_replace, $replace);
+        foreach ($default_email_replace as $key => $val) {
+            $replace[$key] = $val;
+        }
         $keys = array_keys($default_email_replace);
         $values = array_values($default_email_replace);
         $email_template = str_replace($keys, $values, $email_template);

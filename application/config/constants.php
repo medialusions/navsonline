@@ -15,7 +15,7 @@ define('GOOGLE_RECAPTCHA_SECRET', '6LesrSgTAAAAAHASALPx7TJ3jBw1n3DPSKEWeuZs');
 define('TWILIO_ACCOUNT_SID', 'ACd1e24c83a76f8f8989b22903a22ede8b');
 define('TWILIO_ACCOUNT_TOKEN', 'b458f4fcc25ec31ca62bc2b5fcf05363');
 define('TWILIO_NUMBER', '+19708756287');
-define('TWILIO_SIGNATURE', "\n&#126;NavsBot\nThe frienly but non-responsive, automated assistant.");
+define('TWILIO_SIGNATURE', "\n \n~navsbot");
 
 /*
   |--------------------------------------------------------------------------

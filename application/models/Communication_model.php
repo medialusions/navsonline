@@ -123,13 +123,18 @@ class Communication_model extends MY_Model {
         foreach ($default_email_replace as $key => $val) {
             $replace[$key] = $val;
         }
-        $keys = array_keys($default_email_replace);
-        $values = array_values($default_email_replace);
+        $keys = array_keys($replace);
+        $values = array_values($replace);
         $email_template = str_replace($keys, $values, $email_template);
         $this->email->message($email_template);
-        if ($this->email->send()) {
+        if ($this->email->send(FALSE)) {
+            $this->email->clear(TRUE);
+            echo 'Email sent<br>' . PHP_EOL;
             return TRUE;
         } else {
+            var_dump($this->email->print_debugger(['headers', 'subject']));
+            $this->email->clear(TRUE);
+            echo 'Email failed to send<br>' . PHP_EOL;
             return FALSE;
         }
     }
@@ -169,7 +174,9 @@ class Communication_model extends MY_Model {
                 "from" => TWILIO_NUMBER
                     ]
             );
+            echo 'SMS sent<br>' . PHP_EOL;
         } catch (\Twilio\Exceptions\TwilioException $e) {
+            echo 'SMS failed to send<br>' . PHP_EOL;
             return FALSE;
         }
     }

@@ -41,13 +41,14 @@ class Communication_model extends MY_Model {
         $user = $this->user->get($comm['user_id']);
         $comm_pref = $user['comm_preference'];
         $type = $comm['type'];
+        $pertanent_data = json_decode($comm['pertanent_data'], TRUE);
 
         switch ($comm_pref) {
             case 'email':
-                $response = $this->send_email($user, $type, json_decode($comm['pertanent_data'], TRUE));
+                $response = $this->send_email($user, $type, $pertanent_data);
                 break;
             case 'phone':
-                $response = $this->send_sms($user, $type, json_decode($comm['pertanent_data'], TRUE));
+                $response = $this->send_sms($user, $type, $pertanent_data);
                 break;
         }
 
@@ -95,7 +96,7 @@ class Communication_model extends MY_Model {
                 $template = 'event';
                 $subject = 'Scheduling Request';
                 $replace = [
-                    'LINK' => base_url('event/view' . $pertanent_data['eid']),
+                    'LINK' => base_url('event/view/' . $pertanent_data['eid']),
                     'F_NAME' => $user['first_name'],
                     '*|MC:SUBJECT|*' => 'Setup Your Account'
                 ];
@@ -105,7 +106,7 @@ class Communication_model extends MY_Model {
         }
         $this->email->from('info@medialusions.com', 'NavsBot');
         $this->email->to($user['email']);
-        $this->email->subject($subject . ' - Sent ' . date('n/j/y G:ia'));
+        $this->email->subject($subject);
         //set up image
         $img_path = base_url() . 'logo/email_template.jpg';
         $this->email->attach($img_path);
@@ -145,7 +146,7 @@ class Communication_model extends MY_Model {
             case 'event':
                 $template = 'event';
                 $replace = [
-                    'LINK' => base_url('event/view' . $pertanent_data['eid']),
+                    'LINK' => base_url('event/view/' . $pertanent_data['eid']),
                     'F_NAME' => $user['first_name']
                 ];
                 break;

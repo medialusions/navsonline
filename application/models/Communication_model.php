@@ -175,10 +175,12 @@ class Communication_model extends MY_Model {
                     ]
             );
             echo 'SMS sent<br>' . PHP_EOL;
-        } catch (\Twilio\Exceptions\TwilioException $e) {
-            echo 'SMS failed to send<br>' . PHP_EOL;
+        } catch (Exception $e) {
+            echo 'SMS failed to send.<br>' . PHP_EOL;
+            var_dump($e);
             return FALSE;
         }
+        return TRUE;
     }
 
     /**

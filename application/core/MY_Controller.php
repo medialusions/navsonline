@@ -36,6 +36,7 @@ class MY_Controller extends Auth_Controller {
         //load models
         $this->load->model('User_model', 'user', TRUE);
         $this->load->model('User_Preference_model', 'preference', TRUE);
+        $this->load->model('Communication_model', 'communication', TRUE);
         $this->load->model('Blockout_model', 'blockout', TRUE);
         $this->load->model('Organization_model', 'organization', TRUE);
         $this->load->model('Event_model', 'event', TRUE);

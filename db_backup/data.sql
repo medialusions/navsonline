@@ -59,7 +59,7 @@ CREATE TABLE `arrangement` (
   `date_created` int(32) NOT NULL,
   `created_by` int(32) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf16 COLLATE=utf16_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf16 COLLATE=utf16_unicode_ci;
 
 INSERT INTO `arrangement` (`id`, `artist`, `default_key`, `bpm`, `length`, `lyrics`, `audio`, `video`, `song`, `song_keys`, `organizations`, `date_created`, `created_by`) VALUES ('1', 'Citizens & Saints', 'G', '120', '205', '12', '', 'https://www.youtube.com/watch?v=YNnwtxNkwBI', '1', '[{\"key\":\"Open\",\"id\":\"13\"},{\"key\":\"G\",\"id\":\"13\"}]', '[\"1\"]', '1468366750', '185279332');
 INSERT INTO `arrangement` (`id`, `artist`, `default_key`, `bpm`, `length`, `lyrics`, `audio`, `video`, `song`, `song_keys`, `organizations`, `date_created`, `created_by`) VALUES ('2', 'Kings Kaleidoscope', 'G', '120', '233', '16', '', 'https://www.youtube.com/watch?v=rxP45fCBdtw', '1', '[{\"key\":\"Open\",\"id\":\"15\"},{\"key\":\"G\",\"id\":\"15\"},{\"key\":\"D\",\"id\":\"14\"}]', '[\"1\"]', '1468367312', '185279332');
@@ -69,6 +69,11 @@ INSERT INTO `arrangement` (`id`, `artist`, `default_key`, `bpm`, `length`, `lyri
 INSERT INTO `arrangement` (`id`, `artist`, `default_key`, `bpm`, `length`, `lyrics`, `audio`, `video`, `song`, `song_keys`, `organizations`, `date_created`, `created_by`) VALUES ('9', 'Hillsong Young & Free', 'A', '', '247', '21', '', 'https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0ahUKEwjzoZDFyvLNAhUj7IMKHeESDEEQ3ywIHjAA&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3Dffr0pGkXPJg&usg=AFQjCNFSb3p1a2PyIDqFo7INsjn7NMrtuA&sig2=Zwd0ziK-iv6IqgSACrEfxQ&bvm=bv.127178174,d.amc', '4', '[{\"key\":\"Open\",\"id\":\"22\"},{\"key\":\"A\",\"id\":\"23\"},{\"key\":\"A#\",\"id\":\"20\"},{\"key\":\"G\",\"id\":\"22\"}]', '[\"1\"]', '1468486840', '185279332');
 INSERT INTO `arrangement` (`id`, `artist`, `default_key`, `bpm`, `length`, `lyrics`, `audio`, `video`, `song`, `song_keys`, `organizations`, `date_created`, `created_by`) VALUES ('17', 'Citizens & Saints', 'C#', '', '0', '', '', '', '18', '[{\"key\":\"C#\",\"id\":\"24\"}]', '[\"1\"]', '1470887344', '647664095');
 INSERT INTO `arrangement` (`id`, `artist`, `default_key`, `bpm`, `length`, `lyrics`, `audio`, `video`, `song`, `song_keys`, `organizations`, `date_created`, `created_by`) VALUES ('18', 'Kings Kaleidoscope', 'G', '130', '285', '', '', 'https://www.youtube.com/watch?v=aT3YJVkYPwU', '28', '[{\"key\":\"G\",\"id\":\"26\"},{\"key\":\"Open\",\"id\":\"26\"}]', '[\"1\"]', '1470888762', '647664095');
+INSERT INTO `arrangement` (`id`, `artist`, `default_key`, `bpm`, `length`, `lyrics`, `audio`, `video`, `song`, `song_keys`, `organizations`, `date_created`, `created_by`) VALUES ('19', 'Hillsong United', 'C', '', '300', '', '', 'https://www.facebook.com/l.php?u=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DA3O_pAOiGuo&h=AAQEO6Tqj', '10', '[{\"key\":\"C\",\"id\":\"27\"}]', '[\"1\"]', '1473179388', '647664095');
+INSERT INTO `arrangement` (`id`, `artist`, `default_key`, `bpm`, `length`, `lyrics`, `audio`, `video`, `song`, `song_keys`, `organizations`, `date_created`, `created_by`) VALUES ('20', 'Phil Wickham', 'C', '', '300', '', '', 'https://www.facebook.com/l.php?u=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DXFRjr_x-yxU&h=AAQEO6Tqj', '29', '[{\"key\":\"C\",\"id\":\"28\"}]', '[\"1\"]', '1473179491', '647664095');
+INSERT INTO `arrangement` (`id`, `artist`, `default_key`, `bpm`, `length`, `lyrics`, `audio`, `video`, `song`, `song_keys`, `organizations`, `date_created`, `created_by`) VALUES ('21', 'All Sons and Daughters', 'C', '', '300', '', '', 'https://www.facebook.com/l.php?u=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DuHz0w-HG4iU&h=AAQEO6Tqj', '20', '[{\"key\":\"C\",\"id\":\"29\"}]', '[\"1\"]', '1473179606', '647664095');
+INSERT INTO `arrangement` (`id`, `artist`, `default_key`, `bpm`, `length`, `lyrics`, `audio`, `video`, `song`, `song_keys`, `organizations`, `date_created`, `created_by`) VALUES ('22', 'Kristene DiMarco', 'G', '', '300', '', '', 'https://www.facebook.com/l.php?u=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DT0dIWJ4t4Jg&amp;h=AAQEO6Tqj', '30', '[{\"key\":\"Open\",\"id\":\"30\"},{\"key\":\"G\",\"id\":\"30\"}]', '[\"1\"]', '1473179696', '647664095');
+INSERT INTO `arrangement` (`id`, `artist`, `default_key`, `bpm`, `length`, `lyrics`, `audio`, `video`, `song`, `song_keys`, `organizations`, `date_created`, `created_by`) VALUES ('23', 'Hillsong Live', 'C', '', '300', '', '', 'https://www.facebook.com/l.php?u=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3Dau3EGgISYMc&h=AAQEO6Tqj', '31', '[{\"key\":\"C\",\"id\":\"31\"}]', '[\"1\"]', '1473179799', '647664095');
 
 
 #
@@ -85,9 +90,26 @@ CREATE TABLE `auth_sessions` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-INSERT INTO `auth_sessions` (`id`, `user_id`, `login_time`, `modified_at`, `ip_address`, `user_agent`) VALUES ('0cc2ed8b13596f101355374f96c7482d3ccdce8d', '185279332', '2016-08-12 21:53:52', '2016-08-12 21:53:57', '10.0.0.9', 'Chrome 52.0.2743.116 on Windows 10');
-INSERT INTO `auth_sessions` (`id`, `user_id`, `login_time`, `modified_at`, `ip_address`, `user_agent`) VALUES ('8f7305144cea8cc836efeba6df2210f08f3a349a', '185279332', '2016-08-11 19:22:49', '2016-08-11 22:46:59', '10.0.0.9', 'Chrome 52.0.2743.116 on Windows 10');
-INSERT INTO `auth_sessions` (`id`, `user_id`, `login_time`, `modified_at`, `ip_address`, `user_agent`) VALUES ('c80f43a33bcb4a8b8a3cdacde9bab65141c2b467', '185279332', '2016-08-11 22:48:11', '2016-08-11 22:48:11', '50.134.251.136', 'Chrome 52.0.2743.116 on Windows 10');
+INSERT INTO `auth_sessions` (`id`, `user_id`, `login_time`, `modified_at`, `ip_address`, `user_agent`) VALUES ('5a1bcee684a2da9a4cd2a5a3ce5036d50b68ae7f', '185279332', '2016-09-07 09:05:34', '2016-09-07 10:35:48', '129.82.52.115', 'Chrome 50.0.2661.102 on Mac OS X');
+INSERT INTO `auth_sessions` (`id`, `user_id`, `login_time`, `modified_at`, `ip_address`, `user_agent`) VALUES ('7f50d1da6b444dd9ef9ac5f4f2d0200d2d43630c', '185279332', '2016-09-06 23:46:55', '2016-09-07 00:24:34', '50.134.251.136', 'Chrome 52.0.2743.116 on Windows 10');
+INSERT INTO `auth_sessions` (`id`, `user_id`, `login_time`, `modified_at`, `ip_address`, `user_agent`) VALUES ('88f605f3823e764032945ebd55e25525e4a916f0', '185279332', '2016-09-06 23:24:48', '2016-09-06 23:32:19', '10.0.0.9', 'Chrome 52.0.2743.116 on Windows 10');
+INSERT INTO `auth_sessions` (`id`, `user_id`, `login_time`, `modified_at`, `ip_address`, `user_agent`) VALUES ('61cb59b068605030c392908a7657fde943465934', '185279332', '2016-09-06 21:29:00', '2016-09-06 21:38:18', '10.0.0.9', 'Chrome 52.0.2743.116 on Windows 10');
+INSERT INTO `auth_sessions` (`id`, `user_id`, `login_time`, `modified_at`, `ip_address`, `user_agent`) VALUES ('2835d7df7cae50c3de3527a8ddab66d00b8a5282', '647664095', '2016-09-06 09:26:09', '2016-09-06 09:36:39', '24.9.123.104', 'Chrome 52.0.2743.116 on Mac OS X');
+INSERT INTO `auth_sessions` (`id`, `user_id`, `login_time`, `modified_at`, `ip_address`, `user_agent`) VALUES ('a306ee83e5a18ac73b8a14f5eb0a9a0ff9a175c6', '185279332', '2016-09-01 11:40:31', '2016-09-01 11:40:31', '129.82.198.9', 'Chrome 52.0.2743.116 on Windows 7');
+INSERT INTO `auth_sessions` (`id`, `user_id`, `login_time`, `modified_at`, `ip_address`, `user_agent`) VALUES ('383bef2a12860e5983d191ac2d16f6b5f5d2a1c5', '185279332', '2016-09-04 15:29:41', '2016-09-04 15:29:41', '207.86.122.114', 'Safari 601.1.46 on iOS');
+INSERT INTO `auth_sessions` (`id`, `user_id`, `login_time`, `modified_at`, `ip_address`, `user_agent`) VALUES ('f3dc44e1ec6218943074a5d031e3da60f370850c', '647664095', '2016-09-04 20:25:57', '2016-09-04 20:25:57', '70.196.198.28', 'Safari 601.1 on iOS');
+INSERT INTO `auth_sessions` (`id`, `user_id`, `login_time`, `modified_at`, `ip_address`, `user_agent`) VALUES ('662f3ae3cf3c30a32c11ffb6821d730406b5cd5d', '185279332', '2016-09-06 09:21:47', '2016-09-06 09:45:18', '50.134.251.136', 'Chrome 52.0.2743.116 on Windows 10');
+INSERT INTO `auth_sessions` (`id`, `user_id`, `login_time`, `modified_at`, `ip_address`, `user_agent`) VALUES ('301c08eeda3bec09273a83c42a038e805748ecd2', '18156152', '2016-09-01 11:43:44', '2016-09-01 11:43:44', '129.82.198.9', 'Chrome 52.0.2743.116 on Windows 7');
+INSERT INTO `auth_sessions` (`id`, `user_id`, `login_time`, `modified_at`, `ip_address`, `user_agent`) VALUES ('eb4677d077ae52797c6c41d164bef84c95b9971b', '185279332', '2016-08-31 21:46:53', '2016-08-31 22:34:40', '50.134.251.136', 'Chrome 52.0.2743.116 on Windows 10');
+INSERT INTO `auth_sessions` (`id`, `user_id`, `login_time`, `modified_at`, `ip_address`, `user_agent`) VALUES ('cb29e258d9ac62d415e75c455062f66ab3c88c91', '185279332', '2016-08-31 21:33:32', '2016-08-31 22:34:15', '10.0.0.9', 'Chrome 52.0.2743.116 on Windows 10');
+INSERT INTO `auth_sessions` (`id`, `user_id`, `login_time`, `modified_at`, `ip_address`, `user_agent`) VALUES ('a879795380a35d5d1fe38f1ba987f24251aa04d7', '185279332', '2016-09-04 08:49:19', '2016-09-04 08:49:19', '207.86.122.114', 'Safari 601.1.46 on iOS');
+INSERT INTO `auth_sessions` (`id`, `user_id`, `login_time`, `modified_at`, `ip_address`, `user_agent`) VALUES ('ceea3a8d5501d8e5a54dd33b5f3ede40f3bd3229', '185279332', '2016-09-02 13:43:17', '2016-09-02 13:43:17', '50.134.251.136', 'Safari 601.1.46 on iOS');
+INSERT INTO `auth_sessions` (`id`, `user_id`, `login_time`, `modified_at`, `ip_address`, `user_agent`) VALUES ('6585d9cc2ac3b05b74385deb5175ef86f5b3c0c3', '3663360872', '2016-09-02 11:15:53', '2016-09-02 11:15:53', '67.172.139.38', 'Chrome 52.0.2743.116 on Mac OS X');
+INSERT INTO `auth_sessions` (`id`, `user_id`, `login_time`, `modified_at`, `ip_address`, `user_agent`) VALUES ('8b84ec323980342349c5e61b88f117d2460f6621', '185279332', '2016-09-02 08:48:15', '2016-09-02 08:48:15', '129.82.198.9', 'Chrome 52.0.2743.116 on Windows 7');
+INSERT INTO `auth_sessions` (`id`, `user_id`, `login_time`, `modified_at`, `ip_address`, `user_agent`) VALUES ('99a137f68e9bde8262649436c3b6fca709eab1ce', '185279332', '2016-09-01 22:18:41', '2016-09-01 22:34:53', '50.134.251.136', 'Chrome 52.0.2743.116 on Windows 10');
+INSERT INTO `auth_sessions` (`id`, `user_id`, `login_time`, `modified_at`, `ip_address`, `user_agent`) VALUES ('4ccc88b21ad0695f54147874f2adc7c67c9b217c', '185279332', '2016-09-07 20:12:52', '2016-09-07 21:57:25', '10.0.0.9', 'Chrome 52.0.2743.116 on Windows 10');
+INSERT INTO `auth_sessions` (`id`, `user_id`, `login_time`, `modified_at`, `ip_address`, `user_agent`) VALUES ('f7a5dc6dc89060e881ed6f39db69f8dc0665ccc4', '185279332', '2016-09-07 20:15:14', '2016-09-07 21:51:21', '50.134.251.136', 'Chrome 52.0.2743.116 on Windows 10');
+INSERT INTO `auth_sessions` (`id`, `user_id`, `login_time`, `modified_at`, `ip_address`, `user_agent`) VALUES ('e4d63e2070560743b8b12ff50f78f003734ca882', '185279332', '2016-09-07 22:02:53', '2016-09-07 22:02:54', '10.0.0.9', 'Chrome 52.0.2743.116 on Windows 10');
 
 
 #
@@ -102,6 +124,29 @@ CREATE TABLE `ci_sessions` (
   PRIMARY KEY (`id`),
   KEY `ci_sessions_timestamp` (`timestamp`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+#
+# TABLE STRUCTURE FOR: communication_queue
+#
+
+CREATE TABLE `communication_queue` (
+  `id` int(64) NOT NULL AUTO_INCREMENT COMMENT 'primary index',
+  `type` text NOT NULL COMMENT 'event, etc',
+  `user_id` int(64) NOT NULL COMMENT 'user id',
+  `status` text NOT NULL COMMENT 'queued, dequeued',
+  `pertanent_data` text NOT NULL COMMENT 'array or other',
+  `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'timestamp of dequeue',
+  `created` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+
+INSERT INTO `communication_queue` (`id`, `type`, `user_id`, `status`, `pertanent_data`, `updated`, `created`) VALUES ('6', 'event', '1355214819', 'dequeued', '{\"eid\":\"22\"}', '2016-09-06 23:58:41', '2016-09-06 23:58:28');
+INSERT INTO `communication_queue` (`id`, `type`, `user_id`, `status`, `pertanent_data`, `updated`, `created`) VALUES ('5', 'event', '1355214819', 'dequeued', '{\"eid\":\"22\"}', '2016-09-06 23:48:08', '2016-09-06 23:47:35');
+INSERT INTO `communication_queue` (`id`, `type`, `user_id`, `status`, `pertanent_data`, `updated`, `created`) VALUES ('7', 'event', '185279332', 'dequeued', '{\"eid\":\"22\"}', '2016-09-07 10:00:03', '2016-09-06 23:59:42');
+INSERT INTO `communication_queue` (`id`, `type`, `user_id`, `status`, `pertanent_data`, `updated`, `created`) VALUES ('8', 'event', '1355214819', 'dequeued', '{\"eid\":\"22\"}', '2016-09-07 00:06:10', '2016-09-07 00:05:41');
+INSERT INTO `communication_queue` (`id`, `type`, `user_id`, `status`, `pertanent_data`, `updated`, `created`) VALUES ('9', 'event', '1355214819', 'dequeued', '{\"eid\":\"22\"}', '2016-09-07 10:00:03', '2016-09-07 00:11:05');
+INSERT INTO `communication_queue` (`id`, `type`, `user_id`, `status`, `pertanent_data`, `updated`, `created`) VALUES ('10', 'event', '185279332', 'dequeued', '{\"eid\":\"22\"}', '2016-09-07 00:33:01', '2016-09-07 00:12:05');
+
 
 #
 # TABLE STRUCTURE FOR: denied_access
@@ -129,13 +174,10 @@ CREATE TABLE `event` (
   `date_created` int(32) NOT NULL,
   `created_by` int(32) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO `event` (`id`, `name`, `organization`, `date`, `users_matrix`, `roles_matrix`, `date_created`, `created_by`) VALUES ('15', 'Nav Night', '1', '1469840400', '{\"2096776302\":{\"confirmed\":true}}', '{\"2096776302\":[\"event-manager\"]}', '1469663305', '2096776302');
-INSERT INTO `event` (`id`, `name`, `organization`, `date`, `users_matrix`, `roles_matrix`, `date_created`, `created_by`) VALUES ('18', 'Nav Night', '1', '1472263200', '{\"185279332\":{\"confirmed\":true}}', '{\"185279332\":[\"event-manager\"]}', '1470322312', '185279332');
-INSERT INTO `event` (`id`, `name`, `organization`, `date`, `users_matrix`, `roles_matrix`, `date_created`, `created_by`) VALUES ('17', 'Nav Night', '1', '1471658400', '{\"185279332\":{\"confirmed\":true},\"2096776302\":{\"confirmed\":true},\"775806119\":{\"confirmed\":true}}', '{\"185279332\":[\"event-manager\"],\"2096776302\":[\"event-manager\",\"electric-guitar\"],\"775806119\":[\"event-manager\",\"rhythm-guitar\"]}', '1470175134', '185279332');
-INSERT INTO `event` (`id`, `name`, `organization`, `date`, `users_matrix`, `roles_matrix`, `date_created`, `created_by`) VALUES ('14', 'TEST', '1', '1468634400', '{\"185279332\":{\"confirmed\":true}}', '{\"185279332\":[\"event-manager\"]}', '1468997788', '185279332');
-INSERT INTO `event` (`id`, `name`, `organization`, `date`, `users_matrix`, `roles_matrix`, `date_created`, `created_by`) VALUES ('12', 'Nav Night', '1', '1469844000', '{\"185279332\":{\"confirmed\":true}}', '{\"185279332\":[\"event-manager\"]}', '1468387804', '185279332');
+INSERT INTO `event` (`id`, `name`, `organization`, `date`, `users_matrix`, `roles_matrix`, `date_created`, `created_by`) VALUES ('21', 'Nav Night - Week 4', '1', '1474077600', '{\"185279332\":{\"confirmed\":true}}', '{\"185279332\":[\"event-manager\"]}', '1472706487', '185279332');
+INSERT INTO `event` (`id`, `name`, `organization`, `date`, `users_matrix`, `roles_matrix`, `date_created`, `created_by`) VALUES ('22', 'Nav Night - Week 3', '1', '1473472800', '{\"647664095\":{\"confirmed\":true},\"3663360872\":{\"confirmed\":true},\"185279332\":{\"confirmed\":true}}', '{\"647664095\":[\"band-leader\",\"guitar\",\"vox\"],\"3663360872\":[\"event-manager\"],\"185279332\":[\"electric-guitar\",\"co-leader\"]}', '1473179118', '185279332');
 
 
 #
@@ -154,29 +196,26 @@ CREATE TABLE `event_item` (
   `date_created` int(32) NOT NULL,
   `created_by` int(32) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=77 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('18', '12', 'simple', 'Last minute cleanup', '', '1469843100', '', '', '1469003016', '185279332');
-INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('14', '12', 'simple', 'Practice', 'Zach\'s house', '1469674800', '', '', '1469002847', '185279332');
-INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('15', '12', 'simple', 'Pickup Gear', '', '1469835000', '', '', '1469002886', '185279332');
-INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('16', '12', 'simple', 'Setup', 'Everyone', '1469836800', '', '', '1469002912', '185279332');
-INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('17', '12', 'simple', 'Practice', '', '1469839500', '', '', '1469002951', '185279332');
-INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('19', '12', 'simple', 'Intro/Game', 'Emcee\'s', '1469844000', '', '', '1469003043', '185279332');
-INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('20', '12', 'simple', 'Worship', 'Worship team', '1469844900', '', '', '1469003110', '185279332');
-INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('21', '12', 'song', 'Be Thou My Vision - Citizens & Saints', 'Notes.', '1469844900', '1', 'G', '1469004771', '185279332');
-INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('25', '15', 'simple', 'Meeting', 'Ahead of time meeting. ', '1469836800', '', '', '1469663337', '2096776302');
-INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('26', '17', 'simple', 'Practice', 'At Collin\'s house', '1471485600', '', '', '1470175175', '185279332');
-INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('27', '17', 'simple', 'Pickup Gear', 'From Collin\'s house', '1471649400', '', '', '1470175208', '185279332');
-INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('28', '17', 'simple', 'Setup', '', '1471651200', '', '', '1470175264', '185279332');
-INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('29', '17', 'simple', 'Practice', '', '1471653000', '', '', '1470175281', '185279332');
-INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('30', '17', 'simple', 'Countdown', '5-10 min countdown on projector', '1471658400', '', '', '1470175345', '185279332');
-INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('31', '17', 'simple', 'Intro/Game', 'Emcees', '1471659000', '', '', '1470175367', '185279332');
-INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('32', '17', 'song', 'Be Thou My Vision - Citizens & Saints', 'Begin with intro/speech and prayer', '1471659300', '1', 'G', '1470175410', '185279332');
-INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('40', '17', 'song', 'No Longer Slaves - Bethel Music', '', '1471659600', '7', 'A#', '1470178493', '185279332');
-INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('41', '17', 'song', 'Be Thou My Vision - Kings Kaleidoscope', '', '1471659900', '2', 'G', '1470322420', '185279332');
-INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('42', '17', 'simple', 'Message', 'Jim Rinella', '1471660200', '', '', '1470322477', '185279332');
-INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('43', '17', 'song', 'Brown Eyed Girl - Van Morrison', '', '1471662600', '14', 'G', '1470322497', '185279332');
-INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('44', '17', 'simple', 'Clean Up', '', '1471662900', '', '', '1470322541', '185279332');
+INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('74', '22', 'song', 'It Is Well - Kristene DiMarco', '', '1473476400', '22', 'G', '1473180042', '647664095');
+INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('73', '22', 'simple', 'Message', '', '1473474900', '', '', '1473179994', '647664095');
+INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('72', '22', 'song', 'Great Are You Lord - All Sons and Daughters', '', '1473474600', '21', 'C', '1473179977', '647664095');
+INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('70', '22', 'song', 'Relentless - Hillsong United', '', '1473474000', '19', 'C', '1473179946', '647664095');
+INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('68', '22', 'simple', 'Announcements', 'Emcee prays for worship band', '1473473700', '', '', '1473179865', '185279332');
+INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('71', '22', 'song', 'This is Amazing Grace - Phil Wickham', '', '1473474300', '20', 'C', '1473179963', '647664095');
+INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('66', '22', 'simple', 'Game', 'Name of game is...', '1473473400', '', '', '1473179834', '185279332');
+INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('65', '22', 'simple', 'Welcome', 'Emcees', '1473473100', '', '', '1473179810', '185279332');
+INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('64', '22', 'simple', 'Countdown', 'Emcees', '1473472500', '', '', '1473179777', '185279332');
+INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('63', '22', 'simple', 'Emcees Arrive', 'Their names are...', '1473469200', '', '', '1473179733', '185279332');
+INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('62', '22', 'simple', 'Pre Navs Meeting', '', '1473471900', '', '', '1473179652', '185279332');
+INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('61', '22', 'simple', 'Rehearsal', '', '1473467400', '', '', '1473179389', '185279332');
+INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('60', '22', 'simple', 'Setup', 'Clark A101', '1473465600', '', '', '1473179354', '185279332');
+INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('59', '22', 'simple', 'Pickup Gear', 'From Jecka\'s house. 1615 Underhill Dr #3.', '1473463800', '', '', '1473179323', '185279332');
+INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('58', '22', 'simple', 'Practice', 'Collin\'s house. 812 Myrtle St.', '1473386400', '', '', '1473179167', '185279332');
+INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('57', '20', 'simple', 'Practice', 'Collin\'s house. 812 Myrtle.', '1473386400', '', '', '1472794493', '185279332');
+INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('75', '22', 'song', 'Forever Reign - Hillsong Live', '', '1473476700', '23', 'C', '1473180060', '647664095');
+INSERT INTO `event_item` (`id`, `event_id`, `type`, `title`, `memo`, `start_time`, `arrangement_id`, `arrangement_key`, `date_created`, `created_by`) VALUES ('76', '21', 'simple', 'Practice', 'Collin\'s', '1473991200', '', '', '1473264653', '185279332');
 
 
 #
@@ -188,7 +227,7 @@ CREATE TABLE `ips_on_hold` (
   `ip_address` varchar(45) NOT NULL,
   `time` datetime NOT NULL,
   PRIMARY KEY (`ai`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 #
 # TABLE STRUCTURE FOR: login_errors
@@ -200,10 +239,9 @@ CREATE TABLE `login_errors` (
   `ip_address` varchar(45) NOT NULL,
   `time` datetime NOT NULL,
   PRIMARY KEY (`ai`)
-) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
 
-INSERT INTO `login_errors` (`ai`, `username_or_email`, `ip_address`, `time`) VALUES ('25', 'Smitherz', '10.0.0.9', '2016-08-10 18:01:41');
-INSERT INTO `login_errors` (`ai`, `username_or_email`, `ip_address`, `time`) VALUES ('26', 'smithza', '10.0.0.9', '2016-08-10 18:01:54');
+INSERT INTO `login_errors` (`ai`, `username_or_email`, `ip_address`, `time`) VALUES ('53', 'cstover1996@comcast.net', '70.196.198.28', '2016-09-04 20:25:36');
 
 
 #
@@ -222,7 +260,7 @@ CREATE TABLE `media` (
   `date_created` int(32) NOT NULL,
   `created_by` int(32) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `media` (`id`, `name`, `file_ext`, `file_size`, `file_type`, `link_type`, `link`, `organizations`, `date_created`, `created_by`) VALUES ('12', 'Be Thou My Vision - Citizens and Saints.pdf', '.pdf', '57.58', 'application/pdf', 'lyric', 'media/lyric/2f1b5dd8325b0445f5b5cc7a6b0e77fb.pdf', '[\"1\"]', '1468364593', '185279332');
 INSERT INTO `media` (`id`, `name`, `file_ext`, `file_size`, `file_type`, `link_type`, `link`, `organizations`, `date_created`, `created_by`) VALUES ('11', '01 Brown Eyed Girl.mp3', '.mp3', '2714.79', 'audio/mpeg', 'audio', 'media/audio/ec839d3bccc5d6703abdde4afb8499dd.mp3', '[\"1\"]', '1468352081', '185279332');
@@ -243,6 +281,11 @@ INSERT INTO `media` (`id`, `name`, `file_ext`, `file_size`, `file_type`, `link_t
 INSERT INTO `media` (`id`, `name`, `file_ext`, `file_size`, `file_type`, `link_type`, `link`, `organizations`, `date_created`, `created_by`) VALUES ('24', 'In Tenderness.pdf', '.pdf', '38.19', 'application/pdf', 'chord', 'media/chord/24ecb8d2ab7b75ff68908e762eaa95e1.pdf', '[\"1\"]', '1470887118', '647664095');
 INSERT INTO `media` (`id`, `name`, `file_ext`, `file_size`, `file_type`, `link_type`, `link`, `organizations`, `date_created`, `created_by`) VALUES ('25', 'In Tenderness.pdf', '.pdf', '38.19', 'application/pdf', 'chord', 'media/chord/e603cf7ec86d7b11fa029a041f4752e4.pdf', '[\"1\"]', '1470887293', '647664095');
 INSERT INTO `media` (`id`, `name`, `file_ext`, `file_size`, `file_type`, `link_type`, `link`, `organizations`, `date_created`, `created_by`) VALUES ('26', 'In Christ Alone Kings Kaleidoscope in G (1).pdf', '.pdf', '34.81', 'application/pdf', 'chord', 'media/chord/c62dc38852822ef0d764c5cf4e15f5c3.pdf', '[\"1\"]', '1470888739', '647664095');
+INSERT INTO `media` (`id`, `name`, `file_ext`, `file_size`, `file_type`, `link_type`, `link`, `organizations`, `date_created`, `created_by`) VALUES ('27', 'Relentless_C.pdf', '.pdf', '32.1', 'application/pdf', 'chord', 'media/chord/29051bbc72645d4e9a89a31276e6b700.pdf', '[\"1\"]', '1473179370', '647664095');
+INSERT INTO `media` (`id`, `name`, `file_ext`, `file_size`, `file_type`, `link_type`, `link`, `organizations`, `date_created`, `created_by`) VALUES ('28', 'This is Amazing Grace.pdf', '.pdf', '35.03', 'application/pdf', 'chord', 'media/chord/8f2b2313902afa16e3fad4be8d7171a7.pdf', '[\"1\"]', '1473179484', '647664095');
+INSERT INTO `media` (`id`, `name`, `file_ext`, `file_size`, `file_type`, `link_type`, `link`, `organizations`, `date_created`, `created_by`) VALUES ('29', 'Great Are You Lord.pdf', '.pdf', '32.59', 'application/pdf', 'chord', 'media/chord/86f8b821caa8e365df9972022b5b32bd.pdf', '[\"1\"]', '1473179575', '647664095');
+INSERT INTO `media` (`id`, `name`, `file_ext`, `file_size`, `file_type`, `link_type`, `link`, `organizations`, `date_created`, `created_by`) VALUES ('30', 'It Is Well.pdf', '.pdf', '35.75', 'application/pdf', 'chord', 'media/chord/fcf06ad5de1a356ea7a9277a2e87c1e2.pdf', '[\"1\"]', '1473179676', '647664095');
+INSERT INTO `media` (`id`, `name`, `file_ext`, `file_size`, `file_type`, `link_type`, `link`, `organizations`, `date_created`, `created_by`) VALUES ('31', 'Forever Reign.pdf', '.pdf', '35.04', 'application/pdf', 'chord', 'media/chord/e4c8fcf030c6ac4cc73f6d89aa300acf.pdf', '[\"1\"]', '1473179775', '647664095');
 
 
 #
@@ -273,7 +316,7 @@ CREATE TABLE `song` (
   `date_created` int(32) NOT NULL,
   `created_by` int(32) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `song` (`id`, `title`, `tags`, `organizations`, `date_created`, `created_by`) VALUES ('1', 'Be Thou My Vision', '[\"Hymns\",\"Secular\",\"Staples\"]', '[\"1\"]', '1468291147', '185279332');
 INSERT INTO `song` (`id`, `title`, `tags`, `organizations`, `date_created`, `created_by`) VALUES ('2', 'With Everything', '[\"Staples\",\"Slow\",\"Progressive\",\"Big\"]', '[\"1\"]', '1468375416', '185279332');
@@ -296,6 +339,9 @@ INSERT INTO `song` (`id`, `title`, `tags`, `organizations`, `date_created`, `cre
 INSERT INTO `song` (`id`, `title`, `tags`, `organizations`, `date_created`, `created_by`) VALUES ('20', 'Great Are You Lord', '[\"Staples\",\"Piano Lead\",\"Progressive\",\"Spiritual\"]', '[\"1\"]', '1468488209', '185279332');
 INSERT INTO `song` (`id`, `title`, `tags`, `organizations`, `date_created`, `created_by`) VALUES ('25', 'Brown Eyed Girl', '[\"Secular\"]', '[\"1\"]', '1468560488', '185279332');
 INSERT INTO `song` (`id`, `title`, `tags`, `organizations`, `date_created`, `created_by`) VALUES ('28', 'In Christ Alone', '[\"Hymns\",\"Powerful\"]', '[\"1\"]', '1470888096', '647664095');
+INSERT INTO `song` (`id`, `title`, `tags`, `organizations`, `date_created`, `created_by`) VALUES ('29', 'This is Amazing Grace', '[\"Staples\",\"Upbeat\"]', '[\"1\"]', '1473179444', '647664095');
+INSERT INTO `song` (`id`, `title`, `tags`, `organizations`, `date_created`, `created_by`) VALUES ('30', 'It Is Well', '[\"Female Lead\",\"Big\",\"Build\",\"Piano Lead\",\"Powerful\"]', '[\"1\"]', '1473179641', '647664095');
+INSERT INTO `song` (`id`, `title`, `tags`, `organizations`, `date_created`, `created_by`) VALUES ('31', 'Forever Reign', '[\"Powerful\",\"Staples\"]', '[\"1\"]', '1473179755', '647664095');
 
 
 #
@@ -307,7 +353,7 @@ CREATE TABLE `username_or_email_on_hold` (
   `username_or_email` varchar(255) NOT NULL,
   `time` datetime NOT NULL,
   PRIMARY KEY (`ai`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 #
 # TABLE STRUCTURE FOR: users
@@ -318,6 +364,10 @@ CREATE TABLE `users` (
   `username` varchar(12) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
   `phone` varchar(16) NOT NULL,
+  `phone_to_confirm` varchar(16) NOT NULL,
+  `phone_confirmation` varchar(6) NOT NULL,
+  `phone_confirmation_date` datetime NOT NULL,
+  `comm_preference` varchar(10) NOT NULL DEFAULT 'email',
   `first_name` text NOT NULL,
   `last_name` text NOT NULL,
   `organizations` text NOT NULL,
@@ -336,9 +386,9 @@ CREATE TABLE `users` (
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `users` (`user_id`, `username`, `email`, `phone`, `first_name`, `last_name`, `organizations`, `blockouts`, `auth_level`, `banned`, `passwd`, `passwd_recovery_code`, `passwd_recovery_date`, `passwd_modified_at`, `last_login`, `created_at`, `modified_at`) VALUES ('185279332', 'zach', 'zach@medialusions.com', '3035490491', 'Zach', 'Smith', '1,', '[]', '10', '0', '$2y$11$XUnQtI3PHq2DeXaDxTSS8Osw2nK.sPjcVu5q3PcYVHSjoXNTQmWCG', '$2y$11$q68J1u3eEmBuOaiL.HDoMOY93BmFpT2Vi8fV9112L0uqcMaAQUDoe', '2016-07-03 19:37:50', '2016-07-03 13:38:14', '2016-08-12 21:53:52', '2016-07-03 19:07:56', '2016-08-12 21:53:57');
-INSERT INTO `users` (`user_id`, `username`, `email`, `phone`, `first_name`, `last_name`, `organizations`, `blockouts`, `auth_level`, `banned`, `passwd`, `passwd_recovery_code`, `passwd_recovery_date`, `passwd_modified_at`, `last_login`, `created_at`, `modified_at`) VALUES ('647664095', 'costover', 'cstover1996@comcast.net', '', 'Collin', 'Stover', '1,', '[]', '9', '0', '$2y$10$b599cf5d32050960f471ausjJoosPpt3pUCAIgu8v5hO6G6HqlEbO', '$2y$10$4d1337aa25d2832f410ecuGav8wcv1nC1t7j1JlWCNrSx/X4gOIia', '2016-08-10 15:25:27', '2016-08-10 20:37:16', '2016-08-10 21:20:26', '2016-08-10 15:25:27', '2016-08-10 21:20:26');
-INSERT INTO `users` (`user_id`, `username`, `email`, `phone`, `first_name`, `last_name`, `organizations`, `blockouts`, `auth_level`, `banned`, `passwd`, `passwd_recovery_code`, `passwd_recovery_date`, `passwd_modified_at`, `last_login`, `created_at`, `modified_at`) VALUES ('775806119', 'smithza', 'zsmith812@gmail.com', '', 'Zachary', 'Smith', '1,', '[]', '5', '0', '$2y$10$56ed1747cedf22bbffb17uphzB.QA8NXQotwt.mLCOPHx/5vhbBPi', '$2y$10$2a75cdcf4034571a22a0de7pY4YAr/e1T2TSgmPhHz7oRj.rP15Ca', '2016-08-10 15:18:30', '2016-08-10 15:23:52', '2016-08-10 15:23:52', '2016-08-10 15:18:30', '2016-08-10 15:23:52');
-INSERT INTO `users` (`user_id`, `username`, `email`, `phone`, `first_name`, `last_name`, `organizations`, `blockouts`, `auth_level`, `banned`, `passwd`, `passwd_recovery_code`, `passwd_recovery_date`, `passwd_modified_at`, `last_login`, `created_at`, `modified_at`) VALUES ('2096776302', 'smitherz', 'smithza@rams.colostate.edu', '', 'Zman', 'Smith', '1,', '[{\"start_date\":\"1469922430\",\"date_end\":\"1470095230\",\"reason\":\"Sick\"}]', '9', '0', '$2y$11$lQJBP86EJs6U0IVj7OSCiu7pnZsCTJBQnRxaQ/lC5SfJKGfZKA.qC', '$2y$11$p6m/1qqMncVcRnHrKpWuT.ay4dZ2I65I1FDI99gGzJdqlyT5x4NSS', '2016-07-27 16:43:59', '2016-07-27 20:33:43', '2016-07-27 19:33:50', '2016-07-27 16:43:59', '2016-08-10 18:04:43');
+INSERT INTO `users` (`user_id`, `username`, `email`, `phone`, `phone_to_confirm`, `phone_confirmation`, `phone_confirmation_date`, `comm_preference`, `first_name`, `last_name`, `organizations`, `blockouts`, `auth_level`, `banned`, `passwd`, `passwd_recovery_code`, `passwd_recovery_date`, `passwd_modified_at`, `last_login`, `created_at`, `modified_at`) VALUES ('185279332', 'zach', 'zach@medialusions.com', '3035490491', '', '', '2016-09-02 13:45:27', 'phone', 'Zach', 'Smith', '1,', '[]', '10', '0', '$2y$11$Lgvip1PHfINFx7yXUhJWu.5htbl7EV1JZNgx9ucOJZL27XW5noFG6', '$2y$11$q68J1u3eEmBuOaiL.HDoMOY93BmFpT2Vi8fV9112L0uqcMaAQUDoe', '2016-07-03 19:37:50', '2016-08-31 00:54:31', '2016-09-07 22:02:53', '2016-07-03 19:07:56', '2016-09-07 22:02:54');
+INSERT INTO `users` (`user_id`, `username`, `email`, `phone`, `phone_to_confirm`, `phone_confirmation`, `phone_confirmation_date`, `comm_preference`, `first_name`, `last_name`, `organizations`, `blockouts`, `auth_level`, `banned`, `passwd`, `passwd_recovery_code`, `passwd_recovery_date`, `passwd_modified_at`, `last_login`, `created_at`, `modified_at`) VALUES ('647664095', 'costover', 'cstover1996@comcast.net', '7203174206', '', '', '2016-09-04 20:27:18', 'phone', 'Collin', 'Stover', '1,', '[]', '9', '0', '$2y$10$b599cf5d32050960f471ausjJoosPpt3pUCAIgu8v5hO6G6HqlEbO', '$2y$10$4d1337aa25d2832f410ecuGav8wcv1nC1t7j1JlWCNrSx/X4gOIia', '2016-08-10 15:25:27', '2016-08-10 20:37:16', '2016-09-06 09:26:09', '2016-08-10 15:25:27', '2016-09-06 09:26:09');
+INSERT INTO `users` (`user_id`, `username`, `email`, `phone`, `phone_to_confirm`, `phone_confirmation`, `phone_confirmation_date`, `comm_preference`, `first_name`, `last_name`, `organizations`, `blockouts`, `auth_level`, `banned`, `passwd`, `passwd_recovery_code`, `passwd_recovery_date`, `passwd_modified_at`, `last_login`, `created_at`, `modified_at`) VALUES ('1355214819', NULL, 'zsmith812@gmail.com', '', '', '', '0000-00-00 00:00:00', 'email', 'Zachary', 'Smith', '1,', '[]', '5', '0', '', '$2y$11$ng40Lo6feXNkya5htD71BuSwfFsy/HQVaOtgn9HZfBWRSnAObMrmC', '2016-09-06 23:25:20', NULL, NULL, '2016-09-06 23:25:20', '2016-09-06 23:25:21');
+INSERT INTO `users` (`user_id`, `username`, `email`, `phone`, `phone_to_confirm`, `phone_confirmation`, `phone_confirmation_date`, `comm_preference`, `first_name`, `last_name`, `organizations`, `blockouts`, `auth_level`, `banned`, `passwd`, `passwd_recovery_code`, `passwd_recovery_date`, `passwd_modified_at`, `last_login`, `created_at`, `modified_at`) VALUES ('3663360872', 'rkrammes', 'rkrammes1025@gmail.com', '', '', '', '0000-00-00 00:00:00', 'email', 'Ryan', 'Krammes', '1,', '[]', '9', '0', '$2y$10$ed8f9ff6f50bdeeeb4531O4BXfklh9vyXbDTrUxp3BkqdoTNP7RBu', '', '0000-00-00 00:00:00', '2016-09-02 11:15:53', '2016-09-02 11:15:53', '2016-09-01 11:44:51', '2016-09-02 11:15:53');
 
 

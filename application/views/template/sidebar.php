@@ -80,7 +80,7 @@
         foreach ($sidebar['upcoming_events'] as $event):
             ?>
             <!-- agenda event -->
-            <div class="ui grid">
+            <div class="ui stackable grid">
                 <div class="ui inverted dimmer event_dimmer_<?= $event['id'] ?>">
                     <div class="ui small loader"></div>
                 </div>
@@ -120,21 +120,19 @@
         foreach ($sidebar['contact'] as $contact):
             ?>
             <!-- contact -->
-            <div class="ui grid">
+            <div class="ui stackable grid">
                 <div class="ten wide column">
-                    <a href="<?= base_url('user/view/' . $contact['user_id']) ?>">
-                        <?= $contact['first_name'] . ' ' . $contact['last_name'] ?>
-                    </a>
+                    <?= $contact['first_name'] . ' ' . $contact['last_name'] ?>
                 </div>
                 <div class="six wide column">
                     <div class="ui icon buttons tiny">
-                        <button class="ui basic button tiny navs_popup" data-content="<?= $contact['email'] ?>" data-position="top center">
+                        <a href="mailto:<?= $contact['email'] ?>" class="ui basic button tiny navs_popup" data-content="<?= $contact['email'] ?>" data-position="top center">
                             <i class="mail icon"></i>
-                        </button>
+                        </a>
                         <?php if ($contact['phone']): ?>
-                            <button class="ui basic button tiny navs_popup" data-content="<?= format_phone($contact['phone']) ?>" data-position="top center">
+                            <a class="ui basic button tiny navs_popup" data-content="<?= format_phone($contact['phone']) ?>" data-position="top center" href="tel:<?= $contact['phone'] ?>">
                                 <i class="phone icon"></i>
-                            </button>
+                            </a>
                         <?php endif; ?>
                     </div>
                 </div>

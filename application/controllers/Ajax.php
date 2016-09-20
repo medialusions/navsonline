@@ -20,6 +20,17 @@ class Ajax extends MY_Controller {
         echo json_encode(array('success' => TRUE, 'message' => 'Message resent.'));
     }
 
+    public function resend_user_confirmation($uid) {
+        //get user data
+        $this->verify_min_ajax_level(9);
+        //tell pref model to resend
+        $response = $this->user->send_confirmation_email($this->user->get($uid));
+        if ($response)
+            echo json_encode(array('success' => TRUE, 'message' => 'Message resent.'));
+        else
+            echo json_encode(array('success' => FALSE, 'message' => 'Message couldn\'t be sent.'));
+    }
+
     public function confirm_phone_confirmation() {
         //get user data
         $this->verify_min_ajax_level(3);

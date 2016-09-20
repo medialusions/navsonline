@@ -1,8 +1,11 @@
 <?php $this->load->view('template/header'); ?>
 
-<script type="text/javascript">
+<script>
     $(document).ready(function() {
-        
+        $(".resend_button").api({
+            url: '<?= base_url('ajax/resend-user-confirmation') ?>/{uid}',
+            on: 'click'
+        });
     });
 </script>
 
@@ -64,18 +67,18 @@
                                 </td>
                                 <td>
                                     <div class="ui icon buttons tiny">
-                                        <button class="ui basic button tiny navs_popup" data-content="<?= $user['email'] ?>" data-position="top center">
+                                        <a href="mailto:<?= $user['email'] ?>" class="ui basic button tiny navs_popup" data-content="<?= $user['email'] ?>" data-position="top center">
                                             <i class="mail icon"></i>
-                                        </button>
+                                        </a>
                                         <?php if ($user['phone']): ?>
-                                            <button class="ui basic button tiny navs_popup" data-content="<?= format_phone($user['phone']) ?>" data-position="top center">
+                                            <a class="ui basic button tiny navs_popup" data-content="<?= format_phone($user['phone']) ?>" data-position="top center" href="tel:<?= $user['phone'] ?>">
                                                 <i class="phone icon"></i>
-                                            </button>
+                                            </a>
                                         <?php endif; ?>
                                     </div>
                                 </td>
                                 <td>
-                                    <?= $user['last_login'] ? date('D, M jS g:ia', strtotime($user['last_login']) + $_SESSION['organization_data']['offset']) : 'N/A' ?>
+                                    <?= $user['last_login'] ? date('D, M jS g:ia', strtotime($user['last_login']) + $_SESSION['organization_data']['offset']) : ($auth_level >= 9 ? '<div class="ui small basic orange button resend_button" data-uid="' . $user['user_id'] . '">Resend</div>' : 'N/A') ?>
                                 </td>
                                 <td>
                                     <?= ($user['last_scheduling'] !== FALSE ? date('D, M jS', $user['last_scheduling']) : 'N/A') ?>

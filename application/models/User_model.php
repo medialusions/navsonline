@@ -283,38 +283,54 @@ class User_model extends MY_Model {
             }
 
             if ($this->db->set($user_data)->insert('users')) {
-                //send welcome email
-                $this->email->from('info@medialusions.com', 'NavsBot');
-                $this->email->to($user_data['email']);
-                $this->email->subject('Setup Your Account - ' . date('H:i:s'));
-                //set up image
-                $img_path = base_url() . 'logo/email_template.jpg';
-                $this->email->attach($img_path);
-                //get template
-                $email_template = file_get_contents('application/views/email/intro.html');
-                //set replace values and replace them
-                $keys = array('F_NAME', 'L_NAME', 'ORG_LOC', 'EXP_DATE', 'REC_LINK', 'CURRENT_YEAR', 'NAV_COMPANY', 'UPDATE_PROFILE', 'LOGO_URL', '*|MC:SUBJECT|*');
-                $values = array(
-                    $user_data['first_name'],
-                    $user_data['last_name'],
-                    $_SESSION['organization_data']['name'],
-                    date('D, M jS', $time + config_item('recovery_code_expiration')),
-                    base_url('user/welcome/?r=' . myurlencode($user_data['passwd_recovery_code']) . '&u=' . $user_data['user_id']),
-                    date('Y'),
-                    'Medialusions Interactive, Inc.',
-                    base_url('user/preferences'),
-                    $this->email->attachment_cid($img_path),
-                    'Setup Your Account'
-                );
-                $email_template = str_replace($keys, $values, $email_template);
-                $this->email->message($email_template);
-                return $this->email->send();
+                return $this->send_confirmation_email($user_data);
             } else {
-                return false;
+                return FALSE;
             }
         } else {
-            return false;
+            return FALSE;
         }
+    }
+
+    public function send_confirmation_email($user_data, $time = '') {
+        if ($time == '') {
+            $time = time();
+            //for email recovery
+            $recovery_code = substr($this->authentication->random_salt()
+                    . $this->authentication->random_salt()
+                    . $this->authentication->random_salt()
+                    . $this->authentication->random_salt(), 0, 72);
+            $user_data['passwd_recovery_code'] = $this->authentication->hash_passwd($recovery_code);
+            $user_data['passwd_recovery_date'] = date('Y-m-d H:i:s', $time);
+            if (!$this->update_user_raw_data($user_data['user_id'], $user_data)) {
+                return FALSE;
+            }
+        }
+        $this->email->from('info@medialusions.com', 'NavsBot');
+        $this->email->to($user_data['email']);
+        $this->email->subject('Setup Your Account');
+        //set up image
+        $img_path = base_url() . 'logo/email_template.jpg';
+        $this->email->attach($img_path);
+        //get template
+        $email_template = file_get_contents('application/views/email/intro.html');
+        //set replace values and replace them
+        $keys = array('F_NAME', 'L_NAME', 'ORG_LOC', 'EXP_DATE', 'REC_LINK', 'CURRENT_YEAR', 'NAV_COMPANY', 'UPDATE_PROFILE', 'LOGO_URL', '*|MC:SUBJECT|*');
+        $values = array(
+            $user_data['first_name'],
+            $user_data['last_name'],
+            $_SESSION['organization_data']['name'],
+            date('D, M jS', $time + config_item('recovery_code_expiration')),
+            base_url('user/welcome/?r=' . myurlencode($user_data['passwd_recovery_code']) . '&u=' . $user_data['user_id']),
+            date('Y'),
+            'Medialusions Interactive, Inc.',
+            base_url('user/preferences'),
+            $this->email->attachment_cid($img_path),
+            'Setup Your Account'
+        );
+        $email_template = str_replace($keys, $values, $email_template);
+        $this->email->message($email_template);
+        return $this->email->send();
     }
 
     /**

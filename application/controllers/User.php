@@ -67,8 +67,7 @@ class User extends MY_Controller {
     public function preferences() {
 
         if ($this->input->post()) {
-            //admin needed to add
-            $this->require_min_level(9);
+            $this->require_min_level(5);
             $update = $this->preference->update();
             if ($update['success']) {
                 if (isset($update['phone_validation_required'])) {
@@ -161,7 +160,7 @@ class User extends MY_Controller {
 
         $data['user'] = $this->user->generate_user_data($this->auth_user_id);
 
-        $data['upcoming_events'] = $this->event->generate_upcoming($this->auth_user_id, 10, $page, ($this->auth_level >= 9 || $this->input->get('v') == 'all'));
+        $data['upcoming_events'] = $this->event->generate_upcoming($this->auth_user_id, 10, $page, $this->auth_level >= 9);
         $data['pagination'] = $this->event->get_pagination($page);
         $data['pagination']['current'] = $page;
 

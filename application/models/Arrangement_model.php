@@ -64,7 +64,6 @@ class Arrangement_model extends MY_Model {
      * @return id
      */
     public function edit($data) {
-        print_r($data);
         $id = $data['arr_id'];
         //setting up insert
         $data = array(

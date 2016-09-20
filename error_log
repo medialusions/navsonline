@@ -1,0 +1,1 @@
+[09-Sep-2016 07:58:45 America/Los_Angeles] PHP Fatal error:  Cannot use object of type stdClass as array in /home/medialusions/public_html/medialusions.com/navsonline/application/models/User_model.php on line 470

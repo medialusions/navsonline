@@ -23,16 +23,6 @@ class MY_Controller extends Auth_Controller {
     public function __construct() {
         parent::__construct();
 
-        //Set up Linux cron for db backup
-        $command = '* * * * * * curl -s ' . base_url() . '?request=db_backup';
-        if (!cronjob_exists($command)) {
-            append_cronjob($command);
-        }
-        if (isset($_GET['request']) && $_GET['request'] == 'db_backup') {
-            $this->db_backup();
-            die;
-        }
-
         //load models
         $this->load->model('User_model', 'user', TRUE);
         $this->load->model('User_Preference_model', 'preference', TRUE);
@@ -51,24 +41,6 @@ class MY_Controller extends Auth_Controller {
         $config['allowed_types'] = 'doc|docx|pdf|mp3|mp4|m4a|aif|aifc|aiff|wav';
         $config['encrypt_name'] = TRUE;
         $this->upload->initialize($config);
-    }
-
-    //?request=db_backup
-    public function db_backup() {
-        // Load the DB utility class
-        $this->load->dbutil();
-
-        // STRUCTURE
-        $structure = $this->dbutil->backup(array('format' => 'txt', 'add_insert' => FALSE));
-        $filename = 'structure.sql';
-        if (!write_file('db_backup/' . $filename, $structure))
-            die("error");
-
-        // DATA
-        $data = $this->dbutil->backup(array('format' => 'txt', 'add_insert' => TRUE, 'add_drop' => FALSE));
-        $filename = 'data.sql';
-        if (!write_file('db_backup/' . $filename, $data))
-            die("error");
     }
 
 }

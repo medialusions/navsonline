@@ -3,6 +3,23 @@
 <script type="text/javascript">
     $(document).ready(function() {
 
+        $('#event_s_start').periodpicker({
+            end: '#event_s_end',
+            dayOfWeekStart: 7,
+            cells: [1, 2],
+            formatDate: 'MM/DD/YYYY',
+            norange: false,
+            yearsLine: false,
+            title: false,
+            fullsizeButton: false,
+            onAfterHide: function() {
+                var start = this.startinput.val();
+                var end = this.endinput.val();
+                if (start !== '' && end !== '') {
+                    $('<form action="" method="get"><input type="text" name="start" value="' + start + '"><input type="text" name="end" value="' + end + '"></form>').appendTo('body').submit();
+                }
+            }
+        });
 <?php foreach ($upcoming_events as $event): ?>
     <?php if (matrix_decode($event['users_matrix'], $auth_user_id)): ?>
                 $('.event_confirm_<?= $event['id'] ?>')
@@ -54,12 +71,23 @@
 
         <div class="ui segment">
             <!-- welcome message -->
-            <div class="ui grid">
-                <div class="twelve wide column">
+            <div class="ui stackable grid">
+                <div class="eight wide column">
                     <h1 class="ui header">
                         Welcome, <?= $user['first_name'] . ' ' . $user['last_name'] ?>
-                        <div class="sub header">Here is your upcoming schedule. <?= anchor('user/schedule/?v=all', 'View all') ?></div>
+                        <div class="sub header">Here is your upcoming schedule.</div>
                     </h1>
+                </div>
+                <div class="four wide column">
+                    <?php if ($auth_level >= 9): //admin required. modal included below   ?>
+                        <form class="ui form" method="get">
+                            <div class="ui field">
+                                <div class="label">Filter</div>
+                                <input type="text" name="event_s_start" id="event_s_start">
+                                <input type="text" name="event_s_end" id="event_s_end">
+                            </div>
+                        </form>
+                    <?php endif; ?>
                 </div>
                 <div class="four wide column">
                     <?php if ($auth_level >= 9): //admin required. modal included below   ?>
@@ -74,7 +102,7 @@
             <!-- spacer -->
             <div style="width: 100%; height: 30px; display: block;"></div>
 
-            <div class="ui grid">
+            <div class="ui stackable grid">
                 <!-- agenda table -->
                 <table class="ui very basic table">
                     <thead>
@@ -85,7 +113,7 @@
                             <th class="">Your Role(s)</th>
                             <th class="">Availability</th>
                             <?php if ($auth_level >= 9): //admin required. modal included below   ?>
-                                <th class="">Delete</th>
+                                <th class="">Actions</th>
                             <?php endif; ?>
                         </tr>
                     </thead>
@@ -125,6 +153,9 @@
                                         <button class="ui icon basic red button tiny navs_popup confirm_api" data-action="event delete" data-eid="<?= $event['id'] ?>" data-content="Remove" data-position="top center">
                                             <i class="trash icon"></i>
                                         </button>
+                                        <button class="ui icon basic blue button tiny navs_popup confirm_api" data-action="event delete" data-eid="<?= $event['id'] ?>" data-content="Copy" data-position="top center">
+                                            <i class="copy icon"></i>
+                                        </button>
                                     </td>
                                 <?php endif; ?>
                             </tr>
@@ -136,7 +167,7 @@
                             <tr>
                                 <td colspan="<?= $auth_level >= 9 ? 6 : 5 ?>">
                                     <div class="ui message">
-                                        There are no upcoming events scheduled for you. if you want, you can view all of the upcoming events by clicking <?= anchor('user/schedule/?v=all', 'here') ?>.
+                                        There are no upcoming events scheduled for you.
                                     </div>
                                 </td>
                             </tr>

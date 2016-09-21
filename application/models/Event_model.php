@@ -9,7 +9,7 @@ class Event_model extends MY_Model {
     public function __construct() {
         // Call the CI_Model constructor
         parent::__construct();
-        
+
         $this->organization_id = $this->session->userdata('organization_id');
     }
 
@@ -82,21 +82,31 @@ class Event_model extends MY_Model {
      * @param type $page [optional] Page number. Pages with limits of 10.
      * @return type array results
      */
-    public function generate_upcoming($user_id = '', $limit = 4, $page = 1, $admin = FALSE) {
+    public function generate_upcoming($user_id = '', $limit = 4, $page = 1, $admin = FALSE, $get = null) {
         if ($limit == -1) {
             $limit_q = "LIMIT " . (($page - 1) * 10) . ", 10";
         } else {
             $limit_q = ($limit > 0 ? "LIMIT $limit" : '');
         }
         //build upcoming query
-        $query = $this->db->query(""
+        $get_query = '';
+        if (!is_null($get) && isset($get['start']) && isset($get['end'])) {
+            $start = strtotime($get['start']);
+            $end = strtotime($get['end']);
+            $get_query .= "AND date >= $start "
+                    . "AND date <= $end ";
+        } else {
+            $get_query .= "AND date > " . time() . " ";
+        }
+        $query_string = ""
                 . "SELECT * "
                 . "FROM event "
                 . "WHERE organization='$this->organization_id' "
                 . ($user_id == '' || $admin ? '' : "AND  users_matrix LIKE '%$user_id%' ")
-                . "AND date > " . time() . " "
+                . $get_query
                 . "ORDER BY date ASC "
-                . $limit_q);
+                . $limit_q;
+        $query = $this->db->query($query_string);
 
         //return the array
         return $query->result_array();

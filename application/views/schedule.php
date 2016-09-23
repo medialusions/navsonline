@@ -112,9 +112,7 @@
                             <th class="">Time</th>
                             <th class="">Your Role(s)</th>
                             <th class="">Availability</th>
-                            <?php if ($auth_level >= 9): //admin required. modal included below   ?>
-                                <th class="">Actions</th>
-                            <?php endif; ?>
+                            <th class="">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -148,16 +146,21 @@
                                         N/A
                                     <?php endif; ?>
                                 </td>
-                                <?php if ($auth_level >= 9): //admin required. modal included below   ?>
-                                    <td>
-                                        <button class="ui icon basic red button tiny navs_popup confirm_api" data-action="event delete" data-eid="<?= $event['id'] ?>" data-content="Remove" data-position="top center">
-                                            <i class="trash icon"></i>
-                                        </button>
-                                        <button class="ui icon basic blue button tiny navs_popup confirm_api" data-action="event delete" data-eid="<?= $event['id'] ?>" data-content="Copy" data-position="top center">
-                                            <i class="copy icon"></i>
-                                        </button>
-                                    </td>
-                                <?php endif; ?>
+                                <td>
+                                    <div class="ui buttons">
+                                        <a href="<?= base_url('event/view/' . $event['id'] . '/print') ?>" target="_blank" class="ui icon basic grey button tiny navs_popup" data-content="Print" data-position="top center">
+                                            <i class="print icon"></i>
+                                        </a>
+                                        <?php if ($auth_level >= 9): //admin required. modal included below   ?>
+                                            <button class="ui icon basic blue button tiny navs_popup event_copy_modal_button" data-eid="<?= $event['id'] ?>" data-content="Copy" data-position="top center">
+                                                <i class="copy icon"></i>
+                                            </button>
+                                            <button class="ui icon basic red button tiny navs_popup confirm_api" data-action="event delete" data-eid="<?= $event['id'] ?>" data-content="Remove" data-position="top center">
+                                                <i class="trash icon"></i>
+                                            </button>
+                                        <?php endif; ?>
+                                    </div>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                         <?php
@@ -165,7 +168,7 @@
                         if (count($upcoming_events) == 0):
                             ?>
                             <tr>
-                                <td colspan="<?= $auth_level >= 9 ? 6 : 5 ?>">
+                                <td colspan="6">
                                     <div class="ui message">
                                         There are no upcoming events scheduled for you.
                                     </div>
@@ -175,7 +178,7 @@
                         endif;
                         ?>
                     <tfoot>
-                        <tr><th colspan="<?= $auth_level >= 9 ? 6 : 5 ?>">
+                        <tr><th colspan="6">
                     <div class="ui right floated pagination menu">
                         <?php $v_all = (!is_null($this->input->get('v')) && $this->input->get('v') == 'all' ? '?v=all' : '') ?>
                         <?php if ($pagination['prev'] != ''): ?>
@@ -206,6 +209,7 @@
 <?php
 if ($auth_level >= 9):
     $this->load->view('modal/event_new');
+    $this->load->view('modal/event_copy');
 endif;
 
 $this->load->view('template/footer');

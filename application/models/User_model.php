@@ -185,15 +185,14 @@ class User_model extends MY_Model {
             $user_id = config_item('auth_user_id');
 
         //build upcoming query
-        $json = json_encode(array($user_id => array('confirmed' => TRUE)));
+        $json = json_encode(array("$user_id" => array('confirmed' => TRUE)));
         $query = $this->db->query(""
                 . "SELECT date "
                 . "FROM `event` "
-                . "WHERE users_matrix LIKE '%" . $json . "%' "
+                . "WHERE users_matrix LIKE '%" . substr($json, 1, -1) . "%' "
                 . "AND date < " . time() . " "
                 . "ORDER BY date DESC "
-                . "LIMIT 1"
-        );
+                . "LIMIT 1");
 
         //get the first
         $result = $query->result_array();

@@ -39,6 +39,21 @@ class Event extends MY_Controller {
         redirect('event/view/' . $event_id);
     }
 
+    public function copy() {
+        //admin level needed
+        $this->require_min_level(9);
+
+        //if post data found
+        if ($this->input->post())
+            $event_id = $this->event->copy();
+        else {
+            show_404();
+            return;
+        }
+
+        redirect('event/view/' . $event_id);
+    }
+
     public function add_item() {
         //admin level needed
         $this->require_min_level(5);
@@ -60,7 +75,7 @@ class Event extends MY_Controller {
     /**
      * Loads and gets data for event page
      */
-    public function view($id) {
+    public function view($id, $print = '') {
         //user login needed
         $this->require_min_level(3);
         //get event data
@@ -125,7 +140,14 @@ class Event extends MY_Controller {
 
         //setup view
         $data['title'] = $data['event']['name'];
+        if ($print == 'print') {
+            return $this->print_($data);
+        }
         $this->load->view('event/view', $data);
+    }
+
+    public function print_($data) {
+        $this->load->view('event/print', $data);
     }
 
 }

@@ -64,6 +64,28 @@ class Event_model extends MY_Model {
         return $this->db->insert_id();
     }
 
+    public function copy() {
+        $old_event_id = $this->input->post('eid', TRUE);
+        $new_event_id = $this->create();
+        $old_event = $this->get($old_event_id);
+        $new_event = $this->get($new_event_id);
+        $items = $this->event_item->get($old_event_id);
+        $success = TRUE;
+        foreach ($items as $item) {
+            if (!$this->event_item->add([
+                        'type' => $item['type'],
+                        'arrangement_search' => json_encode(['id' => $item['arrangement_id']]),
+                        'event_id' => $new_event_id,
+                        'title' => $item['title'],
+                        'a_search_key' => $item['arrangement_key'],
+                        'memo' => $item['memo'],
+                        'event_time' => date('D, d M Y H:i:s', ($item['start_time'] - $old_event['date']) + $new_event['date'])
+                    ]))
+                $success = FALSE;
+        }
+        return $new_event_id;
+    }
+
     /**
      * Updates raw data
      * @param array $data

@@ -36,9 +36,15 @@
                 margin-left: auto;
                 margin-right: auto;
             }
+            .ui.table td, .ui.table th{
+                padding: 2px !important;
+            }
             .script{
                 width: 8.5in;
                 margin: 5px auto;
+            }
+            #schedule .card .content{
+                padding:2px !important;
             }
             @media print {
                 #schedule{
@@ -95,14 +101,14 @@
         -->
         <div id="print_area">
             <div id="schedule">
-                <h2 class="ui header">
+                <h3 class="ui header">
                     <?= $event['name'] ?>
                     <div class="sub header"><?= date('l, F jS', $event['date']) ?></div>
-                </h2>
+                </h3>
                 <?php
                 $seconds_since_midnight = (date('g', $event['date']) * 60 + date('i', $event['date'])) * 60;
                 ?>
-                <table class="ui very small basic table">
+                <table class="ui small basic table">
                     <thead>
                         <tr>
                             <th>Time</th>
@@ -127,7 +133,7 @@
                         ?>
                     </tbody>
                 </table>
-                <div class="ui four cards">
+                <div class="ui five cards">
                     <?php foreach ($people as $person): ?>
                         <div class="card">
                             <div class="content">
@@ -145,10 +151,10 @@
                 <?php if ($item['type'] == 'song'): ?>
                     <?php // var_dump($item['arrangement']['song_keys'])   ?>
                     <?php foreach ($item['arrangement']['song_keys'] as $key): ?>
-                        <div class="">
-                            <embed src="<?= base_url() . '/' . $key['media']['link'] ?>#view=FitH">
-                            <div class="ui horizontal divider page_break">page break</div>
-                        </div>
+                                                <div class="">
+                                                    <embed src="<?= base_url() . '/' . $key['media']['link'] ?>#view=FitH">
+                                                    <div class="ui horizontal divider page_break">page break</div>
+                                                </div>
                     <?php endforeach; ?>
                 <?php endif; ?>
             <?php endforeach; ?>

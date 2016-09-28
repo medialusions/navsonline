@@ -100,4 +100,19 @@ class Song_model extends MY_Model {
             return array('success' => TRUE);
     }
 
+    /**
+     * @param string $q
+     * @param int/string $organization
+     * @return type array Results
+     */
+    public function search($q, $organization) {
+        //generate query
+        $query = $this->db->query(""
+                . "SELECT * FROM song "
+                . "WHERE organizations LIKE '%\"$organization\"%' "
+                . "AND title LIKE '%$q%'");
+
+        return $query->result_array();
+    }
+
 }

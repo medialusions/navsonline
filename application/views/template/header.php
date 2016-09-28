@@ -126,6 +126,13 @@
                                 a_search_key.children(".dropdown").dropdown('set value', result.default);
                             }
                         });
+                $(".search.song_search")
+                        .search({
+                            apiSettings: {
+                                url: '<?= base_url('/ajax/song-search'); ?>?q={query}'
+                            },
+                            cache: false
+                        });
                 //confirm modal
                 $(".confirm_api").click(function() {
                     var curr_button = this;

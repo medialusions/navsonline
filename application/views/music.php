@@ -20,6 +20,13 @@
                         Music Center
                         <div class="sub header">Those are some neat tunes you got there</div>
                     </h1>
+                    <div class="ui search song_search">
+                        <div class="ui icon small input">
+                            <input class="prompt" type="text" placeholder="Search songs...">
+                            <i class="search icon"></i>
+                        </div>
+                        <div class="results"></div>
+                    </div>
                 </div>
                 <div class="four wide column">
                     <?php if ($auth_level >= 9): //admin required. modal included below   ?>

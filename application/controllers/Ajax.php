@@ -329,7 +329,6 @@ HTML;
             echo json_encode(array('success' => FALSE));
     }
 
-    //@TODO Search with link for songs page
     public function arrangement_search() {
         //get user data
         $this->verify_min_ajax_level(1);
@@ -349,6 +348,30 @@ HTML;
                 "id" => $row['id'],
                 "keys" => $row['song_keys'],
                 "default" => $row['default_key']
+            ));
+        }
+        echo json_encode($result);
+    }
+
+    public function song_search() {
+        //get user data
+        $this->verify_min_ajax_level(1);
+        $user_data = $this->verify_cookie();
+        $user_organizations = explode(',', $user_data['user_data']['organizations']);
+
+        $query = $this->input->get("q");
+
+        //do it
+        $result = array('results' => array());
+        $search_result = $this->song->search($query, $user_organizations[0]);
+
+        foreach ($search_result as $row) {
+            $tags = json_decode($row['tags'], TRUE);
+            $count = count($this->arrangement->song_get($row['id']));
+            array_push($result['results'], array(
+                "title" => $row['title'],
+                "description" => 'Tags: ' . implode(', ', $tags) . '<br/>' . $count . ' arrangement' . ($count != 1 ? 's' : ''),
+                "url" => base_url('music/view/' . $row['id'])
             ));
         }
         echo json_encode($result);

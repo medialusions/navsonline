@@ -3,3 +3,6 @@
 [19-Sep-2016 19:38:48 America/Los_Angeles] PHP Fatal error:  Cannot use object of type stdClass as array in /home/medialusions/public_html/medialusions.com/navsonline/application/models/User_model.php on line 470
 [20-Sep-2016 14:09:32 America/Los_Angeles] PHP Fatal error:  Cannot use object of type stdClass as array in /home/medialusions/public_html/medialusions.com/navsonline/application/models/User_model.php on line 470
 [20-Sep-2016 14:10:19 America/Los_Angeles] PHP Fatal error:  Cannot use object of type stdClass as array in /home/medialusions/public_html/medialusions.com/navsonline/application/models/User_model.php on line 470
+[23-Sep-2016 12:33:39 America/Los_Angeles] PHP Fatal error:  Cannot use object of type stdClass as array in /home/medialusions/public_html/medialusions.com/navsonline/application/models/User_model.php on line 485
+[23-Sep-2016 12:34:22 America/Los_Angeles] PHP Fatal error:  Cannot use object of type stdClass as array in /home/medialusions/public_html/medialusions.com/navsonline/application/models/User_model.php on line 485
+[23-Sep-2016 13:58:18 America/Los_Angeles] PHP Fatal error:  Cannot use object of type stdClass as array in /home/medialusions/public_html/medialusions.com/navsonline/application/models/User_model.php on line 485

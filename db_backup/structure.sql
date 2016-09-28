@@ -67,7 +67,7 @@ CREATE TABLE `arrangement` (
   `date_created` int(32) NOT NULL,
   `created_by` int(32) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=35 DEFAULT CHARSET=utf16 COLLATE=utf16_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=utf16 COLLATE=utf16_unicode_ci;
 
 #
 # TABLE STRUCTURE FOR: auth_sessions
@@ -115,7 +115,7 @@ CREATE TABLE `communication_queue` (
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'timestamp of dequeue',
   `created` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
 
 #
 # TABLE STRUCTURE FOR: denied_access
@@ -147,7 +147,7 @@ CREATE TABLE `event` (
   `date_created` int(32) NOT NULL,
   `created_by` int(32) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 #
 # TABLE STRUCTURE FOR: event_item
@@ -167,7 +167,7 @@ CREATE TABLE `event_item` (
   `date_created` int(32) NOT NULL,
   `created_by` int(32) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=120 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=174 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 #
 # TABLE STRUCTURE FOR: ips_on_hold
@@ -194,7 +194,7 @@ CREATE TABLE `login_errors` (
   `ip_address` varchar(45) NOT NULL,
   `time` datetime NOT NULL,
   PRIMARY KEY (`ai`)
-) ENGINE=MyISAM AUTO_INCREMENT=65 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=71 DEFAULT CHARSET=utf8;
 
 #
 # TABLE STRUCTURE FOR: media
@@ -214,7 +214,7 @@ CREATE TABLE `media` (
   `date_created` int(32) NOT NULL,
   `created_by` int(32) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=46 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 #
 # TABLE STRUCTURE FOR: organization
@@ -245,7 +245,7 @@ CREATE TABLE `song` (
   `date_created` int(32) NOT NULL,
   `created_by` int(32) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=42 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=46 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 #
 # TABLE STRUCTURE FOR: username_or_email_on_hold

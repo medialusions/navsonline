@@ -206,7 +206,10 @@ class User extends MY_Controller {
             $data['user'] = $this->user->generate_user_data($this->auth_user_id);
             $data['sidebar'] = $this->user->generate_sidebar_data($this->auth_user_id);
 
-            $data['users'] = $this->user->get();
+            $show_archived = $this->input->get('archived') == 'on' ? true : false;
+            $data['show_archived'] = $show_archived;
+
+            $data['users'] = $this->user->get('', '', $show_archived);
             $data['pagination'] = array();
 
             $this->load->view('people', $data);

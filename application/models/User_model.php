@@ -8,12 +8,12 @@ class User_model extends MY_Model {
         parent::__construct();
     }
 
-    public function get($id = '', $organization_id = '') {
+    public function get($id = '', $organization_id = '', $show_archived = true) {
         if ($id == '') {
             if ($organization_id == '') {
                 $organization_id = $_SESSION['organization_id'];
             }
-            return $this->organization->list_users(1, $organization_id);
+            return $this->organization->list_users(1, $organization_id, $show_archived);
         } else {
             return $this->generate_user_data($id);
         }
@@ -21,7 +21,7 @@ class User_model extends MY_Model {
 
     /**
      * Generates data from db.
-     * 
+     *
      * @param varchar $user_id
      * @return db_resource
      */
@@ -125,12 +125,12 @@ class User_model extends MY_Model {
     }
 
     /**
-     * Updates confirmation of user with event. 
-     * 
+     * Updates confirmation of user with event.
+     *
      * @param int $eid
      * @param int $uid
      * @param bool $value
-     * @return array Result of update. 
+     * @return array Result of update.
      */
     public function add_blockout($date_begin, $date_end, $reason, $uid) {//build single event query
         $query = $this->db->query(""
@@ -163,7 +163,7 @@ class User_model extends MY_Model {
     }
 
     /**
-     * Used via ajax. Stores data to the database. 
+     * Used via ajax. Stores data to the database.
      * @param mixed $data Either array or json data.
      * @param bool $json_encoded [optional] If false, data will be encoded. Default false.
      * @param int $uid [optional]
@@ -287,7 +287,7 @@ class User_model extends MY_Model {
                 return FALSE;
             }
         } else {
-            return FALSE;
+            return TRUE;
         }
     }
 
@@ -334,7 +334,7 @@ class User_model extends MY_Model {
 
     /**
      * Change a user's password
-     * 
+     *
      * @param  string  the new password
      * @param  string  the new password confirmed
      * @param  string  the user ID
@@ -408,7 +408,7 @@ class User_model extends MY_Model {
 
     /**
      * Get data for a recovery
-     * 
+     *
      * @param   string  the email address
      * @return  mixed   either query data or FALSE
      */
@@ -427,7 +427,7 @@ class User_model extends MY_Model {
 
     /**
      * Get data for a recovery
-     * 
+     *
      * @param   string  the email address
      * @return  mixed   either query data or FALSE
      */

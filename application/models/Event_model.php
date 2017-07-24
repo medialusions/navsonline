@@ -41,9 +41,7 @@ class Event_model extends MY_Model
     $query = $this->db->query(""
   . "SELECT * "
   . "FROM event "
-  . "WHERE organization='$this->organization_id' "
-  . "AND date >= '$timestamp'");
-
+  . "WHERE date >= '$timestamp'");
     return $query->result_array();
   }
 

@@ -9,7 +9,7 @@ $(document).ready(function() {
     cells: [1, 2],
     formatDate: 'MM/DD/YYYY',
     norange: false,
-    yearsLine: false,
+    yearsLine: true,
     title: false,
     fullsizeButton: false,
     onAfterHide: function() {
@@ -180,17 +180,17 @@ $(document).ready(function() {
             <tfoot>
               <tr><th colspan="6">
                 <div class="ui right floated pagination menu">
-                  <?php $v_all = (!is_null($this->input->get('v')) && $this->input->get('v') == 'all' ? '?v=all' : '') ?>
+                  <?php $get = (!is_null($this->input->get('start')) && !is_null($this->input->get('end')) ? '?start='.$this->input->get('start').'&end='.$this->input->get('end') : '') ?>
                   <?php if ($pagination['prev'] != ''): ?>
-                    <a class="icon item" href="<?= base_url('user/schedule/' . $pagination['prev']) . $v_all ?>">
+                    <a class="icon item" href="<?= base_url('user/schedule/' . $pagination['prev']) . $get ?>">
                       <i class="left chevron icon"></i>
                     </a>
                   <?php endif; ?>
                   <?php foreach ($pagination['pages'] as $page): ?>
-                    <a class="item <?= $page == $pagination['current'] ? 'active' : '' ?>" href="<?= base_url('user/schedule/' . $page) . $v_all ?>"><?= $page ?></a>
+                    <a class="item <?= $page == $pagination['current'] ? 'active' : '' ?>" href="<?= base_url('user/schedule/' . $page) . $get ?>"><?= $page ?></a>
                   <?php endforeach; ?>
                   <?php if ($pagination['next'] != ''): ?>
-                    <a class="icon item" href="<?= base_url('user/schedule/' . $pagination['next']) . $v_all ?>">
+                    <a class="icon item" href="<?= base_url('user/schedule/' . $pagination['next']) . $get ?>">
                       <i class="right chevron icon"></i>
                     </a>
                   <?php endif; ?>

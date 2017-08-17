@@ -126,9 +126,9 @@ class Event_model extends MY_Model
   public function generate_upcoming($user_id = '', $limit = 4, $page = 1, $admin = false, $get = null)
   {
     if ($limit == -1) {
-      $limit_q = "LIMIT " . (($page - 1) * 10) . ", 10";
+      $limit_q = '';
     } else {
-      $limit_q = ($limit > 0 ? "LIMIT $limit" : '');
+      $limit_q = ($limit > 0 ? "LIMIT " . $limit*($page-1) . "," . $limit : '');
     }
     //build upcoming query
     $get_query = '';
@@ -158,14 +158,9 @@ class Event_model extends MY_Model
   * Returns the pagination array
   * @param int $page Page number
   */
-  public function get_pagination($page)
+  public function get_pagination($user_id = '', $page = 1, $admin = false, $get = null)
   {
-    //build upcoming query
-    $query = $this->db->query(""
-  . "SELECT * "
-  . "FROM event "
-  . "WHERE organization='$this->organization_id' ");
-    $num_rows = $query->num_rows();
+    $num_rows = count($this->generate_upcoming($user_id,-1,null,$admin,$get));
 
     return pagination($num_rows, $page);
   }

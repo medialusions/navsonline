@@ -29,6 +29,9 @@
   @page{
     size: 8.5in 11in;
   }
+  div.item {
+    padding: .3em 0 !important;
+  }
   #print_area {
     width: 8.5in;
     height: 11in;

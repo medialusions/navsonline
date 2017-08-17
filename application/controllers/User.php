@@ -161,7 +161,7 @@ class User extends MY_Controller {
         $data['user'] = $this->user->generate_user_data($this->auth_user_id);
 
         $data['upcoming_events'] = $this->event->generate_upcoming($this->auth_user_id, 10, $page, $this->auth_level >= 9, $this->input->get());
-        $data['pagination'] = $this->event->get_pagination($page);
+        $data['pagination'] = $this->event->get_pagination($this->auth_user_id, $page, $this->auth_level >= 9, $this->input->get());
         $data['pagination']['current'] = $page;
 
         $data['sidebar'] = $this->user->generate_sidebar_data($this->auth_user_id);

@@ -71,7 +71,7 @@ $sql_offset_query = "SET time_zone='$offset';";
  * NOTE: If you change these, also change the error_reporting() code below
  */
 define('ENVIRONMENT', 'production');
-define('NAVS_VERSION', 'v0.5.4');
+define('NAVS_VERSION', 'v0.6');
 
 /*
  * ---------------------------------------------------------------

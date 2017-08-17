@@ -55,8 +55,7 @@ class Organization_model extends MY_Model {
     }
 
     //generate query
-    $this->db->like('first_name', $name, 'after');
-    $this->db->or_like('last_name', $name, 'after');
+    $this->db->like("CONCAT(first_name, ' ', last_name )", $name, 'after');
     $this->db->like('organizations', '' . $organization . ',');
     $this->db->limit(8);
     $this->db->from('users');
@@ -73,13 +72,20 @@ class Organization_model extends MY_Model {
       foreach ($result as $user) {
         $okay_for_scheduling = TRUE;
         $blockouts = json_decode($user['blockouts'], TRUE);
-        foreach ($blockouts as $blockout) //sift through the blockouts
-        if ($date <= $blockout['date_end'] && $date >= $blockout['start_date'])
-        $okay_for_scheduling = FALSE; //remove user potential
-        if (key_exists($user['user_id'], $users_matrix))
-        $okay_for_scheduling = FALSE; //remove user potential
-        if ($okay_for_scheduling) //only add if it passed
-        array_push($updated, $user);
+        foreach ($blockouts as $blockout) { //sift through the blockouts
+          if ($date <= $blockout['date_end'] && $date >= $blockout['start_date']) {
+            $okay_for_scheduling = FALSE;
+          } //remove user potential
+        }
+        if (key_exists($user['user_id'], $users_matrix)) {
+          $okay_for_scheduling = FALSE; //remove user potential
+        }
+        if ($user['auth_level'] <= 2) {
+          $okay_for_scheduling = FALSE;
+        }
+        if ($okay_for_scheduling) { //only add if it passed
+          array_push($updated, $user);
+        }
       }
       return $updated;
     } else {
@@ -100,5 +106,5 @@ class Organization_model extends MY_Model {
     //return the array
     foreach ($query->result_array() as $row)
     return $row;
-  }  
+  }
 }

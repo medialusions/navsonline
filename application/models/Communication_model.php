@@ -32,7 +32,7 @@ class Communication_model extends MY_Model
   {
     $text = "";
     foreach ($user['events'] as $event) {
-      $text .= date('M jS', $event['date']) . " • " . $event['name'] . ' ' . confirmation_to_emoji($event['confirmed']) . "<br/>";
+      $text .= date('M jS', $event['date']) . " • " . $event['name'] . ' ' . Communication_model::confirmation_to_emoji($event['confirmed']) . "<br/>";
       foreach ($event['roles_matrix'][$user['user_id']] as $role) {
         $text .= "‣ " . slug_to_proper($role) . "<br/>";
       }
@@ -92,7 +92,7 @@ class Communication_model extends MY_Model
   {
     $text = "";
     foreach ($user['events'] as $event) {
-      $text .= "\n" . date('M jS', $event['date']) . " • " . $event['name'] . ' ' . confirmation_to_emoji($event['confirmed']);
+      $text .= "\n" . date('M jS', $event['date']) . " • " . $event['name'] . ' ' . Communication_model::confirmation_to_emoji($event['confirmed']);
       foreach ($event['roles_matrix'][$user['user_id']] as $role) {
         $text .= "\n" . "‣ " . slug_to_proper($role);
       }
